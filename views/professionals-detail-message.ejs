@@ -87,12 +87,17 @@
 
                     <div class="row">
                       <div class="col-sm-12 col-lg-12">
-                        <div class="messages-section">
+                        <div class="messages-section pdm_section">
                           <div id="message_board">
                             <% chatData.forEach(function(row){ %>
                               <div class="messages-box clearfix">
                                 <div class="message-user-img">
-                                  <img src="images/recent-user-1.png" alt="" title="">
+                                  <!-- <img src="images/recent-user-1.png" alt="" title=""> -->
+                                  <% if(row.sms_user_profile_img){ %>
+                                    <img src="upload/<%= row.sms_user_profile_img%>" alt="" title="">
+                                  <% }else{ %>
+                                    <img src="images/img_avatar.png" alt="" title="">
+                                  <%}%>
                                 </div>
                                 <div class="message-content">
                                   <h3> <%= row.senderName%></h3>
@@ -103,7 +108,7 @@
                               <% }); %>
                           </div>
                           <div class="text-message-box clearfix">
-                            <form method="POST" id="chat_form">
+                            <form method="POST" id="pdm_chat_form">
                               <div class="text-box">
                                 <input type="hidden" value="<%=service_provider_detail.id%>" name="professional_id"
                                   id="professional_id">
@@ -130,135 +135,41 @@
     </div>
     </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-function scrollToBottom() {
-  var objDiv = document.getElementById("message_board");
-  objDiv.scrollTop = objDiv.scrollHeight;
-}
-      $(document).ready(function () {
-        scrollToBottom();
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-        //var professional_id = '600a61f24c0d3319bc1279b6';
-        //var customer_id= '600915e33d48171a881f48d0';
-        //getAllMessage(professional_id,customer_id)
-
-      });
-
-
-
-
-      function getAllMessage(sms_receiver_id, sms_sender_id) {
-        $.ajax({
-          type: "GET",
-          data: {
-            sms_receiver_id: sms_receiver_id,
-            sms_sender_id: sms_sender_id,
-          },
-          url: "/get-message",
-          cache: false,
-          success: function (datas) {
-            if (datas.chatData.length > 0) {
-              var htmlData = '';
-              $.each(datas.chatData, function (i, data) {
-                htmlData += '<div class="messages-box clearfix"><div class="message-user-img"> <img src="images/recent-user-1.png" alt="" title=""></div><div class="message-content"><h3>' + data.senderName + '</h3><p>' + data.sms_message + '</p><p class="hours-ago text-right">' + data.msgTime + '</p></div></div>';
-              });
-              $('#message_board').html(htmlData);
-            }
-          }
-        });
-      }
-
-      setInterval(function () {
-        var professional_id = $("#professional_id").val();
-        var customer_id = $("#customer_id").val();
-        getAllMessage(professional_id, customer_id);
-      }, 1000);
-
-
-      $('#chat_submit').click(function (e) {
-        var comment = $("#comment").val();
-        var professional_id = $("#professional_id").val();
-        var customer_id = $("#customer_id").val();
-        if (comment) {
+    <%- include('dashboard_footer')-%>
+   <script>
+       function getAllMessage_pdm(sms_receiver_id, sms_sender_id) {
           $.ajax({
-            type: "POST",
+            type: "GET",
             data: {
-              message: comment,
-              sms_receiver_id: professional_id,
-              sms_sender_id: customer_id,
-              sms_sender_type: 'customer',
-              sms_receiver_type: 'service_provider',
-              sms_msg_Date: new Date(),
-              sms_read_status: 'unread'
+              sms_receiver_id: sms_receiver_id,
+              sms_sender_id: sms_sender_id,
             },
-            url: "/api/message",
+            url: "/get-message",
             cache: false,
-            success: function (data) {
-              $("#comment").val('');
-              getAllMessage(professional_id, customer_id);
+            success: function (datas) {
+              if (datas.chatData.length > 0) {
+                var htmlData = '';
+                $.each(datas.chatData, function (i, data) {
+                  var imageData='';
+                  if(data.sms_user_profile_img){
+                    imageData = '<img src="upload/'+data.sms_user_profile_img+'" alt="" title="">';
+                  }else{
+                    imageData = '<img src="images/img_avatar.png" alt="" title="">';
+                  }
+                  htmlData += '<div class="messages-box clearfix"><div class="message-user-img">'+imageData+'</div><div class="message-content"><h3>' + data.senderName + '</h3><p>'+data.sms_message.trim()+'</p><p class="hours-ago text-right">' + data.msgTime + '</p></div></div>';
+                
+                 // htmlData += '<div class="messages-box clearfix"><div class="message-user-img"> <img src="images/recent-user-1.png" alt="" title=""></div><div class="message-content"><h3>' + data.senderName + '</h3><p>' + data.sms_message + '</p><p class="hours-ago text-right">' + data.msgTime + '</p></div></div>';
+                });
+                $('.pdm_section #message_board').html(htmlData);
+              }
             }
           });
         }
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-
-    </body>
-
-    </html>
+  
+        setInterval(function () {
+          var professional_id = $("#pdm_chat_form #professional_id").val();
+          var customer_id = $("#pdm_chat_form #customer_id").val();
+          getAllMessage_pdm(professional_id, customer_id);
+        }, 1000);
+  
+    </script> 

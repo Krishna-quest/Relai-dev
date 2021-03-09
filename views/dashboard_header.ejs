@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
+ 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Style CSS -->
@@ -14,12 +15,17 @@
   <!-- fonts CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   <!-- Animate CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
   <link rel="stylesheet" type="text/css" href="../css/style-message.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
 </head>
 
 <body>
+  <div class="loader-box"> <img src="images/loader-new.gif"> </div>
   <div class="wrapper dashboard">
     <nav class="navbar navbar-expand-lg d-block d-xs-none d-lg-none">
       <a class="navbar-brand" href="/index"><img src="images/logo-2.png"></a>
@@ -63,8 +69,8 @@
                 src="images/to-do-list-active.png"><img src="images/to-do-list.png"> To do list</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/complaints"><img class="act-img"
-                src="images/to-do-list-active.png"><img src="images/to-do-list.png"> My Complaint</a>
+            <a class="nav-link" href="/complaints"><img class="act-img" src="images/to-do-list-active.png"><img
+                src="images/to-do-list.png"> My Complaint</a>
           </li>
         </ul>
       </div>
@@ -80,14 +86,16 @@
               <div class="row">
                 <div class="col-sm-6 col-lg-6">
                   <div id="custom-search-input">
+                  <form action="global-search" name="" method="get" id="global_search">
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control" placeholder="Search" />
+                      <input type="text" class="form-control globalSearch_fields" name="global_search" placeholder="Property Search" />
                       <span class="input-group-btn">
-                        <button class="btn btn-info" type="button">
+                        <button class="btn btn-info" type="submit">
                           <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                       </span>
                     </div>
+                  </form>
                   </div>
                 </div>
                 <div class="col-sm-6 col-lg-6">

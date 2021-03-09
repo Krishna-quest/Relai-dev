@@ -1,7 +1,7 @@
 <%- include('dashboard_header')-%>
   <%- include('edit-profile-model')-%>
     <!-- The Modal -->
-    <div class="modal permission-modal fade " id="addTaskModal">
+    <div class="modal permission-modal fade " data-backdrop="static" data-keyboard="false" id="addTaskModal">
       <div class="modal-dialog">
         <div class="modal-content">
 
@@ -17,11 +17,126 @@
               <!-- <div class="alert alert-info" id="taskmsg"></div> -->
               <!-- <input type="text" class="form-control form-control-fix2" id="subject" placeholder="Instruction"
                 name="todotask" required> -->
-              <select class="form-control selectBox2 phase_list" id="Phase" name="Phase" style="height: 48px;"
+              <select onchange="phaseTaskList(this,'<%= session.active_user_login%>')" class="form-control selectBox2 phase_list" id="Phase" name="Phase" style="height: 48px;"
                 data-rule-required="true" data-msg-required="phase  is required" required>
                 <option value="">Select Phase</option>
                 <option value=""></option>
               </select>
+              <%- include('existing-task-select')-%>
+
+              <!-- <% if(session.active_user_login == "buyer"){ %>
+                <div class="buyer_phase_task_list">
+                                  <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2 phase_task_list" id="phase_task_list_buyer" name="phase_task_list" style="height: 48px;">
+                                   
+                                      <option class="phase_task_list_0 task_option" value="Instruct Solicitor">Instruct Solicitor</option>
+                                      <option class="phase_task_list_0 task_option" value="Instruct other professionals">Instruct other professionals</option>
+                                      <option class="phase_task_list_0 task_option" value="ID/Passport">ID/Passport</option>
+                                      <option class="phase_task_list_0 task_option" value="Proof of address">Proof of address</option>
+                                      <option class="phase_task_list_0 task_option" value="Proof of fund(cash buyers)/agreement in principle(mortgage)">Proof of fund(cash buyers)/agreement in principle(mortgage)</option>
+                                      <option class="phase_task_list_0 task_option" value="Checks. Title/property/chains et al">Checks. Title/property/chains et al</option>
+                                      <option class="phase_task_list_0 task_option" value="Memorandum of sales(received)">Memorandum of sales(received)</option>
+                                  
+                                      <option class="phase_task_list_1 task_option" value="Draft Contract(received)">Draft Contract(received)</option>
+                                      <option class="phase_task_list_1 task_option" value="Raise enquires on the property/chains">Raise enquires on the property/chains</option>
+                                      <option class="phase_task_list_1 task_option" value="Mortgage instruction">Mortgage instruction</option>
+                                      <option class="phase_task_list_1 task_option" value="Apply for searches">Apply for searches</option>
+                                      <option class="phase_task_list_1 task_option" value="Report on title and contract">Report on title and contract</option>
+                                      <option class="phase_task_list_1 task_option" value="SDLT/LTT form">SDLT/LTT form</option>
+                                      <option class="phase_task_list_1 task_option" value="Confirm Satisfactiry response on searches and enquiries">Confirm Satisfactiry response on searches and enquiries</option>  
+                                    
+                
+                                      <option class="phase_task_list_2 task_option" value="Agree a completion date">Agree a completion date</option>
+                                      <option class="phase_task_list_2 task_option" value="Check availability of balance of completion monies">check availability of balance of completion monies</option>
+                                      <option class="phase_task_list_2 task_option" value="Fund available">Fund available</option>
+                                      <option class="phase_task_list_2 task_option" value="Contract signed">Contract signed</option>
+                
+                                      <option class="phase_task_list_3 task_option" value="Exchnage of contracts">Exchnage of contracts</option>
+                                      <option class="phase_task_list_3 task_option" value="Money transfer. Buyer to pay agreed deposit">Money transfer. Buyer to pay agreed deposit</option>
+                                      <option class="phase_task_list_3 task_option" value="copy of the transferLaise with bank to draw down funds for completion">copy of the transferLaise with bank to draw down funds for completion</option>
+                                 
+                                      <option class="phase_task_list_4 task_option" value="Completion procedure. Legal and practical completion">Completion procedure. Legal and practical completion</option>
+                                      <option class="phase_task_list_4 task_option" value="completion by post. completion by Post without variation unless there has been prior agreement to very">completion by post. completion by Post without variation unless there has been prior agreement to very</option>
+                                      <option class="phase_task_list_4 task_option" value="Completion monies and method of completion. Inform of the commitment of funds to the bancking system.">Completion monies and method of completion. Inform of the commitment of funds to the bancking system.</option>
+                                  
+                                      <option class="phase_task_list_5 task_option" value="Application to HM Land registry">Application to HM Land registry</option>
+                                      <option class="phase_task_list_5 task_option" value="Registration">Registration</option>
+                                      <option class="phase_task_list_5 task_option" value="File Clouser">File Clouser</option>
+                                  
+                                  </select>
+                </div>
+                <% }else if(session.active_user_login == "seller"){ %>
+                <div class="seller_phase_task_list">
+                              <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2 phase_task_list" id="phase_task_list_seller" name="phase_task_list" style="height: 48px;">
+                               <option class="phase_task_list_0 task_option" value="Instruct Solicitor">Instruct Solicitor</option>
+                                <option class="phase_task_list_0 task_option" value="Instruct other professionals">Instruct other professionals</option>
+                                <option class="phase_task_list_0 task_option" value="Bank details for reservation">Bank details for reservation</option>
+                                <option class="phase_task_list_0 task_option" value="Reservation form">Reservation form</option>
+                                <option class="phase_task_list_0 task_option" value="Reservation fees Payment">Reservation fees Payment</option>
+                                <option class="phase_task_list_0 task_option" value="Checks. Title/property/chains et al">Checks. Title/property/chains et al</option>
+                                <option class="phase_task_list_0 task_option" value="Memorandum of sales(sent0)">Memorandum of sales(sent0)</option>
+                
+                                <option class="phase_task_list_1 task_option" value="Draft contract(sent)">Draft contract(sent)</option>
+                                <option class="phase_task_list_1 task_option" value="Answer to enquires">Answer to enquires</option>
+                                <option class="phase_task_list_1 task_option" value="Additional enquires(optional)">Additional enquires(optional)</option>
+                
+                                <option class="phase_task_list_2 task_option" value="Agrees a completion date">Agrees a completion date</option>
+                                <option class="phase_task_list_2 task_option" value="Request the contract signed by the user">Request the contract signed by the user</option>
+                                <option class="phase_task_list_2 task_option" value="Contract signed">Contract signed</option>
+                
+                                <option class="phase_task_list_3 task_option" value="Exchnage of contracts">Exchnage of contracts</option>
+                                <option class="phase_task_list_3 task_option" value="Check the copy of the transferexecuted by the buyer">Check the copy of the transferexecuted by the buyer</option>
+                                <option class="phase_task_list_3 task_option" value="Redemption of the transfer up-to-date redemption figures">Redemption of the transfer up-to-date redemption figures</option>
+                
+                                <option class="phase_task_list_4 task_option" value="Completion procedure.Legal and practical completion">Completion procedure.Legal and practical completion</option>
+                                <option class="phase_task_list_4 task_option" value="Completion by post. completion by Post without variation unless there has been prior agreement to vary">Completion by post. completion by Post without variation unless there has been prior agreement to vary</option>
+                                <option class="phase_task_list_4 task_option" value="completion monies and method of completion. Complete the transaction in accordance with the law Society code for completion by post">completion monies and method of completion. Complete the transaction in accordance with the law Society code for completion by post</option>
+                                <option class="phase_task_list_4 task_option" value="payment of estate agent fees">payment of estate agent fees</option>
+                                <option class="phase_task_list_4 task_option" value="outstanding balance of sale proceeds">outstanding balance of sale proceeds</option>
+                              
+                                <option class="phase_task_list_5 task_option" value="Discharge of undertaking">Discharge of undertaking</option>
+                                <option class="phase_task_list_5 task_option" value="file Clousre">file Clousre</option>
+                
+                              </select>  
+                </div>
+                <% }else if(session.active_user_login == "renovator"){%> 
+                  <div class="renovator_phase_task_list">
+                    <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2  phase_task_list" id="phase_task_list_renovator" name="phase_task_list" style="height: 48px;">
+                     <option class="phase_task_list_0 task_option" value="Instruct professionals and/or developers">Instruct professionals and/or developers</option>
+                      <option class="phase_task_list_0 task_option" value="ID/Passport">ID/Passport</option>
+                      <option class="phase_task_list_0 task_option" value="Checks. Title/property">Checks. Title/property</option>
+                      <option class="phase_task_list_0 task_option" value="Stage 0 design programme - Estimated time and cost - approved">Stage 0 design programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_0 task_option" value="Project description, requirements, budget and time">Project description, requirements, budget and time</option>
+                      <option class="phase_task_list_0 task_option" value="Confirmation of client requirements and project stages">Confirmation of client requirements and project stages</option>
+                    
+                      <option class="phase_task_list_1 task_option" value="Stage 1 design programme - Estimated time and cost - approved">Stage 1 design programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_1 task_option" value="Project budget and programme (time) - approved">Project budget and programme (time) - approved</option>
+                      <option class="phase_task_list_1 task_option" value="Project brief - approved">Project brief - approved</option>
+                
+                      <option class="phase_task_list_2 task_option" value="Stage 2 design programme - Estimated time and cost - approved">Stage 2 design programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_2 task_option" value="Design review - approved">Design review - approved</option>
+                      <option class="phase_task_list_2 task_option" value="Architectural concept- approved">Architectural concept- approved</option>
+                
+                      <option class="phase_task_list_3 task_option" value="Stage 3 design programme - Estimated time and cost for Stage 3 - approved">Stage 3 design programme - Estimated time and cost for Stage 3 - approved</option>
+                      <option class="phase_task_list_3 task_option" value="Planning application information package - Approved">Planning application information package - Approved</option>
+                
+                      <option class="phase_task_list_4 task_option" value="Stage 4 design programme - Estimated time and cost - approved">Stage 4 design programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_4 task_option" value="Technical design information package - Approved">Technical design information package - Approved</option>
+                
+                      <option class="phase_task_list_5 task_option" value="Stage 5 design programme - Estimated time and cost - approved">Stage 5 design programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_5 task_option" value="Construction information package - Approved">Construction information package - Approved</option>
+                
+                      <option class="phase_task_list_6 task_option" value="Stage 6 programme - Estimated time and cost - approved">Stage 6 programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_6 task_option" value="Handover information package - Approved">Handover information package - Approved</option>
+                
+                      <option class="phase_task_list_7 task_option" value="Stage 7 programme - Estimated time and cost - approved">Stage 7 programme - Estimated time and cost - approved</option>
+                      <option class="phase_task_list_7 task_option" value="Handover information package - Approved">Handover information package - Approved</option>
+                
+                    </select>
+                
+                  </div>  
+                <% } %> -->
+
+              <input type="hidden" class="form-control form-control-fix2" id="ppts_phase_flag" name="ppts_phase_flag" required>
               <input type="text" class="form-control form-control-fix2" id="taskName" placeholder="Task Name"
                 name="task_name" required>
               <input type="text" class="form-control form-control-fix2" id="professional"
@@ -31,17 +146,18 @@
               <input type="hidden" name="currentUserId" value="<%=session.user_id%>">
               <input type="hidden" name="property_id" class="property_id" value="">
               <!-- <input type="hidden" name="phase_id" id="phase_id" value=""> -->
-              <input type="date" class="form-control  form-control-fix2" id="duedate" placeholder="Due on"
-                name="duedate" required>
+              <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2" id="duedate" placeholder="Due on"
+                name="duedate" placeholder="Due On Date" required>
               <textarea class="form-control  form-control-fix2" rows="2" name="notes" id="notes"
                 placeholder="Add Notes(If any)"></textarea>
 
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-cancel" id="cancel_addtask_btn" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-cancel" id="addtask_btn" data-dismiss="">Add Task</button>
-
             </div>
+
           </form>
         </div>
       </div>
@@ -93,11 +209,6 @@
                             years
                         </span>
                       </div>
-                      <div class="float-left icon-fix2">
-                        <img class=" card-image-fix" src="images/rating.png" alt="Card image cap">&nbsp;<span>4.0
-                          Rating</span>
-
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -115,7 +226,7 @@
                             <div class="docs-files">
 
                               <div class="heading-top hirenow-fix float-left">
-                                <label class="">STEP 1</label>
+
                                 <h6 class="">Select the property you want to hire professional for</h6>
                               </div>
 
@@ -133,7 +244,7 @@
                                   <div class="professional-text-fix">
                                     <label>Select Property</label>
                                     <select class="form-control selectBox6 propertySelectBox property_list"
-                                      name="propertyId" data-rule-required="true"
+                                      name="propertyId" required data-rule-required="true"
                                       data-msg-required="Property is required!" style="height: 48px;">
                                       <option value="">Select property</option>
                                       <% property.forEach(function(row){ %>
@@ -152,8 +263,8 @@
 
 
                                     <input type="text" class="form-control address  selectBox6  " id="address"
-                                      placeholder="1143 Buena Visa Avenue" name="address" value=""
-                                      data-rule-required="true" data-msg-required="Address is required!" required>
+                                      placeholder="Address" name="address" value="" data-rule-required="true"
+                                      data-msg-required="Address is required!" required>
                                   </div>
 
 
@@ -164,7 +275,7 @@
                                   <div class="professional-text-fix">
                                     <label>City</label>
                                     <input type="text" class="form-control city selectBox6  " id="city"
-                                      placeholder="Rufus" name="city" value="" data-rule-required="true"
+                                      placeholder="City" name="city" value="" data-rule-required="true"
                                       data-msg-required="City is required!" required>
                                   </div>
 
@@ -176,7 +287,7 @@
                                   <div class="professional-text-fix">
                                     <label>County</label>
                                     <input type="text" class="form-control state selectBox6  " id="state"
-                                      placeholder="Oregon" data-rule-required="true"
+                                      placeholder="County" data-rule-required="true"
                                       data-msg-required="County is required!" required name="state" value="">
                                   </div>
 
@@ -186,7 +297,7 @@
                                   <div class="professional-text-fix">
                                     <label>Country</label>
                                     <input type="text" class="form-control country selectBox6  " id="country"
-                                      placeholder="United States" name="country" value="" data-rule-required="true"
+                                      placeholder="Country" name="country" value="" data-rule-required="true"
                                       data-msg-required="Country is required!" required>
                                   </div>
 
@@ -196,7 +307,7 @@
                                   <div class="professional-text-fix">
                                     <label>Zip code</label>
                                     <input type="text" class="form-control  selectBox6  " id="zipcode"
-                                      placeholder="97050" name="zipcode" value="" data-rule-required="true"
+                                      placeholder="Zip code" name="zipcode" value="" data-rule-required="true"
                                       data-msg-required="Zipcode is required!" required>
                                   </div>
 
@@ -208,156 +319,43 @@
 
                         <div class="row">
                           <div class="col-sm-12 col-lg-4">
-
-
                             <div class="heading-top hirenow-fix float-left">
-
-                              <label class="">STEP 2</label>
                               <h6 class="">Tell us your approximate budget</h6>
                               <br />
                               <input class="range_slider" id="ex8" data-slider-id='ex1Slider' type="text"
-                                name="pps_pofessional_budget" data-slider-min="100" data-slider-max="10000"
-                                data-slider-step="10" data-slider-value="4000" />
+                                name="pps_pofessional_budget" data-slider-min="0" data-slider-max="10000"
+                                data-slider-step="10" data-slider-value="0" />
                               <br />
-
                             </div>
                           </div>
                           <div class="col-sm-12 col-lg-4">
                             <div class="heading-top hirenow-fix float-left">
-                              <label class="">STEP 3</label>
                               <h6 class="">Tell us expected delivery date</h6>
                             </div>
                             <div class="col-sm-12 col-lg-12">
-                              <input type="date" style="margin-top:5px;width:90%" class="form-control  selectBox6  "
+                              <input type="date" style="margin-top:5px;width:90%" class="form-control selectBox6"
                                 id="deliveryDate" placeholder="1 Dec 2011" name="pps_exptected_delivery_date"
                                 data-rule-required="true" data-msg-required="DeliveryDate is required!" required>
                             </div>
                           </div>
-                          <div class="col">
+                           <div class="col-sm-12 col-lg-4">
 
                             <div class="heading-top hirenow-fix">
-                              <label class="">STEP 4</label>
-                              <h6 class="">Add Task for professional</h6>
+                              <h6 class="">Already Hired Property</h6>
                             </div>
-
-                            <div class="add-task-btn">
-                              <a href="#" class="btn btn-add-task-fix" data-toggle="modal"
-                                data-target="#addTaskModal">Add
-                                Task</a>
-
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- <div class="row">
-                          <div class="col-sm-12 col-lg-12">
-                            <div class="docs-files">
-
-
-                              <div class="heading-top hirenow-fix float-left">
-                                <label class="">STEP 4</label>
-                                <h6 class="">Add phases</h6>
-                                <div class="message"></div>
-
-                              </div>
-
+                            <div>
+                              <%if(!propertyObj.length){%>
+                                  <ul><li style="list-style: none;">N/A</li></li></ul>
+                                <%}else{%>
+                                  <ul>
+                                    <%propertyObj.forEach(function(row,i){%>
+                                    <li  style="list-style: none;"><%=row.ps_property_name%></li>
+                                    <%});%>
+                                  </ul>
+                                  <%}%>
                             </div>
                           </div>
-                        </div> -->
-                        <div class="row">
-                          <!--<div class="col-sm-12 col-lg-12">
-                            <div class="home-section">
-                              <div class="row">
-                                <div class="professional-input-box">
-                                  <div class="professional-text-fix">
-                                    <label>Phase1</label>
-                                    <select class="form-control" id="instruction" placeholder="Instruction"
-                                      name="instruction" required>
-                                      <option value="">Select Phases</option>
-                                      <%if(session.active_user_login=='renovator'){ %>
-                                        <option value="Strategic definition">Strategic definition</option>
-                                        <option value="Preparation and Briefing">Preparation and Briefing</option>
-                                        <option value="Spatial coordination">Spatial coordination</option>
-                                        <option value="Technical Design">Technical Design</option>
-                                        <option value="Manifacturing and Construction">Manifacturing and Construction
-                                        </option>
-                                        <option value="Concept Design">Concept Design</option>
-                                        <option value="Handover">Handover</option>
-                                        <option value="Use">Use</option>
-                                        <%}else{%>
-                                          <option value="Instruction">Instruction</option>
-                                          <option value="Pre-exchange Submitting the contract">Pre-exchange Submitting
-                                            the contract</option>
-                                          <option value="Prior to exchange of contracts">Prior to exchange of contracts
-                                          </option>
-                                          <option value="Exchange of contracts">Exchange of contracts</option>
-                                          <option value="Completion">Completion</option>
-                                          <option value="Post-Completion">Post-Completion</option>
-                                          <%}%>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="professional-input-box">
-                                  <div class="professional-text-fix">
-                                    <label>Start Date</label>
-                                    <input type="date" class="form-control  selectBox6  " id="startDate1"
-                                      placeholder="Full Name" name="startDate" required>
-                                  </div>
-                                </div>
-                                <div class="professional-input-box">
-                                  <div class="professional-text-fix">
-                                    <label>End Date</label>
-                                    <input type="date" class="form-control  selectBox6  " id="endDate1"
-                                      placeholder="Full Name" name="endDate" required>
-
-                                  </div>
-                                </div>
-                                <div class="">
-                                  <div class="">
-
-                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
-                                      Phase</a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row divv"></div> -->
-                          <!-- <div class="row">
-                              <div class="professional-input-box">
-                                <div class="professional-text-fix">
-                                  <label>Phase2</label>
-                                  <input type="text" class="form-control  selectBox6  " id="phase2"
-                                    placeholder="Pre-exchange Submitting the contract" name="phase2">
-                                </div>
-
-                              </div>
-                              <div class="professional-input-box">
-                                <div class="professional-text-fix">
-                                  <label>Start Date</label>
-                                  <input type="date" class="form-control  selectBox6  " id="startDate2"
-                                    placeholder="FullName" name="startDate2">
-                                </div>
-                              </div>
-                              <div class="professional-input-box">
-                                <div class="professional-text-fix">
-                                  <label>End Date</label>
-                                  <input type="date" class="form-control  selectBox6  " id="endDate2"
-                                    placeholder="End Date" name="endDate2">
-                                </div>
-                              </div>
-                              <div class="">
-                                <a href="#" class="btn btn-add-task-fix">Add
-                                  Task</a>
-                              </div>
-                              <div class="">
-                                <a href="#" class="btn btn-add-plus-fix"><i class="fa fa-plus"></i></a>
-                              </div>
-
-                            </div> -->
-                          <!-- </div>
-                          </div> -->
-                        </div>
-                        <div>
+                        <div class="hire_now_btn_section col-sm-12">
                           <button type="submit" class="btn btn-next" style="width: 164px; border-radius: 5px;">Hire
                             Now</button>
                         </div>
@@ -376,228 +374,5 @@
     </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"
-      integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w=="
-      crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"
-      integrity="sha512-tCkLWlSXiiMsUaDl5+8bqwpGXXh0zZsgzX6pB9IQCZH+8iwXRYfcCpdxl/owoM6U4ap7QZDW4kw7djQUiQ4G2A=="
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
-      integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
-      crossorigin="anonymous"></script>
-
-
-    <script>
-      $(document).ready(function () {
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-
-      // With JQuery
-      $("#ex8").slider({
-        tooltip: 'always',
-        tooltip_position: 'bottom',
-        formatter: function (value) {
-          return 'USD: ' + value;
-        },
-      });
-
-// // Without JQuery
-// var slider = new Slider("#ex8", {
-//   tooltip: 'always',
-//   tooltip_position:'bottom'
-// });
-
-    </script>
-
-
-    <script>
-
-      $(document).ready(function () {
-        // $('#msg').hide();
-        // $('#taskmsg').hide();
-        // $('#cancel_addtask_btn').click(function (e) {
-        //   $("#addTaskForm input").val("");
-        //   $("#addTaskForm textarea").val("");
-        //   $('#myModal').modal('toggle');
-        // })
-        $('.propertySelectBox').change(function (e) {
-          // e.preventDefault();
-          var propertyId = $('.propertySelectBox :selected').val();
-          if (propertyId) {
-            $.ajax({
-              type: "POST",
-              data: 'propertyId=' + propertyId,
-              url: "/api/filterPropertyAdress",
-              cache: false,
-              success: function (data) {
-                console.log(data)
-                //alert(data.data)
-
-                // alert($('#address').val(data.data.ps_property_address))
-                $('.address').val(data.data.ps_property_address)
-                $('.city').val(data.data.ps_property_city_id)
-
-                $('.state').val(data.data.ps_property_state_id)
-                $('.country').val(data.data.ps_property_country_id)
-                $('#zipcode').val(data.data.ps_property_zipcode)
-                $('.property_id').val(data.data._id)
-                var htmlData = '';
-
-                htmlData += '<option value="">Select Phase</option>';
-                if (data.data.ps_phase_array.length > 0) {
-                  $.each(data.data.ps_phase_array, function (i, data) {
-                    console.log('val:', data)
-                    htmlData += '<option value="' + data.phase_name + '">' + data.phase_name + '</option>';
-                  });
-                }
-                $('.phase_list').html(htmlData);
-
-              }
-            });
-          } else {
-            alert('something wrong')
-          }
-        });
-        $('#hirenowform').on('submit', function (e) {
-          e.preventDefault();
-          var formdata = $(this).serialize();
-          console.log('formdata:', formdata);
-          $.ajax({
-            type: "POST",
-            data: formdata,
-            url: "/api/hire-now",
-            cache: false,
-            success: function (data) {
-              console.log(data)
-              if (data.status == false) {
-                //$('#message').show();
-                $('.message').html('<span class="error_validate flash_msg" style="color: red; margin-bottom: 10px;">' + data.err_msg + '</span>');
-                setTimeout(function () { $('.message').html(''); }, 5000);
-
-                //$('#msg').html(data.message).delay(5000).fadeOut('success');
-              } else {
-                $('.message').html('<span class="error_validate flash_msg" style="color: green; margin-bottom: 10px;">' + data.success_msg + '</span>');
-                setTimeout(function () { $('.message').html(''); }, 5000);
-                console.log('message:', data.success_msg)
-                window.location.href = data.redirect;
-              }
-
-              //$('#ppts_property_id').val(data.data.pps_property_id);
-              //$('#phase_id').val(data.data._id);
-              //$("#hirenowform input").val("");
-              //$("#hirenowform textarea").val("");
-              //$('.propertySelectBox').prop('selectedIndex', 0);
-            }
-          });
-        })
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        var count = 2;
-        $("a[name='addMorePhase']").click(function () {
-          var domElement = $('<div class="row"><div class="professional-input-box"><div class="professional-text-fix"><label>Phase' + count++ + '</label><select class="form-control" id="instruction" placeholder="Instruction" name="instruction" required><option value="">Select Phases</option> <%if(session.active_user_login=="renovator"){ %><option value="Strategic definition">Strategic definition</option><option value="Preparation and Briefing">Preparation and Briefing</option><option value="Spatial coordination">Spatial coordination</option><option value="Technical Design">Technical Design</option><option value="Manifacturing and Construction">Manifacturing and Construction</option><option value="Concept Design">Concept Design</option><option value="Handover">Handover</option><option value="Use">Use</option> <%}else{%><option value="Instruction">Instruction</option><option value="Pre-exchange Submitting the contract">Pre-exchange Submitting the contract</option><option value="Prior to exchange of contracts">Prior to exchange of contracts</option><option value="Exchange of contracts">Exchange of contracts</option><option value="Completion">Completion</option><option value="Post-Completion">Post-Completion</option> <%}%> </select></div></div><div class="professional-input-box"><div class="professional-text-fix"><label>Start Date</label><input type="date" class="form-control  selectBox6  "placeholder="FullName" name="startDate"></div></div><div class="professional-input-box"><div class="professional-text-fix"><label>End Date</label><input type="date" class="form-control  selectBox6  "placeholder="End Date" name="endDate"></div></div></div>');
-          $(".divv").before(domElement);
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $("#cancel_addtask_btn").click(function (e) {
-          e.preventDefault()
-          $('#taskName').val('');
-          $('#duedate').val('');
-          $('#notes').val('')
-          $('#Phase').val('');
-        })
-        $("#msgg").hide();
-        $("#error").hide();
-        $("#addTaskForm").on('submit', function (e) {
-          e.preventDefault();
-          var formData = $(this).serialize();
-          if (formData) {
-            $.ajax({
-              type: "POST",
-              data: formData,
-              url: "/api/addTask",
-              cache: false,
-              success: function (data) {
-                if (data.status == false) {
-                  //$('#message').show();
-                  $('.errmessage').html('<span class="error_validate flash_msg" style="color: red; margin-bottom: 10px;">' + data.err_msg + '</span>');
-                  setTimeout(function () { $('.errmessage').html(''); }, 5000);
-
-                  //$('#msg').html(data.message).delay(5000).fadeOut('success');
-                } else {
-                  $('.errmessage').html('<span class="error_validate flash_msg" style="color: green; margin-bottom: 10px;">' + data.success_msg + '</span>');
-                  setTimeout(function () { $('.errmessage').html(''); $('#taskName').val(''); $('#duedate').val(''); $('#notes').val('') }, 5000);
-                  console.log('meserrmessagesage:', data.success_msg)
-                  //window.location.href = data.redirect;
-                }
-
-              }
-            });
-            // location.reload(true);
-          } else {
-            alert('some thing wrong')
-          }
-        })
-      });
-    </script>
+    <%- include('dashboard_footer')-%>
+  

@@ -1,6 +1,73 @@
 <%- include('dashboard_header')-%>
   <%- include('edit-profile-model')-%>
+    <!-- The Modal -->
+    <div class="modal permission-modal fade " id="addTask2Modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Add Task</h2>
+          </div>
+          <form name="addTaskForm_mydreamhome_detial" id="addTaskForm_mydreamhome_detial" action="" method="post">
+            <!-- Modal body -->
+            <div class="modal-body">
+              <label class="">Describe this to-do</label>
+              <div class="errmessage"></div>
+              <select class="form-control selectBox2 " style="height:48px" id="task_for" name="service_provider_id"
+                data-rule-required="true" data-msg-required="professional is required!">
+                <option value="">Select professional</option>
+                <%hiredProfeshnoalList.forEach(function(row,i){%>
+                  <option value="<%=row._id%>">
+                    <%=row.sps_fullname%>
+                  </option>
+                  <%});%>
+              </select>
+
+              <select onchange="phaseTaskList(this,'<%= session.active_user_login%>')"
+                class="form-control selectBox2 phase_list" id="Phase" name="Phase" style="height: 48px;"
+                data-rule-required="true" data-msg-required="phase  is required" required>
+                <option value="">Select Phase</option>
+                <%if(propertyDetailData.length>0){%>
+                  <%if(!propertyDetailData[0].ps_phase_array){%>
+                    <option value="">Null</option>
+                    <%}else{%>
+                      <%propertyDetailData[0].ps_phase_array.forEach(function(row,i){%>
+                        <option data-phase="<%=i%>" value="<%=row.phase_name%>">
+                          <%=row.phase_name%>
+                        </option>
+                        <%});%>
+                          <%}%>
+                            <input type="hidden" name="property_id_add_task" value="<%=propertyDetailData[0]._id%>">
+                            <%}else{%>
+                              <p>property data null</p>
+                              <%}%>
+              </select>
+
+              <%- include('existing-task-select')-%>
+
+
+                <input type="text" class="form-control form-control-fix2" id="taskName" placeholder="Task Name"
+                  name="task_name" required>
+                <input type="hidden" class="form-control form-control-fix2" id="ppts_phase_flag" name="ppts_phase_flag"
+                  required>
+
+                <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2" id="duedate"
+                  placeholder="Due on Date" name="duedate" required>
+                <textarea class="form-control  form-control-fix2" rows="2" name="notes" id="notes"
+                  placeholder="Add Notes(If any)"></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cancel" id="cancel_addtask2_btn" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-cancel" id="addtask2_btn" data-dismiss="">Add Task</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
     <!-- The Modal -->
     <div class="modal fade permission-modal" id="removeProfessionalModal">
       <div class="modal-dialog">
@@ -10,6 +77,7 @@
           <div class="modal-header">
             <h2 class="modal-title text-center">Hired Professional</h2>
           </div>
+          <div class="message"></div>
 
           <!-- Modal body -->
           <div class="modal-body">
@@ -22,17 +90,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><label class="check-permission"><img src="images/recent-user-1.png">
-                        Krishna Rajput, <span>
-                          Developer
-                        </span>
-                      </label></td>
-                    <td>
-                      <a href=""><img src="images/delete-icon.png"></a>
-                    </td>
-                  </tr>
-
+                  <%if(hiredProfeshnoalList.length==0){%>
+                    <tr>
+                      <td>Professional Not Hired</td>
+                    </tr>
+                    <%}else{%>
+                      <%hiredProfeshnoalList.forEach(function(row,i){%>
+                        <tr class="propf_row_<%=row._id%>">
+                          <td><label class="check-permission"><img src="images/recent-user-1.png">
+                              <%=row.sps_fullname%>, <span>
+                                  <%=row.sps_role_name%>
+                                </span>
+                            </label></td>
+                          <td>
+                            <a href="javascript:void(0)" class="deleteProfesshional" id="<%=row._id%>"><img
+                                src="images/delete-icon.png"></a>
+                          </td>
+                        </tr>
+                        <%});%>
+                          <%}%>
                 </tbody>
               </table>
             </div>
@@ -40,7 +116,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-cancel" data-dismiss="modal">Refresh</button>
+            <!-- <button type="button" class="btn btn-cancel" data-dismiss="modal">Refresh</button> -->
           </div>
         </div>
       </div>
@@ -137,11 +213,11 @@
                             <div class="carousel-inner">
                               <% var c=0; propertyImage.forEach(function(rows){%>
                                 <%if(c==0){%>
-                                  <div class="carousel-item active">
+                                  <div class="carousel-item-fix carousel-item active">
                                     <img src="propimg/<%=rows.pps_property_image_name%>" alt="">
                                   </div>
                                   <%}else{%>
-                                    <div class="carousel-item ">
+                                    <div class="carousel-item-fix carousel-item ">
                                       <img src="propimg/<%=rows.pps_property_image_name%>" alt="">
                                     </div>
                                     <%}%>
@@ -171,79 +247,106 @@
                                   </a></div>
                               </div>
                               <div class="img-fix3 float-right">
-                                <a href="/mydreamhome-details-message?id=<%=propertyDetailData[0]._id%>"><img
-                                    src="images/chat.png"></a>
-                                    <!-- #ComplaintModal -->
-                                    <!-- data-toggle="modal" data-target="#MyComplaintModal" -->
-                                <a href="javascript:void(0)" data-property_id="<%=propertyDetailData[0]._id%>" class="propertyComplaintModal"><img
-                                    src="images/help.png"></a>
+                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
+                                  title="Message"><img src="images/chat.png"></a>
+                                <!-- #ComplaintModal -->
+                                <!-- data-toggle="modal" data-target="#MyComplaintModal" -->
+                                <a href="javascript:void(0)" data-property_id="<%=propertyDetailData[0]._id%>"
+                                  class="propertyComplaintModal" data-toggle="tooltip" data-placement="top"
+                                  title="Raise a complaint"><img src="images/help.png"></a>
                               </div>
                             </div>
-                            <div class="recent-img">
-                              <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
-                                class="mr-10" src="images/recent-user-3.png">
-                              <!-- <a href="#" class="add-professionals">Add/Remove Professionals</a> -->
-                              <div class="profile-dropdown">
-                                <a href="#" class="add-professionals">Add/Remove Professionals</a>
-                                <div class="professional-dropdown">
-                                  <a href="/professionals">Add
-                                    Professionals</a>
-                                  <a href="#" data-toggle="modal" data-target="#removeProfessionalModal">Remove
-                                    Professionals</a>
+
+                            <div class="col">
+                              <div class="recent-img">
+                                <img src="images/recent-user-1.png"><img class="mr-10"
+                                  src="images/recent-user-2.png"><img class="mr-10" src="images/recent-user-3.png">
+                                <!-- <a href="#" class="add-professionals">Add/Remove Professionals</a> -->
+                                <div class="profile-dropdown">
+                                  <a href="#" class="add-professionals">Add/Remove Professionals</a>
+                                  <div class="professional-dropdown">
+                                    <a href="/professionals">Add
+                                      Professionals</a>
+                                    <a href="javascript:void(0)" id="removeProfessional" data-toggle="modal"
+                                      data-target="#removeProfessionalModal">Remove
+                                      Professionals</a>
+                                  </div>
                                 </div>
+                                <a href="#" class="add-professionals" data-toggle="modal"
+                                  data-target="#addTask2Modal">Add
+                                  Task</a>
+
                               </div>
-
-
                             </div>
                             <div class="apartment-details-full">
-                               
 
-                               <% var i=0; var startDate=''; var endDate='';  propertyDetailData[0].ps_phase_array.forEach(function(phaserow){%>
+
+                              <% var i=0; var startDate='' ; var endDate='' ;
+                                propertyDetailData[0].ps_phase_array.forEach(function(phaserow){%>
                                 <%if(i==0){ %>
-                                  <%
-                                  startDate = phaserow.start_date; 
-                                  %>
-                                <%}%>
-                                <% if(propertyDetailData[0].ps_phase_array.length-1 == i){ %>
-                                    <% endDate = phaserow.end_date%>
-                                <%}%>
-                                <% i++; });%>
+                                  <% startDate=phaserow.start_date; %>
+                                    <%}%>
+                                      <% if(propertyDetailData[0].ps_phase_array.length-1==i){ %>
+                                        <% endDate=phaserow.end_date%>
+                                          <%}%>
+                                            <% i++; });%>
 
-                              <div class="row">
-                                <div class="col-6 col-sm-6 col-lg-3">
-                                  <div class="start-date">
-                                    <p>Start date<br><b><%=moment(startDate).format("Do MMM, YYYY"); %></b></p>
-                                  </div>
-                                </div>
-                                <div class="col-6 col-sm-6 col-lg-3">
-                                  <div class="start-date 1 Dec, 2021">
-                                    <p>End date<br><b><%=moment(endDate).format("Do MMM, YYYY"); %></b></p>
-                                  </div>
-                                </div>
-                                <div class="col-6 col-sm-6 col-lg-3">
-                                  <div class="start-date">
-                                    <p>Area<br><b>
-                                        <%=propertyDetailData[0].ps_property_area%> sq.ft.
-                                      </b></p>
-                                  </div>
-                                </div>
-                                <div class="col-6 col-sm-6 col-lg-3">
-                                  <div class="start-date">
-                                    <p>Duration<br><b>2 year</b></p>
-                                  </div>
-                                </div>
-                              </div>
+                                              <div class="row">
+                                                <div class="col-6 col-sm-6 col-lg-3">
+                                                  <div class="start-date">
+                                                    <p>Start date<br><b>
+                                                        <%if(!startDate){%>
+                                                          N/A
+                                                          <%}else{%>
+                                                            <%=moment(startDate).format("Do MMM, YYYY"); %>
+                                                              <%}%>
+                                                      </b></p>
+                                                  </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-lg-3">
+                                                  <div class="start-date 1 Dec, 2021">
+                                                    <p>End date<br><b>
+                                                        <%if(!endDate){%>
+                                                          N/A
+                                                          <%}else{%>
+                                                            <%=moment(endDate).format("Do MMM, YYYY"); %>
+                                                              <%}%>
+                                                      </b></p>
+                                                  </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-lg-3">
+                                                  <div class="start-date">
+                                                    <p>Area<br><b>
+                                                        <%=propertyDetailData[0].ps_property_area%> sq.ft.
+                                                      </b></p>
+                                                  </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-lg-3">
+                                                  <div class="start-date">
+                                                    <p>Duration<br><b>
+                                                        <%=estimated_time%>
+                                                      </b></p>
+                                                  </div>
+                                                </div>
+                                              </div>
                             </div>
                             <div class="apartment-details-full">
                               <div class="row">
                                 <div class="col-6 col-sm-6 col-lg-3">
                                   <div class="start-date">
-                                    <p>Estimated Cost<br><b>$10000 </b></p>
+                                    <p>Estimated Cost<br><b>$<%=totalcost%></b></p>
+
+
+
+
+
                                   </div>
                                 </div>
                                 <div class="col-6 col-sm-6 col-lg-3">
                                   <div class="start-date">
-                                    <p>Estimated Time<br><b>2 year</b></p>
+                                    <p>Estimated Time<br><b>
+                                        <%=estimated_time%>
+                                      </b></p>
                                   </div>
                                 </div>
 
@@ -261,15 +364,80 @@
                   <div class="col-md-9">
                     <div class="progress-line">
                       <ul>
-                        <li class="progress-1"><a
-                            href="/mydreamhome-details-phase-a?id=<%=propertyDetailData[0]._id%>"><img
-                              src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
-                        <li class="progress-2"><img src="images/white-prgress=arrow.png"> <span>Phase B</span></li>
-                        <li class="progress-3"><img src="images/white-prgress=arrow.png"> <span>Phase C</span></li>
-                        <li class="progress-4"><img src="images/white-prgress=arrow.png"> <span>Phase D</span></li>
-                        <li class="progress-5"><img src="images/white-prgress=arrow.png"> <span>Phase E</span></li>
-                        <li class="progress-6"><img src="images/white-prgress=arrow.png"> <span>Phase F</span></li>
+                        <% if(session.active_user_login=='renovator' ) {%>
+                          <li class="progress-1"><a
+                              href="/mydreamhome-details-phase-a?id=<%=propertyDetailData[0]._id%>&phase=Strategic definition&step=A"><img
+                                src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
+                          <li class="progress-2"><a
+                              href="/mydreamhome-details-phase-b?id=<%=propertyDetailData[0]._id%>&phase=Preparation and Briefing&step=B"><img
+                                src="images/white-prgress=arrow.png"> </a><span>Phase B</span></li>
+                          <li class="progress-3"><a
+                              href="/mydreamhome-details-phase-c?id=<%=propertyDetailData[0]._id%>&phase=Spatial coordination&step=C"><img
+                                src="images/white-prgress=arrow.png"></a> <span>Phase C</span></li>
+                          <li class="progress-4"><a
+                              href="/mydreamhome-details-phase-d?id=<%=propertyDetailData[0]._id%>&phase=Technical Design&step=D"><img
+                                src="images/white-prgress=arrow.png"></a><span>Phase D</span></li>
+                          <li class="progress-5"><a
+                              href="/mydreamhome-details-phase-e?id=<%=propertyDetailData[0]._id%>&phase=Manifacturing and Construction&step=E"><img
+                                src="images/white-prgress=arrow.png"></a> <span>Phase E</span></li>
+                          <li class="progress-6"><a
+                              href="/mydreamhome-details-phase-f?id=<%=propertyDetailData[0]._id%>&phase=Concept Design&step=F"><img
+                                src="images/white-prgress=arrow.png"> </a><span>Phase F</span></li>
+                          <li class="progress-7"><a
+                              href="/mydreamhome-details-phase-g?id=<%=propertyDetailData[0]._id%>&phase=Handover&step=G"><img
+                                src="images/white-prgress=arrow.png"></a> <span>Phase G</span></li>
+                          <li class="progress-8"><a
+                              href="/mydreamhome-details-phase-h?id=<%=propertyDetailData[0]._id%>&phase=Use&step=H"><img
+                                src="images/white-prgress=arrow.png"> </a><span>Phase H</span></li>
+                          <%}else{%>
+                            <li class="progress-1"><a
+                                href="/mydreamhome-details-phase-a?id=<%=propertyDetailData[0]._id%>&phase=Instruction&step=A"><img
+                                  src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
+                            <li class="progress-2"><a
+                                href="/mydreamhome-details-phase-b?id=<%=propertyDetailData[0]._id%>&phase=Pre-exchange Submitting the contract&step=B"><img
+                                  src="images/white-prgress=arrow.png"> </a><span>Phase B</span></li>
+                            <li class="progress-3"><a
+                                href="/mydreamhome-details-phase-c?id=<%=propertyDetailData[0]._id%>&phase=Prior to exchange of contracts&step=C"><img
+                                  src="images/white-prgress=arrow.png"></a> <span>Phase C</span></li>
+                            <li class="progress-4"><a
+                                href="/mydreamhome-details-phase-d?id=<%=propertyDetailData[0]._id%>&phase=Exchange of contracts&step=D"><img
+                                  src="images/white-prgress=arrow.png"></a><span>Phase D</span></li>
+                            <li class="progress-5"><a
+                                href="/mydreamhome-details-phase-e?id=<%=propertyDetailData[0]._id%>&phase=Completion&step=E"><img
+                                  src="images/white-prgress=arrow.png"></a> <span>Phase E</span></li>
+                            <li class="progress-6"><a
+                                href="/mydreamhome-details-phase-f?id=<%=propertyDetailData[0]._id%>&phase=Post-Completion&step=F"><img
+                                  src="images/white-prgress=arrow.png"> </a><span>Phase F</span></li>
+                            <%}%>
                       </ul>
+                      <!-- <ul>
+                        <li class="progress-1"><a
+                            href="/mydreamhome-details-phase-a?id=<%=propertyDetailData[0]._id%>&phase=Instruction"><img
+                              src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
+                        <li class="progress-2"><a
+                            href="/mydreamhome-details-phase-b?id=<%=propertyDetailData[0]._id%>"><img
+                              src="images/white-prgress=arrow.png"> </a><span>Phase B</span></li>
+                        <li class="progress-3"><a
+                            href="/mydreamhome-details-phase-c?id=<%=propertyDetailData[0]._id%>"><img
+                              src="images/white-prgress=arrow.png"></a> <span>Phase C</span></li>
+                        <li class="progress-4"><a
+                            href="/mydreamhome-details-phase-d?id=<%=propertyDetailData[0]._id%>"><img
+                              src="images/white-prgress=arrow.png"></a><span>Phase D</span></li>
+                        <li class="progress-5"><a
+                            href="/mydreamhome-details-phase-e?id=<%=propertyDetailData[0]._id%>"><img
+                              src="images/white-prgress=arrow.png"></a> <span>Phase E</span></li>
+                        <li class="progress-6"><a
+                            href="/mydreamhome-details-phase-f?id=<%=propertyDetailData[0]._id%>"><img
+                              src="images/white-prgress=arrow.png"> </a><span>Phase F</span></li>
+                        <% if(session.active_user_login=='renovator' ) {%>
+                          <li class="progress-7"><a
+                              href="/mydreamhome-details-phase-g?id=<%=propertyDetailData[0]._id%>"><img
+                                src="images/white-prgress=arrow.png"></a> <span>Phase G</span></li>
+                          <li class="progress-8"><a
+                              href="/mydreamhome-details-phase-h?id=<%=propertyDetailData[0]._id%>"><img
+                                src="images/white-prgress=arrow.png"> </a><span>Phase H</span></li>
+                          <%}%>
+                      </ul> -->
                     </div>
                     <div class="time-schedule2">
                       <ul>
@@ -375,15 +543,25 @@
                         </a>
                       </div>
                       <%if(TaskDetailObj.length==0){%>
-                        <h6>Phases Not Found</h6>
+                        <h6>Task Not Found</h6>
                         <%}else{%>
                           <%TaskDetailObj.forEach(function(row,i){%>
                             <label class="check-todos">
                               <p>
-                                <%=row.ppts_task_name%><a href="/mydreamhome-details-to-dos"><img
-                                      src="images/recent-user-1.png"></a><em>
-                                    <%=row.professionalName%>
-                                  </em>
+                                <!-- mydreamhome-details-to-dos -->
+                                <%=row.ppts_task_name%>
+                                  <%if(row.ppts_phase_name=='other'){%>
+                                    <a
+                                      href="/<%=row.phase_page_name%>?id=<%=row.ppts_property_id%>&phase=<%=row.ppts_phase_name%>&step=O"><img
+                                        src="images/recent-user-1.png"></a>
+                                    <%}else{%>
+                                      <a
+                                        href="/<%=row.phase_page_name%>?id=<%=row.ppts_property_id%>&phase=<%=row.ppts_phase_name%>&step=<%=row.ppts_phase_flag%>"><img
+                                          src="images/recent-user-1.png"></a>
+                                      <%}%>
+                                        <em>
+                                          <%=row.professionalName%>
+                                        </em>
                               </p>
                               <input type="checkbox">
                               <span class="checkmark"></span>
@@ -431,26 +609,61 @@
                       <ul class="docs-list">
                         <%if(allDocumentUploadByCustmer.length>0){%>
                           <%allDocumentUploadByCustmer.forEach(function(row,i){%>
-                            <%if(i<=2){%>
-                              <li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a
-                                  href="/mydreamhome-details-docs" value="<%=propertyDetailData[0]._id%>"><img
-                                    src="/upload/<%=row.cuds_document_name%>" alt="" title=""><br><span>
+                            <!-- <%if(i<=2){%> -->
+                            <!-- <li>
+                                <a href="/mydreamhome-details-docs" value="<%=propertyDetailData[0]._id%>">
+                                <img
+                                 src="/upload/<%=row.cuds_document_name%>" alt="" title=""><br>
+                                 <span
+                                    style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                     <%=row.cuds_document_name%>
+                                  </span>
+                                </a>
+                              </li> -->
+
+                            <%if(row.cuds_document_type=='image'){%>
+                              <li><a href="#"><img src="/taskdocument/<%= row.cuds_document_name%>" alt=""
+                                    title=""><br><span
+                                    style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                    <%= row.cuds_document_name%>
                                   </span></a>
                               </li>
-                              <%}%>
-                                <%});%>
-                                  <%}else{%>
-                                    <h6>Docs&File Not Uploaded</h6>
+                              <%}else if(row.cuds_document_type=='pdf' ){%>
+                                <li><a download href="/taskdocument/<%= row.cuds_document_name%>"><img
+                                      src="images/pdficon.png" alt="" title=""><br><span
+                                      style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                      <%= row.cuds_document_name%>
+                                    </span></a>
+                                </li>
+                                <%}else if(row.cuds_document_type=='doc' ){%>
+                                  <li><a download href="/taskdocument/<%= row.cuds_document_name%>"><img
+                                        src="images/docicon.png" alt="" title=""><br><span
+                                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                        <%= row.cuds_document_name%>
+                                      </span></a>
+                                  </li>
+                                  <%}else if(row.cuds_document_type=='txt' ){%>
+                                    <li><a download href="/taskdocument/<%= row.cuds_document_name%>"><img
+                                          src="images/txticon.png" alt="" title=""><br><span
+                                          style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                          <%= row.cuds_document_name%>
+                                        </span></a>
+                                    </li>
+                                    <%}else if(row.cuds_document_type=='video' ){%>
+                                      <li><a download href="/taskdocument/<%= row.cuds_document_name%>"><img
+                                            src="images/videoicon.png" alt="" title=""><br><span
+                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                            <%= row.cuds_document_name%>
+                                          </span></a>
+                                      </li>
+                                      <%}%>
 
-                                    <%}%>
+                                        <!-- <%}%> -->
+                                        <%});%>
+                                          <%}else{%>
+                                            <h6>Docs&File Not Uploaded</h6>
+                                            <%}%>
                       </ul>
-
-                      <!-- <ul class="docs-list last-doc">
-                      <li><a href="/mydreamhome-details-docs"><img src="images/pdf.png" alt=""
-                            title=""><br><span>contract.pdf</span></a></li>
-                    </ul> -->
-
                     </div>
                   </div>
                   <div class="col-sm-6 col-lg-4">
@@ -489,169 +702,4 @@
     </div>
     </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function () {
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-    </script>
-
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-
-    <script>
-      $(document).ready(function () {
-
-        $('form#complent_form').submit(function (e) {
-          e.preventDefault();
-
-          var formData = new FormData($('#complent_form')[0]);
-
-          $.ajax({
-            type: "POST",
-            data: formData,
-            url: "/raise-a-complaint",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-
-              console.log(data);
-
-              location.reload(true);
-
-            }
-          });
-
-          //location.reload(true);
-        })
-
-      });
-
-    </script>
-    <script>
-      $(document).ready(function () {
-        $('.custom-file-input input[type="file"]').change(function (e) {
-          $(this).siblings('input[type="text"]').val(e.target.files[0].name);
-        });
-      });
-    </script>
-    <script>
-    $(document).ready(function () {
-    $(".propertyComplaintModal").click(function(e){
-      $("#MyComplaintModal #coms_complaint_help").html("<option selected value='Property Related Enquiry'>Property Related Enquiry</option>");
-      var propertyId = $(this).data('property_id');
-      $("#MyComplaintModal #property_id").html("<option selected value='"+propertyId+"'></option>");
-      $.ajax({
-            type: "GET",
-            url: "/service-provider-by-property",
-            data:{
-              property_id:propertyId
-            },
-            cache: false,
-            success: function (html) {
-              $('#MyComplaintModal').modal('show');
-              $('#coms_complaint_for').show();
-              console.log('result:', html)
-              var htmlData = '';
-              htmlData += '<option value="">Select Professional</option>';
-              if (html.hireServiceData.length > 0) {
-                $.each(html.hireServiceData, function (i, data) {
-                  console.log('val:', data[0])
-                    htmlData += '<option value="' + data[0]._id + '">' + data[0].sps_fullname + '</option>';
-                });
-              }
-              $('#coms_complaint_for').html(htmlData);
-            }
-        });
-    });
-  });
-    </script>
-    <script type="text/javascript">
-      $('#complaintform').validate({
-        onfocusout: function (element) {
-          this.element(element);
-        },
-        errorClass: 'error_validate',
-        errorElement: 'span',
-        highlight: function (element, errorClass) {
-          $(element).removeClass(errorClass);
-        },
-        submitHandler: function (form) {
-          $('#submit').attr('disabled', true);
-          form.submit();
-        }
-      });
-    </script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        var flash_msg = $('.flash_msg').html();
-        if (flash_msg != "" && flash_msg != undefined) {
-          setTimeout(function () { $('.flash_msg').html(''); }, 4000);
-        }
-      });
-
-      $(document).ready(function () {
-        var succ_flash_msg = $('.succ_flash_msg').html();
-        if (succ_flash_msg != "" && succ_flash_msg != undefined) {
-          setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
-        }
-      });  
-    </script>
-     <%- include('my-script') -%>
-    </body>
-
-
-    </html>
+    <%- include('dashboard_footer')-%>

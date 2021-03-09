@@ -171,6 +171,12 @@
     </div>
     </div>
 
+    
+<!-- ===========================
+        ADD Task
+========================== -->
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -201,24 +207,6 @@
       integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
       crossorigin="anonymous"></script>
 
-
-    <script type="text/javascript">
-      // $('#AddTaskForm').validate({
-      //   onfocusout: function (element) {
-      //     this.element(element);
-      //   },
-      //   errorClass: 'error_validate',
-      //   errorElement: 'span',
-      //   errorColor: 'red',
-      //   highlight: function (element, errorClass) {
-      //     $(element).removeClass(errorClass);
-      //   },
-      //   submitHandler: function (form) {
-      //     $('#submit').attr('disabled', true);
-      //     form.submit();
-      //   }
-      // });
-    </script>
     <script type="text/javascript">
       $(document).ready(function () {
         var flash_msg = $('.flash_msg').html();
@@ -234,9 +222,7 @@
         }
       });  
     </script>
-    <script>
 
-    </Script>
     <script>
       $(document).ready(function () {
         $(".buyertab").click(function (e) {
@@ -366,4 +352,6 @@
         })
       });
     </script>
-    </body>
+
+
+    <%- include('dashboard_footer')-%>

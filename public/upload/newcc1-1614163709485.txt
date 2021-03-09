@@ -1,0 +1,30 @@
+1- Can we add a page for logged in LearnDash customers only called "Support Center" where we can put FAQs and some video tutorials on how to use the software
+Reply: Yes we can do this.
+
+2- How do we access reports for student progress, sales, etc. We bought the learn dash software with the "ProPanel". Where is that located for our client to access?
+Reply: You can check user profile and enroll course https://cpbballonline.wpengine.com/my-courses/
+Also for proPanel please activate https://nimb.ws/vf7iuy
+
+3- How can we assign a task for the student of the class to upload a video of them completing a task?
+Reply: Yes you can assign Assignment please check:
+https://drive.google.com/file/d/1cEsDiLz_agYNEBneMnfDp3waEXfMXaju/view
+
+4- Can an instructor or admin have the ability to upload a video recording to an individual student's dashboard in the class?  for example-
+Example: 
+Student's task is to upload a video of them doing a video basketball drill. 
+The instructor then reviews the drill and adds voice/notes over the video. 
+The instructor wants to be able to upload the edited video for that student to then review.   
+Reply: 
+
+5- Can we set it up for students to earn points/badges based on progress? And then can we reward their progress with a coupon code to use in the online store?
+Reply: Yes, using https://www.learndash.com/add-on/gamipress/ addon we can setup for student to ern points/badges.
+
+6- Please update the price of the 4-day course that is in there now to $49
+Reply: Done
+
+7- Does LearnDash offer any way for students that are enrolled in the course to communicate/collaborate with each other? Like share feedback on lessons, ask others in the class questions, etc?
+Reply: Yes, using this plugin we can setup these funtion 
+https://wordpress.org/plugins/buddypress-learndash/
+
+
+https://www.learndash.com/support/docs/add-ons/3rd-party/

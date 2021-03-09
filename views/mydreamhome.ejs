@@ -33,6 +33,7 @@
 
                         </div>
                         <div class="float-right">
+                          <!-- <a href="javascript:void(0)" id="refresh">ref</a> -->
                           <a href="/add-property" class="btn btn-add-property">Add Property</a>
                         </div>
                       </div>
@@ -55,22 +56,34 @@
                               <div class="dream-home-img">
 
                                 <%if(propertyImage.length>0){%>
-
-                                  <img src="propimg/<%=propertyImage[i][0].pps_property_image_name%>">
-                                  <%}else{%>
-                                    <img src="images/nacary.png">
-                                    <%}%>
-                                      <% if(row.ps_property_type=='New' ){ %> 
-                                        <a href="/mydreamhome-details?id=<%=row._id%>"
-                                          class="btn btn-new mydreamHomeDetail" value="<%=row._id%>">
-                                          <%=row.ps_property_type%>
-                                        </a>
-                                        <%} else {%>
-                                          <a href="/mydreamhome-details-chainproperty?id=<%=row._id%>"
-                                            class="btn btn-new mydreamHomeDetail" value="<%=row._id%>">
-                                            <%=row.ps_property_type%>
-                                          </a>
+                                  <%if(propertyImage[i].length>0){%>
+                                    <img src="propimg/<%=propertyImage[i][0].pps_property_image_name%>">
+                                    <%if(row.ps_user_id== session.user_id){%>
+                                      <a href="/add-property?property_id=<%=row._id%>" class="editProperty"
+                                        id="<%=row._id%>"><i class="fa fa-edit dream-home-edit-icon "></i></a>
+                                      <%}%>
+                                        <%}else{%>
+                                          <img src="images/nacary.png">
+                                          <a href="/add-property?property_id=<%=row._id%>" class="editProperty"
+                                            id="<%=row._id%>"><i class="fa fa-edit dream-home-edit-icon "></i></a>
                                           <%}%>
+                                            <%}else{%>
+                                              <img src="images/nacary.png">
+                                              <a href="javascript:void(0)" class=""> <i
+                                                  class="fa fa-edit dream-home-edit-icon "></i></a>
+                                              <%}%>
+                                                <% if(row.ps_property_type=='New' ){ %>
+                                                  <a href="/mydreamhome-details?id=<%=row._id%>"
+                                                    class="btn btn-new mydreamHomeDetail" value="<%=row._id%>">
+                                                    <%=row.ps_property_type%>
+                                                  </a>
+                                                  <%} else {%>
+                                                    <a href="/mydreamhome-details-chainproperty?id=<%=row._id%>"
+                                                      class="btn btn-new mydreamHomeDetail" value="<%=row._id%>">
+                                                      <%=row.ps_property_type%>
+                                                    </a>
+                                                    <%}%>
+
                               </div>
                               <div class="dream-home-description">
                                 <h3><a href="/mydreamhome-details?id=<%=row._id%>">
@@ -99,84 +112,4 @@
         </div>
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function () {
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-    </script>
-    <script>
-
-    // $(document).ready(function () {
-    //   $(".mydreamHomeDetail").click(function (e) {
-    //     var id = $(this).attr('value')
-    //     $.ajax({
-    //     type: "POST",
-    //     data: 'property_id=' +id ,
-    //     url: "/getProperty-detail",
-    //     cache: false,
-    //     success: function (html) {
-    //       //$("#results").append(html);
-    //     }
-    //   });
-    //   location.reload(true);
-    //   });
-    // });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-    </body>
-
-    </html>
+    <%- include('dashboard_footer')-%>

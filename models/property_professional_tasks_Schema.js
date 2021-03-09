@@ -13,7 +13,8 @@ const PropertyProfessinoalTaskSchema = new Schema({
     ref: "properties"
   },
   ppts_user_id: {
-    type: Schema.Types.ObjectId,
+    //type: Schema.Types.ObjectId,
+    type: Array,
     required:true,
     ref: "customers"
   },
@@ -32,8 +33,10 @@ const PropertyProfessinoalTaskSchema = new Schema({
     required:true
   },
   ppts_assign_to: {
-    type: String,
-    required:true
+    //type: Schema.Types.ObjectId,
+    type: Array,
+    ref: "service_provider"
+   
   },
   ppts_assign_user_type: {
     type: String,
@@ -42,12 +45,17 @@ const PropertyProfessinoalTaskSchema = new Schema({
     
   },
   ppts_due_date: {
-    type: String,
+    //type: String,
+    type: Array,
     required:true
   },
   ppts_note:{
-   type:String
+   type: Array,
+   //type:String
   },
+  ppts_phase_flag:{
+    type:String
+   },
   ppts_task_status:{
     type: String,
     enum: ['pending','completed_by_service_provider','confirmed_by_buyer','confirmed_by_seller'],
@@ -67,6 +75,11 @@ const PropertyProfessinoalTaskSchema = new Schema({
     type: String,
     enum: ['buyer', 'seller','renovator'],
     default: 'buyer'
+  },
+  ppts_is_remove_task:{
+    type: String,
+    enum: ['no', 'yes'],
+    default: 'no'
   },
 
 });

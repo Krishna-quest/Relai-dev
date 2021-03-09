@@ -1,0 +1,4656 @@
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"
+    integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w=="
+    crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"
+    integrity="sha512-tCkLWlSXiiMsUaDl5+8bqwpGXXh0zZsgzX6pB9IQCZH+8iwXRYfcCpdxl/owoM6U4ap7QZDW4kw7djQUiQ4G2A=="
+    crossorigin="anonymous"></script>
+
+    <script type="text/javascript"
+    src="http://extreme.org.in/design/my-reflet-user/assets/js/bootstrap-dropdownhover.min.js"></script>
+
+
+ 
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+  integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+  crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+
+  
+<!-- ADD PROPERTY CND -->
+    <!-- <script src=" https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script> -->
+ 
+    <script type="text/javascript" src="../js/countrystatecity.js"></script>
+
+
+
+
+ <!-- MYDREAMHOME DETAILS DOC -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.counterup@2.1.0/jquery.counterup.min.js"></script>
+   
+
+
+    <script type="text/javascript">
+
+      var locations = [
+        ['Bondi Beach', -33.890542, 151.274856, 4],
+        ['Coogee Beach', -33.923036, 151.259052, 5],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        ['Maroubra Beach', -33.950198, 151.259302, 1]
+      ];
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(-33.92, 151.25),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var marker, i;
+
+      for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+          map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+          return function () {
+            infowindow.setContent(locations[i][0]);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+      }
+    </script>
+    <script>
+      // $(document).ready(function () {
+      //   $(".sidenav ul li").dblclick(function () {
+      //     $(".sidenav ul li").removeClass("active");
+      //     $(this).addClass("active");
+      //   });
+      // });
+      // $('.right-navbar li').dblclick(function () {
+      //   $('.right-navbar li').each(function () {
+      //     $(this).removeClass('active');
+      //   });
+
+      //   $(this).addClass('active');
+
+      // })
+
+  $('.phase_task_list').multiselect({		
+		nonSelectedText: 'Existing Task'				
+	});
+
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".buyertab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/buyer",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+        $(".sellertab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/seller",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+        $(".renovatortab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/renovator",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+      })
+
+
+function previewFile_profile(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              console.log('filess:',input.files[0])
+              if(input.files[0].type == 'image/jpeg' || input.files[0].type == 'image/png' || input.files[0].type == 'image/gif'){
+                $('#blah').attr('src', e.target.result);
+              }else{
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'File type not supported !!',
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+              }
+                //$('.ddddd').attr('src', e.target.result);
+               // $('#uploaded_img').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="#"><img src="'+e.target.result+'" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+  }
+
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('.custom-file-input input[type="file"]').change(function (e) {
+          $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        });
+      });
+
+      $(document).ready(function () {
+        var imagename = '<%= session.imagename%>';
+        //alert(imagename);
+        if(imagename == '' || imagename == null){
+          $('#photoModal').modal('show');
+          $('.photo-cancel-modal').hide();
+        }
+            
+      });
+
+      $(document).ready(function () {
+         var successAlert = '<% if(typeof success_msg!="undefined"){%><%=success_msg%><% }else{%>empty<%}%>';
+        // alert(successAlert);
+        console.log('successAlert:',successAlert);
+         if(successAlert !== 'empty'){
+               Swal.fire({
+                   // position: 'top-end',
+                    icon: 'success',
+                    title: successAlert,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+         }
+      });
+
+
+  $('#changePasswordForm').validate({
+    onfocusout: function (element) {
+      this.element(element);
+    },
+    errorClass: 'error_validate',
+    errorElement: 'span',
+    errorColor: 'red',
+    highlight: function (element, errorClass) {
+      $(element).removeClass(errorClass);
+    },
+    submitHandler: function (form) {
+     // $('#submit').attr('disabled', true);
+        //$('#changePasswordForm').submit(function (e) {
+          //e.preventDefault();
+          var formData = $('#changePasswordForm').serialize();
+          console.log('formData:',formData)
+          $.ajax({
+            type: "POST",
+            data: formData,
+            url: "/api/change-password", 
+            cache:false,          
+            success: function (data) {
+              console.log(data);
+              if(data.status == true){
+                $('#changePasswordModal').modal('hide');
+                 // $('.complaint_msg').html('<div class="isa_success"><i class="fa fa-check"></i> '+data.message+'</div>')
+                  setTimeout(function(){ 
+                    location.reload(true);
+                  }, 4000);
+
+                  Swal.fire({
+                   // position: 'top-end',
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 4000
+                  })
+
+              }else{
+                
+                    Swal.fire({
+                      icon: 'error',
+                      title: data.message,
+                      showConfirmButton: false,
+                      confirmButtonColor: '#005377',
+                      timer: 4000
+                    })
+              
+                //$('.complaint_msg').html('<div class="isa_error"><i class="fa fa-check"></i> '+data.message+'</div>')
+              }
+            }
+          });
+          //location.reload(true);
+       
+    }
+  });
+
+
+    </script>
+
+    
+
+
+  <!-- =======================
+  ADD PROPERTY SCRIPT
+  ================== -->
+    <!-- <script>
+      $(document).ready(function () {
+        $(".sidenav ul li").click(function () {
+          $(".sidenav ul li").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+      $(document).ready(function () {
+        $(".right-navbar li").click(function () {
+          $("right-navbar li").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    </script> -->
+
+    <script type="text/javascript">
+      $('#propertyform').validate({
+        onfocusout: function (element) {
+          this.element(element);
+        },
+        errorClass: 'error_validate',
+        errorElement: 'span',
+        errorColor: 'red',
+        highlight: function (element, errorClass) {
+          $(element).removeClass(errorClass);
+        },
+        submitHandler: function (form) {
+          // $('#submit').attr('disabled', true);
+          //form.submit();
+        }
+      });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var flash_msg = $('.flash_msg').html();
+        if (flash_msg != "" && flash_msg != undefined) {
+          setTimeout(function () { $('.flash_msg').html(''); }, 4000);
+        }
+      });
+
+      $(document).ready(function () {
+        var succ_flash_msg = $('.succ_flash_msg').html();
+        if (succ_flash_msg != "" && succ_flash_msg != undefined) {
+          setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
+        }
+      });  
+    </script>
+    <script>
+
+    </Script>
+  
+    <script>
+      $(document).ready(function () {
+        
+        $('.prop_1 input[type="file"]').change(function (e) {
+
+          $(".Picture_1").html(e.target.files[0].name)
+        });
+        $('.prop_plan_1 input[type="file"]').change(function (e) {
+
+        $(".plan_Picture_1").html(e.target.files[0].name)
+        });
+        
+       
+
+      });
+
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('.firstFormDive').show();
+        $(".secondFormDiv").hide();
+        $(".thirdFormDiv").hide();
+        $('#propertyform1').on('submit', function (e) {
+          e.preventDefault();
+          $('.loader-box').attr('style','display:flex !important');
+          var property_id = $("#editPropertyId").val();
+          if (property_id == '') {
+            var apiurl = "/api/add-new-property";
+          } else {
+            var apiurl = "/api/Editproperty";
+          }
+          var formData = new FormData($('#propertyform1')[0]);
+          $.ajax({
+            type: "POST",
+            data: formData,
+            url: apiurl,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              console.log(data)
+              if (data.status == true) {
+                $('.loader-box').attr('style','display:none !important');
+                $('.firstFormDive').hide();
+                $(".secondFormDiv").show();
+                var property_id = data.property_id;
+                $(".img_property_id").val(property_id);
+                $('#propertyform2').on('submit', function (e) {
+                  e.preventDefault();
+                  
+                  
+                 
+                  $('.loader-box').attr('style','display:flex !important');
+                  //var ext = $('.propertiespic').val().split('.').pop().toLowerCase();
+                  //if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'jfif']) == -1) {
+                    //alert('invalid extension!');
+                  //} else {
+                    //alert('passs')
+
+
+                    var property_image_id = $(".editPropertyImageId").val();
+                    console.log(property_image_id)
+                    if (property_image_id == '') {
+                      var prop_Img_api_url = "/api/add-new-property-image";
+                    } else {
+                      var prop_Img_api_url = "/api/EditpropertyImage";
+                    }
+                    var formData1 = new FormData($('#propertyform2')[0]);
+                    console.log(formData1);
+                    $.ajax({
+                      type: "POST",
+                      data: formData1,
+                      url: prop_Img_api_url,
+                      cache: false,
+                      contentType: false,
+                      processData: false,
+                      success: function (data) {
+                        if (data.status == true) {
+                          $('.loader-box').attr('style','display:none !important');
+                          $(".plan_img_property_id").val(property_id);
+                          $('.firstFormDive').hide();
+                          $(".secondFormDiv").hide();
+                          $(".thirdFormDiv").show();
+                          $('.propertyPlanform').on('submit', function (e) {
+                            e.preventDefault();
+                            $('.loader-box').attr('style','display:flex !important');
+                            var property_plan_image_id = $(".editPropertyPlanImageId").val();
+                            //alert(property_plan_image_id)
+                            if (property_plan_image_id == '') {
+                              var prop_Plan_Img_api_url = "/api/add-new-property-plan-image";
+                            } else {
+                              var prop_Plan_Img_api_url = "/api/EditpropertyPlanImage";
+                            }
+                            var formData2 = new FormData($('.propertyPlanform')[0]);
+                            $.ajax({
+                              type: "POST",
+                              data: formData2,
+                              url: prop_Plan_Img_api_url,
+                              cache: false,
+                              contentType: false,
+                              processData: false,
+                              success: function (data) {
+                                if (data.status == true) {
+                                  $('.loader-box').attr('style','display:none !important');
+                                  // $('.message_data').show();
+                                  // $('.message_data').html('<div class="isa_success"><i style="margin: 0px 7px !important;" class="fa fa-check"></i> ' + data.message + '</div>');
+                                  // setTimeout(function () { $('.message_data').hide(); window.location.href = data.redirect; }, 3000);
+                                  Swal.fire({
+                                    icon: 'success',
+                                    title: data.message,
+                                    showDenyButton: true,
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#005377',
+                                    denyButtonColor: '#005377',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: `My dream home`,
+                                    denyButtonText: `Add Property`,
+                                  }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                      //Swal.fire('Saved!', '', 'success')
+                                      window.location.href = '/mydreamhome';
+                                    } else if (result.isDenied) {
+                                      //Swal.fire('Changes are not saved', '', 'info')
+                                      window.location.href = '/add-property';
+                                    }
+                                  })
+                                }
+                              }
+                            });
+                          })
+                        }
+                      }
+                    });
+                  //}
+                })
+              }
+            }
+          });
+        })
+
+        $("#property_type").change(function (e) {
+          if ($(this).val() == 'Chain') {
+            $(".AllPropertyListingDiv").show();
+            $.ajax({
+              type: "GET",
+              // data: 'propertyId=' + propertyId,
+              url: "/api/get_property_for_chain",
+              cache: false,
+              success: function (data) {
+                console.log(data)
+                var htmlData = '';
+                $(".AllPropertyListingDiv").show();
+                htmlData += '<option value="">Select Property for Chain</option>';
+                if (data.data.length > 0) {
+                  $.each(data.data, function (i, data) {
+                    console.log('val:', data)
+                    htmlData += '<option value="' + data._id + '">' + data.ps_property_name + '</option>';
+                  });
+                }
+                $('.ps_chain_property').html(htmlData);
+
+              }
+            });
+
+          } else {
+            $(".AllPropertyListingDiv").hide();
+          }
+        })
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#property_type_inEdit").change(function (e) {
+          if ($(this).val() == 'Chain') {
+            var property_id_getchain = $("#editPropertyId").val()
+            $(".AllPropertyListingDiv").show();
+            $.ajax({
+              type: "GET",
+              data: { property_id: property_id_getchain },
+              url: "/api/get_property_for_chain_inEdit",
+              cache: false,
+              success: function (data) {
+                console.log(data)
+                var htmlData = '';
+                $(".AllPropertyListingDiv").show();
+                htmlData += '<option value="">Select Property for Chain</option>';
+                if (data.data.length > 0) {
+                  $.each(data.data, function (i, data) {
+                    console.log('val:', data)
+                    htmlData += '<option value="' + data._id + '">' + data.ps_property_name + '</option>';
+                  });
+                }
+                $('.ps_chain_property').html(htmlData);
+
+              }
+            });
+
+          } else {
+            $(".AllPropertyListingDiv").hide();
+          }
+        })
+        $(".ExistingPropClass").change(function (e) {
+          //alert($(this).val())
+          var isexisting = $(this).val();
+          if (isexisting == 'Residential') {
+            $(".property_detial").show();
+          } else {
+            $(".property_detial").hide();
+          }
+        })
+        if ($('.ExistingPropClass').val() == 'Residential') {
+          $(".property_detial").show();
+        } else {
+          $(".property_detial").hide();
+        }
+        if ($(".property_type_inEdit").val() == 'Chain') {
+          $(".AllPropertyListingDiv").show()
+        } else {
+          $(".AllPropertyListingDiv").hide()
+        }
+      })
+    </script>
+     <script>
+    $(document).ready(function () {
+      
+      let c = 2;
+      $("button[name='addDom']").click(function (e) {
+        e.preventDefault();
+        var domElement = $('<div class="property-box "><div class=property-inner-section><img src="images/upload-icon.png" id="addmoreAvtar'+c+'"></div><div class="driving-liences-portfolio "><p class="Picture_'+c+'"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">Picture '+c+'</p></div><div class="property-upload"><button class="btn btn-upload">Upload</button></div><span><div class="custom-file-input "><input type="file" name="propertiespic" class="propertiespic" value=""onchange="previewFile_add_property(this,'+c+');"><input type="button"></div></span></div>');
+        $('.propimgAppendDiv').append(domElement);
+       
+        c++;
+
+      });
+      let count =2;
+      $("button[name='addPlanDom']").click(function (e) {
+        e.preventDefault();
+        var domElement = $('<div class="property-box "><div class=property-inner-section><img src="images/upload-icon.png" id="addmorePlanAvtar'+count+'"></div><div class="driving-liences-portfolio "><p class="PlanPicture_'+count+'"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">Picture '+count+'</p></div><div class="property-upload"><button class="btn btn-upload">Upload</button></div><span><div class="custom-file-input "><input type="file" name="planImage" class="" value=""onchange="previewPlanFile(this,'+count+');"><input type="button"></div></span></div>');
+        $('.prop_Plan_imgAppendDiv').append(domElement);
+       
+        count++;
+
+      });
+      var L = 10;
+      $("button[name='addImge_During_Edit']").click(function (e) {
+        e.preventDefault();
+        
+        var domElement = $('<div class="property-box "><div class=property-inner-section><img src="images/upload-icon.png" id="addmoreAvtar_edit'+L+'"></div><div class="driving-liences-portfolio "><p class="add_edit_Picture_'+L+'"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">Picture </p></div><div class="property-upload"><button class="btn btn-upload">Upload</button></div><span><div class="custom-file-input "><input type="file" name="propertiespic" class="propertiespic" value=""onchange="edit_add_previewFile(this,'+L+');"><input type="button"></div></span></div>');
+        $('.propimgAppendDiv_edit').append(domElement);
+       
+        L++;
+
+      });
+      let m =20;
+      $("button[name='add_plan_Imge_During_Edit']").click(function (e) {
+        e.preventDefault();
+        var domElement = $('<div class="property-box "><div class=property-inner-section><img src="images/upload-icon.png" id="addmorePlanAvtar_edit'+m+'"></div><div class="driving-liences-portfolio "><p class="add_edit_plan_Picture_'+m+'"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">Picture</p></div><div class="property-upload"><button class="btn btn-upload">Upload</button></div><span><div class="custom-file-input "><input type="file" name="planImage" class="" value=""onchange="edit_add_paln_previewFile(this,'+m+');"><input type="button"></div></span></div>');
+        $('.prop_Plan_imgAppendDiv_edit').append(domElement);
+       
+        m++;
+
+      });
+      
+      
+    }); 
+    function previewFile_add_property(input,c,prop_img_id){
+          
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              console.log('filess:',e.target)
+              
+                $(".Picture_"+c).html(input.files[0].name);
+                $('#addmoreAvtar'+c).attr('src',e.target.result)
+              }
+            reader.readAsDataURL(input.files[0]);
+            if(prop_img_id!=''){
+            var urls = "/api/Edit_property_Image";
+            var gfg = new FormData();
+          gfg.append('propertiespic', input.files[0]);
+          gfg.append('image_id', prop_img_id);
+          gfg.append('property_id', $(".img_property_id").val());
+            $.ajax({
+            type: "POST",
+            data: gfg,
+            url: urls,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            }
+          })
+        }
+        }
+    }
+    function previewPlanFile(input,count,prop_plan_img_id){
+      
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            console.log('filess:',e.target)
+              $(".PlanPicture_"+count).html(input.files[0].name);
+              $('#addmorePlanAvtar'+count).attr('src',e.target.result)
+            }
+          reader.readAsDataURL(input.files[0]);
+          if(prop_plan_img_id!=''){
+            var urls = "/api/Edit_property_Plan_Image";
+            var gfg = new FormData();
+          gfg.append('planImage',
+          input.files[0]);
+          gfg.append('image_id',prop_plan_img_id);
+          gfg.append('property_id',
+            $(".img_property_id").val());
+          $.ajax({
+            type: "POST",
+            data: gfg,
+            url: urls,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            }
+          })
+
+          }else{
+
+          }
+         
+         
+          
+      }
+  }
+  function edit_add_previewFile(input,L){
+          
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              console.log('filess:',e.target)
+              
+                $(".add_edit_Picture_"+L).html(input.files[0].name);
+                $('#addmoreAvtar_edit'+L).attr('src',e.target.result)
+              }
+            reader.readAsDataURL(input.files[0]);
+        
+             var urls = "/api/add-new-property-image";
+             var gfg = new FormData();
+           gfg.append('propertiespic', input.files[0]);
+        
+           gfg.append('property_id', $(".img_property_id").val());
+            $.ajax({
+            type: "POST",
+            data: gfg,
+            url: urls,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            }
+          })
+        
+        }
+    }
+    function edit_add_paln_previewFile(input,m){
+         
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              console.log('filess:',e.target)
+              
+                $(".add_edit_plan_Picture_"+m).html(input.files[0].name);
+                $('#addmorePlanAvtar_edit'+m).attr('src',e.target.result)
+              }
+            reader.readAsDataURL(input.files[0]);
+        
+             var urls = "/api/add-new-property-plan-image";
+             var gfg = new FormData();
+           gfg.append('planImage', input.files[0]);
+        
+           gfg.append('property_id', $(".img_property_id").val());
+            $.ajax({
+            type: "POST",
+            data: gfg,
+            url: urls,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            }
+          })
+        
+        }
+        if ($(".property_type_inEdit").val() == 'Chain') {
+          $(".AllPropertyListingDiv").show()
+        } else {
+          $(".AllPropertyListingDiv").hide()
+        }
+      }
+    </script>
+
+
+<!-- ================
+Complaint Details 
+=============== -->
+
+  <script>
+    // $(document).ready(function () {
+    //   $(".sidenav ul li").click(function () {
+    //     $(".sidenav ul li").removeClass("active");
+    //     $(this).addClass("active");
+    //   });
+    // });
+    // $(document).ready(function () {
+    //   $(".right-navbar li").click(function () {
+    //     $("right-navbar li").removeClass("active");
+    //     $(this).addClass("active");
+    //   });
+    // });
+
+    var previous=0;
+
+  $('.complaint_image').click(function(){
+    var s=$(this).attr('id');
+    $('#'+s).animate({'width':'85%'});
+    $('#'+s).css({'cursor':'zoom-out'});
+    if($('#'+previous).width()!=100)
+    {
+    $('#'+previous).animate({'width':'10%'});
+    $('#'+previous).css({'cursor':'zoom-in'});
+    }
+    previous=s;
+});
+
+function previewFile_complainsDetails(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              console.log('filess:',input.files[0])
+              if(input.files[0].type == 'image/jpeg' || input.files[0].type == 'image/png' || input.files[0].type == 'image/gif'){
+                $('#uploaded_img').attr('src', e.target.result);
+                $('.complaint_imgname').text(input.files[0].name);
+
+              }else if(input.files[0].type == 'application/pdf'){
+                $('#uploaded_img').attr('src', 'images/pdficon.png');
+                $('.complaint_imgname').text(input.files[0].name);
+                
+              }else{
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'File type not supported !!',
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+              }
+                //$('.ddddd').attr('src', e.target.result);
+               // $('#uploaded_img').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="#"><img src="'+e.target.result+'" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+  }
+
+ $('#mycomplent_details_form').validate({
+      onfocusout: function (element) {
+        this.element(element);
+      },
+      errorClass: 'error_validate',
+      errorElement: 'span',
+      errorColor: 'red',
+      highlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      submitHandler: function (form) {
+        $('#submit').attr('disabled', true);
+
+        var formData = new FormData($('#mycomplent_details_form')[0]);
+         // var formData = new FormData(this);
+         // var formData = $(this).serialize();
+          console.log('formData:',formData)
+          $.ajax({
+            type: "POST",
+            data: formData,
+            url: "/api/complaint-details-discussion", 
+            cache:false,
+            contentType: false,
+            processData: false,           
+            success: function (data) {
+              console.log(data);
+              if(data.status == true){
+                location.reload(true);
+                  // $('.complaint_msg').html('<div class="isa_success"><i class="fa fa-check"></i> '+data.message+'</div>')
+                  // setTimeout(function(){ 
+                  //   $('#MyComplaintModal').modal('hide');
+                  //   location.reload(true);
+                  // }, 6000);
+              }else{
+                $('.complaint_msg').html('<div class="isa_error"><i class="fa fa-check"></i> '+data.message+'</div>')
+              }
+            }
+          });
+
+      }
+    });
+
+
+
+$( ".btn-close" ).click(function() {
+  var complainCode = $(this).attr('conplaint-code');
+Swal.fire({ 
+  title: 'Are you sure want to close ticket?',
+  showCancelButton: true,
+  confirmButtonText: `Yes`,
+  confirmButtonColor: '#005377',
+}).then((result) => {
+  if (result.isConfirmed) {
+     
+    $.ajax({
+            type: "POST",
+            data: {
+              complainCode:complainCode
+            },
+            url: "/api/complaint-details-discussion-close", 
+            cache:false,           
+            success: function (data) {
+              console.log(data);
+              if(data.status == true){
+                //location.reload(true);
+                Swal.fire({
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+                  setTimeout(function(){ 
+                    location.reload(true);
+                  }, 3000);
+              }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+                  setTimeout(function(){ 
+                    location.reload(true);
+                  }, 3000);
+              }
+            }
+          });
+  }
+})
+
+ });
+
+
+  </script>
+
+<!-- ==============================
+    Mydreamhome-details 
+============================== -->
+
+      
+<!-- <script>
+    $(document).ready(function () {
+      $(".sidenav ul li").click(function () {
+        $(".sidenav ul li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+    $(document).ready(function () {
+      $(".right-navbar li").click(function () {
+        $("right-navbar li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script> -->
+
+  <script>
+    $(document).ready(function () {
+
+      $('form#complent_form').submit(function (e) {
+        e.preventDefault();
+
+        var formData = new FormData($('#complent_form')[0]);
+
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/raise-a-complaint",
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (data) {
+
+            console.log(data);
+
+            location.reload(true);
+
+          }
+        });
+
+        //location.reload(true);
+      })
+
+    });
+
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('.custom-file-input input[type="file"]').change(function (e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      $(".propertyComplaintModal").click(function (e) {
+        $("#MyComplaintModal #coms_complaint_help").html("<option selected value='Property Related Enquiry'>Property Related Enquiry</option>");
+        var propertyId = $(this).data('property_id');
+        $("#MyComplaintModal #property_id").html("<option selected value='" + propertyId + "'></option>");
+        $.ajax({
+          type: "GET",
+          url: "/service-provider-by-property",
+          data: {
+            property_id: propertyId
+          },
+          cache: false,
+          success: function (html) {
+            $('#MyComplaintModal').modal('show');
+            $('#coms_complaint_for').show();
+            console.log('result:', html)
+            var htmlData = '';
+            htmlData += '<option value="">Select Professional</option>';
+            if (html.hireServiceData.length > 0) {
+              $.each(html.hireServiceData, function (i, data) {
+                console.log('val:', data[0])
+                htmlData += '<option value="' + data[0]._id + '">' + data[0].sps_fullname + '</option>';
+              });
+            }
+            $('#coms_complaint_for').html(htmlData);
+          }
+        });
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $('#complaintform').validate({
+      onfocusout: function (element) {
+        this.element(element);
+      },
+      errorClass: 'error_validate',
+      errorElement: 'span',
+      highlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      submitHandler: function (form) {
+        $('#submit').attr('disabled', true);
+        form.submit();
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var flash_msg = $('.flash_msg').html();
+      if (flash_msg != "" && flash_msg != undefined) {
+        setTimeout(function () { $('.flash_msg').html(''); }, 4000);
+      }
+    });
+
+    $(document).ready(function () {
+      var succ_flash_msg = $('.succ_flash_msg').html();
+      if (succ_flash_msg != "" && succ_flash_msg != undefined) {
+        setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
+      }
+    });
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  </script>
+
+<script>
+  $(document).ready(function () {
+    $('.deleteProfesshional').click(function (e) {
+      e.preventDefault();
+
+      var professhional_id = $(this).attr('id');
+      //alert(professhional_id)
+      Swal.fire({
+        title: 'Are you sure want to remove?',
+        showCancelButton: true,
+        confirmButtonText: `Yes`,
+        confirmButtonColor: '#005377',
+      }).then((result) => {
+        if (result.isConfirmed) {
+         // var $tr = $(this).closest('tr');
+          $.ajax({
+            type: "POST",
+            url: "/api/removeProfesshional",
+            data: {
+              professhional_id: professhional_id
+            },
+            cache: false,
+            success: function (data) {
+              if (data.status == false) {
+                Swal.fire({
+                  // position: 'top-end',
+                  icon: 'error',
+                  title: data.err_msg,
+                  showConfirmButton: true,
+                  confirmButtonColor: '#005377'
+                  //timer: 1500
+                })
+
+              } else {
+                //console.log($(".propf_row_" + data.id));
+                Swal.fire({
+                  // position: 'top-end',
+                  icon: 'success',
+                  title: data.success_msg,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                location.reload(true)
+                // $tr.find('td').fadeOut(1000, function () {
+                //   $tr.remove();
+                // });
+              }
+            }
+          });
+        }
+      })
+    });
+
+  })
+</script>
+  <script>
+    $(document).ready(function () {
+      $("#cancel_addtask2_btn").click(function (e) {
+        e.preventDefault()
+        $('#taskName').val('');
+        $('#duedate').val('');
+        $('#notes').val('')
+        $('#Phase').val('');
+      })
+      $("#addTaskForm_mydreamhome_detial").on('submit', function (e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        if (formData) {
+        $('.loader-box').attr('style','display:flex !important');
+          $.ajax({
+            type: "POST",
+            data: formData,
+            url: "/api/addTask_from_Dreamhome_detial",
+            cache: false,
+            success: function (data) {
+            $('.loader-box').attr('style','display:none !important');
+
+              if (data.status == false) {
+                Swal.fire({
+                  // position: 'top-end',
+                  icon: 'error',
+                  title: data.err_msg,
+                  showConfirmButton: true,
+                  confirmButtonColor: '#005377'
+                  //timer: 1500
+                })
+              } else {
+                console.log('meserrmessagesage:', data.success_msg)
+                Swal.fire({
+                  // position: 'top-end',
+                  icon: 'success',
+                  title: data.success_msg,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                location.reload();
+                $('#taskName,#notes,#duedate').val('');
+              }
+            }
+          });
+
+        } else {
+          alert('some thing wrong')
+        }
+      })
+    });
+  </script>
+
+
+
+
+<!-- ========================
+        COMPLAINT 
+======================== -->
+
+<%- include('my-script') -%>
+
+
+<!-- ===================
+Global Search
+================== -->
+<script>
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    var global_search = getParameterByName('global_search'); // "lorem"
+    $('.globalSearch_fields').val(global_search);
+
+     $(document).ready(function () { 
+      var GlobalSearchText =  $('.globalSearch_fields').val();
+      console.log('GlobalSearchText:',GlobalSearchText)
+        $.ajax({
+              type: "GET",
+              data: {
+                GlobalSearchText:GlobalSearchText
+              },
+              url: "/global-search",
+              cache: false,
+              success: function (data) {
+                console.log('searchData:',data)
+              }
+          });
+     });
+
+    </script>
+
+
+<!-- =========================
+mydreamhome-details-chainproperty
+====================================== -->
+
+<!-- 
+<script>
+    $(document).ready(function () {
+      $(".sidenav ul li").click(function () {
+        $(".sidenav ul li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+    $(document).ready(function () {
+      $(".right-navbar li").click(function () {
+        $("right-navbar li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script> -->
+
+
+ <!-- ===============================
+ Mydreamhome-details-doc
+ ===============================  -->
+
+ <script>$(document).ready(function () {
+    lightbox.option({
+      resizeDuration: 600,
+      wrapAround: true,
+      imageFadeDuration: 500,
+    });
+  });</script>
+
+<!-- <script>
+  $(document).ready(function () {
+    $(".sidenav ul li").click(function () {
+      $(".sidenav ul li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+  $(document).ready(function () {
+    $(".right-navbar li").click(function () {
+      $("right-navbar li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+</script> -->
+<script>
+  $(document).ready(function () {
+     var successAlert = '<% if(typeof success_msg!="undefined"){%><%=success_msg%><% }else{%>empty<%}%>';
+    // alert(successAlert);
+    console.log('successAlert:',successAlert);
+     if(successAlert !== 'empty'){
+           Swal.fire({
+               // position: 'top-end',
+                icon: 'success',
+                title: successAlert,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+     }
+  });
+
+
+function previewFile(input){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          console.log('filess:',input.files[0].type)
+          if(input.files[0].type == 'image/jpeg' || input.files[0].type == 'image/png' || input.files[0].type == 'image/gif'){
+            $('#upload-doc-view').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="javascript:void(0)" ><img src="'+e.target.result+'" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+          }else if(input.files[0].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || input.files[0].type == 'application/msword'){
+            $('#upload-doc-view').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="javascript:void(0)"><img src="images/docicon.png" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+          }else if(input.files[0].type == 'application/pdf'){
+            //$('#uploaded_img').attr('src', 'images/pdficon.png');
+            $('#upload-doc-view').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="javascript:void(0)"><img src="images/pdficon.png" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+          }else if(input.files[0].type == 'text/plain'){
+            $('#upload-doc-view').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="javascript:void(0)"><img src="images/txticon.png" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+            //videoicon
+          }else if(input.files[0].type == 'video/x-ms-wmv'){
+            $('#upload-doc-view').html('<li style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href="javascript:void(0)"><img src="images/videoicon.png" alt="" title=""><br><span>'+input.files[0].name+'</span></a></li>');
+          }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'File type not supported !!',
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              $('#newDocumentform')[0].reset();
+          }
+           
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+<script>
+  $('.btn-cancel-changepermision').click(function (e) { 
+   // alert();
+    $('#changePermisionModal').modal('hide');
+    location.reload();
+  });
+
+  var id_element = [];
+  $(".changePermissionModal").click(function (e) {
+    var docId = $(this).attr('value');
+    // alert(docId);
+    $('#changePermisionModal').modal('show');
+    $('.doc_id').val(docId);
+    $.ajax({
+      type: "GET",
+      data: {
+        docId: docId
+      },
+      url: "/get-change-permision",
+      cache: false,
+      success: function (data) {
+        //$("#results").append(html);
+        console.log('html::', data);
+        if (data.permissionDetailsData.length > 0) {
+          $('.per_checkbox').removeAttr('checked', 'checked');
+          data.permissionDetailsData.forEach(function (permissionData) {
+            console.log('permissionData:', permissionData)
+            console.log('dps_service_provider_id:', permissionData.dps_service_provider_id)
+            if (permissionData.dps_download_permission == 'yes' && permissionData.dps_view_permission == 'no') {
+              $('.download_box_' + permissionData.dps_service_provider_id).attr('checked', 'checked');
+            } else if (permissionData.dps_view_permission == 'yes' && permissionData.dps_download_permission == 'no') {
+              $('.view_box_' + permissionData.dps_service_provider_id).attr('checked', 'checked');
+            } else if (permissionData.dps_download_permission == 'yes' && permissionData.dps_view_permission == 'yes') {
+              $('.view_box_' + permissionData.dps_service_provider_id).attr('checked', 'checked');
+              $('.download_box_' + permissionData.dps_service_provider_id).attr('checked', 'checked');
+            } else {
+              $('.view_box_' + permissionData.dps_service_provider_id).removeAttr('checked', 'checked');
+              $('.download_box_' + permissionData.dps_service_provider_id).removeAttr('checked', 'checked');
+            }
+          });
+        } else {
+          $('#changePermisionModal .per_checkbox').removeAttr('checked', 'checked');
+          $('#changePermisionModal .check-permission input:checked ~ .checkmark').css('background-color', 'transparent');
+          //$('.per_checkbox').removeAttr('checked','checked');
+          
+        }
+      }
+    });
+  })
+
+  function viewPermission(pointer) {
+
+    var professionalId = '';
+    var userId = '';
+    var propertyId = '';
+    var viewFlag = '';
+    var downloadFlag = 'no';
+    var flag = 'viewaction';
+    var doc_id = '';
+    if (pointer.checked) {
+      //alert("checked")
+      professionalId = $(pointer).val();
+      userId = $(pointer).data('user_id');
+      propertyId = $(pointer).data('property_id');
+      flag = 'viewaction',
+        viewFlag = 'yes';
+      doc_id = $('.doc_id').val();
+    } else {
+      //alert("notchecked")
+      professionalId = $(pointer).val();
+      userId = $(pointer).data('user_id');
+      propertyId = $(pointer).data('property_id');
+      flag = 'viewaction'
+      viewFlag = 'no';
+      doc_id = $('.doc_id').val();
+    }
+
+
+
+    // var professionalId= $(pointer).data('professional_id');
+    console.log('professionalId:', professionalId);
+    console.log('propertyId:', propertyId);
+    console.log('userId:', userId);
+    console.log('flag:', flag);
+    $.ajax({
+      type: "POST",
+      data: 'cust_id=' + userId + '&propertyId=' + propertyId + '&professionalId=' + professionalId + '&checkFlag=' + flag + '&viewFlag=' + viewFlag + '&doc_id=' + doc_id + '&downloadFlag=' + downloadFlag,
+      url: "/api/change-permision",
+      cache: false,
+      success: function (html) {
+        console.log('respons:', html);
+        $('.message_data').show();
+        $('.message_data').html('<div class="isa_success"><i style="margin: 0px 7px !important;" class="fa fa-check"></i> ' + html.message + '</div>');
+        setTimeout(function () { $('.message_data').hide(); }, 3000);
+
+      }
+    });
+
+  }
+
+
+  function downloadPermission(pointer) {
+    var professionalId = '';
+    var userId = '';
+    var propertyId = '';
+    var viewFlag = 'no';
+    var downloadFlag = '';
+    var flag = 'downloadaction';
+    var doc_id = '';
+    if (pointer.checked) {
+      // alert("checked")
+      professionalId = $(pointer).val();
+      userId = $(pointer).data('user_id');
+      propertyId = $(pointer).data('property_id');
+      flag = 'downloadaction',
+        downloadFlag = 'yes';
+      doc_id = $('.doc_id').val();
+    } else {
+      // alert("notchecked")
+      professionalId = $(pointer).val();
+      userId = $(pointer).data('user_id');
+      propertyId = $(pointer).data('property_id');
+      flag = 'downloadaction'
+      downloadFlag = 'no';
+      doc_id = $('.doc_id').val();
+    }
+
+
+
+    // var professionalId= $(pointer).data('professional_id');
+    console.log('professionalId:', professionalId);
+    console.log('propertyId:', propertyId);
+    console.log('userId:', userId);
+    console.log('flag:', flag);
+    $.ajax({
+      type: "POST",
+      data: 'cust_id=' + userId + '&propertyId=' + propertyId + '&professionalId=' + professionalId + '&checkFlag=' + flag + '&viewFlag=' + viewFlag + '&doc_id=' + doc_id + '&downloadFlag=' + downloadFlag,
+      url: "/api/change-permision",
+      cache: false,
+      success: function (html) {
+        //console.log('respons:',html);
+        $('.message_data').show();
+        $('.message_data').html('<div class="isa_success"><i style="margin: 0px 7px !important;" class="fa fa-check"></i> ' + html.message + '</div>');
+        setTimeout(function () { $('.message_data').hide(); }, 3000);
+
+      }
+    });
+
+  }
+
+  $("#change-permision-save-btn").click(function (e) {
+    var formData = $('#permissionForm').serialize();
+    console.log('formData', formData)
+    $.ajax({
+      type: "POST",
+      data: formData,
+      // data: 'cust_id=' + user_id + '&checked_elem=' + checked_elem + '&id_element=' + id_element+'&checked_elem_1='+checked_elem_1,
+      url: "/api/change-permision",
+      cache: false,
+      success: function (html) {
+        //$("#results").append(html);
+      }
+    });
+    location.reload(true);
+  });
+</script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
+<script>
+$(document).ready(function(){
+$("#newDocumentform").on("submit", function(e){
+e.preventDefault()
+$('.loader-box').attr('style','display:flex !important');
+///api/upload-new-document
+var documentForm = new FormData($('#newDocumentform')[0]);
+    $.ajax({
+      type: "POST",
+      data: documentForm,
+      url: '/upload-new-document',
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (data) {
+        console.log('data====',data)
+        if(data.status==true){
+          $('.loader-box').attr('style','display:none !important');
+          Swal.fire({
+            //position: 'top-end',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2000
+          })
+          window.location.reload(true);
+        }else{
+            $('.loader-box').attr('style','display:none !important');
+            Swal.fire({
+              //position: 'top-end',
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 4000
+            })
+        }
+      } 
+    })
+
+});
+});
+</script>
+
+<!-- =================================
+myDREAMHOME-DETAILS-MESSAGE 
+================================= -->
+<script>
+
+    function scrollToBottom() {
+      var objDiv = document.getElementById("message_board");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    
+          // $(document).ready(function () {
+          //   scrollToBottom();
+          //   $(".sidenav ul li").click(function () {
+          //     $(".sidenav ul li").removeClass("active");
+          //     $(this).addClass("active");
+          //   });
+          // });
+          // $(document).ready(function () {
+          //   $(".right-navbar li").click(function () {
+          //     $("right-navbar li").removeClass("active");
+          //     $(this).addClass("active");
+          //   });
+          // });
+    
+          $('#chat_submit').click(function (e) {
+            var comment = $("#comment").val();
+            var professional_id = $("#chat_form #professional_id").val();
+            var customer_id = $("#customer_id").val();
+            var property_id = $("#chat_form #property_id").val();
+            console.log('professional_id:', professional_id);
+            console.log('customer_id:', customer_id);
+            console.log('property_id:', property_id);
+            console.log('comment:', comment);
+            if (comment) {
+              $.ajax({
+                type: "POST",
+                data: {
+                  message: comment.trim(),
+                  sms_receiver_id: professional_id,
+                  sms_property_id: property_id,
+                  sms_sender_id: customer_id,
+                  sms_sender_type: 'customer',
+                  sms_receiver_type: 'service_provider',
+                  sms_msg_Date: new Date(),
+                  sms_read_status: 'unread'
+                },
+                url: "/api/message",
+                cache: false,
+                success: function (data) {
+                  $("#comment").val('');
+                  getAllMessage(professional_id, customer_id, property_id);
+                }
+              });
+            }
+          });
+        </script>
+
+<!-- ===============================
+MYDREAM-HOME-DETAILS-PAHSE-A 
+=============================== -->
+
+<!-- <script>
+    $(document).ready(function () {
+      $(".sidenav ul li").click(function () {
+        $(".sidenav ul li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+    $(document).ready(function () {
+      $(".right-navbar li").click(function () {
+        $("right-navbar li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script> -->
+  <script>
+
+    $(document).ready(function () {
+      // var url  = window.location.href;
+      // alert(url)
+      //  $('#backtodeatils').click(function(){
+      //   $(this).prop("href", "http://www.jakcms.com")
+      //  })
+      // function getParameterByName(name, url) {
+      //   if (!url) url = window.location.href;
+      //   name = name.replace(/[\[\]]/g, "\\$&");
+      //   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      //     results = regex.exec(url);
+      //   if (!results) return null;
+      //   if (!results[2]) return '';
+      //   return decodeURIComponent(results[2].replace(/\+/g, " "));
+      // }
+      // var val = getParameterByName('id');
+      // alert(val)
+      // var loc = "mydreamhome-details?id="+val; 
+      // document.write('<a href="' + loc + '">Google</a>'); 
+      // $("#backtodeatils").attr("href", "mydreamhome-details?id="+id);
+    });
+
+  </script>
+  <script language="javascript" type="text/javascript">
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    var val = getParameterByName('id');
+    //alert(val)
+    var scrt_var = val; 
+  </script>
+
+ <script>
+
+  $(document).ready(function () {
+    $(".existingTaskListModal").click(function (e) {
+      $.ajax({
+        type: "GET",
+        url: "/api/addTask",
+        cache: false,
+        success: function (data) {
+          var thisPointer = $(".existingTaskListModal");
+          console.log(data)
+          var htmlData = '';
+          $(".ppts_property_id").val(data.property_id);
+          $('.ppts_assign_to').attr('data-ppts_property_id',data.property_id);
+          var phasename=$('.phsename').val()
+          //alert(phasename)
+          $('.ppts_phase_name').val(phasename)
+          htmlData += '<option value="">Select Hired professional</option>';
+          if (data.data.length > 0) {
+            $.each(data.data, function (i, data) {
+              console.log('val:', data)
+              htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+            });
+          }
+          $('.add_task_mydreamhome_detial_phase').html(htmlData);
+        }
+      });
+    })
+
+
+    $(".cancel_task_btn").click(function(e){
+      $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+    })
+    $("#add_task_submit_form").on('submit', function (e) {
+     
+      e.preventDefault();
+      var formData = $("#add_task_submit_form").serialize();
+
+      if (formData) {
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/addTask_from_Dreamhome_detial_phase",
+          cache: false,
+          success: function (data) {
+            if (data.status == false) {
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: data.err_msg,
+                showConfirmButton: true,
+                confirmButtonColor: '#005377'
+                //timer: 1500
+              })
+
+
+            } else {
+
+              console.log('meserrmessagesage:', data.success_msg)
+
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'success',
+                title: data.success_msg,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              location.reload(true)
+              $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+            }
+
+          }
+        });
+
+      } else {
+        alert('some thing wrong')
+      }
+    })
+    //buyer==================
+    $(".cancel_existing_task_btn").click(function(e){
+      $('#notes,#duedate').val('');
+    })
+    $("#Add_existing_task_form").on('submit', function (e) {
+      e.preventDefault()
+      //alert('1')
+      var formData = $("#Add_existing_task_form").serialize();
+      console.log('dfdfdf:',formData)
+      if (formData) {
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+          cache: false,
+          success: function (data) {
+            if (data.status == false) {
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: data.err_msg,
+                showConfirmButton: true,
+                confirmButtonColor: '#005377'
+                //timer: 1500
+              })
+
+
+            } else {
+
+              console.log('meserrmessagesage:', data.success_msg)
+
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'success',
+                title: data.success_msg,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              location.reload(true)
+              $('#notes,#duedate').val('');
+
+
+            }
+
+          }
+        });
+
+      } else {
+        alert('some thing wrong')
+      }
+    })
+    //buyer end===============
+    //seller existing ==========
+    $("#Add_existing_task_form_sellerPhaseA").on('submit', function (e) {
+      e.preventDefault()
+      //alert('seller A')
+      var formData = $("#Add_existing_task_form_sellerPhaseA").serialize();
+      console.log(formData)
+      //return;
+      if (formData) {
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+          cache: false,
+          success: function (data) {
+            if (data.status == false) {
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: data.err_msg,
+                showConfirmButton: true,
+                confirmButtonColor: '#005377'
+                //timer: 1500
+              })
+
+
+            } else {
+
+              console.log('meserrmessagesage:', data.success_msg)
+
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'success',
+                title: data.success_msg,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              location.reload(true)
+              $('#notes,#duedate').val('');
+
+
+            }
+
+          }
+        });
+
+      } else {
+        alert('some thing wrong')
+      }
+    })
+    //seller existing end=============
+    //renoverot existing start=========
+    $("#Add_existing_task_form_renovatorPhaseA").on('submit', function (e) {
+      e.preventDefault()
+      //alert('renovetor A')
+      var formData = $("#Add_existing_task_form_renovatorPhaseA").serialize();
+      console.log(formData)
+      //return;
+      if (formData) {
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+          cache: false,
+          success: function (data) {
+            if (data.status == false) {
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: data.err_msg,
+                showConfirmButton: true,
+                confirmButtonColor: '#005377'
+                //timer: 1500
+              })
+
+
+            } else {
+
+              console.log('meserrmessagesage:', data.success_msg)
+
+
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'success',
+                title: data.success_msg,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              location.reload(true)
+              $('#notes,#duedate').val('');
+
+
+            }
+
+          }
+        });
+
+      } else {
+        alert('some thing wrong')
+      }
+    })
+  })
+</script>
+
+<!-- ==============================
+MYDREAMHOME-DETAILS-TO-DOC
+============================== -->
+
+
+<!-- <script>
+    $(document).ready(function () {
+      $(".sidenav ul li").click(function () {
+        $(".sidenav ul li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+    $(document).ready(function () {
+      $(".right-navbar li").click(function () {
+        $("right-navbar li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script> -->
+  
+
+
+<!-- =================================
+Mydreamhome 
+================================= -->
+
+<!-- <script>
+  $(document).ready(function () {
+    $(".sidenav ul li").click(function () {
+      $(".sidenav ul li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+  $(document).ready(function () {
+    $(".right-navbar li").click(function () {
+      $("right-navbar li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+</script> -->
+
+<script>
+
+  $('#refresh').click(function (e) {
+
+    $.ajax({
+      type: "POST",
+      url: "/api/refresh",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+          Swal.fire({
+            icon: 'error',
+            title: data.message,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 4000
+          })
+
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 4000
+          })
+          alert("refresh btn call", data);
+          setTimeout(function () {
+            //location.reload(true);
+            window.location.href = "/mydreamhome";
+          }, 4000);
+
+        }
+      }
+    });
+  });
+
+</script>
+
+<!-- ===============================================
+Myprofessional 
+============================================== -->
+
+
+<script>
+  $(document).on('click.bs.dropdown.data-api', '.dropdown.keep-inside-clicks-open', function (e) {
+    e.stopPropagation();
+  });
+</script>
+<script>
+  // $(document).ready(function () {
+  //   $(".sidenav ul li").click(function () {
+  //     $(".sidenav ul li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+  // $(document).ready(function () {
+  //   $(".right-navbar li").click(function () {
+  //     $("right-navbar li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+
+  $("#professional-role li a").click(function (e) {
+    $('#professional-role li a').removeClass('active_role');
+    $(this).addClass('active_role');
+    $('.loader-box').attr('style','display:flex !important');
+    var role = $(this).data('role');
+    $.ajax({
+      type: "GET",
+      data: {
+        role: role
+      },
+      url: "/my-professionals-filter",
+      cache: false,
+      success: function (html) {
+        $('.loader-box').attr('style','display:none !important');
+        console.log('result:', html)
+        var htmlData = '';
+        if (html.data.length > 0) {
+          $.each(html.data, function (i, data) {
+            console.log('val:', data)
+            htmlData += '<div class="col-sm-4 col-md-4 col-lg-3"><div class="card card-fix3"><div class="row"><div class="float-left card-header-fix"><div class="semi-circle"> <img class="card-img-top" src="images/recent-user-2.png" alt=""></div></div><div class="float-right card-content-fix"><h5> ' + data.sps_fullname + '</h5><p> ' + data.sps_role_name + '</p></div></div><hr class="divider"><div class="row"><div class="float-left card-icon-fix"> <img class=" card-image-fix" src="images/experience.png" alt="">&nbsp;<span> ' + data.sps_experience + ' years </span></div><div class="float-right card-icon-fix2"> <img class=" card-image-fix" src="images/rating.png" alt="">&nbsp;<span> '+ data.avgRating +' Rating</span></div></div><div class="card-body"> <button type="button" class="btn btn-cancel" style="margin-top: 30px; margin-bottom: 0px;"><a style="color:#fff;" href="/professionals-detail?id='+ data._id +'">View</a></button></div></div></div>';
+
+          });
+        } else {
+          htmlData = '<div class="not-found"><p>Not Found !!</p></div>';
+        }
+        $('#filter_data').html(htmlData);
+      }
+    });
+  });
+
+  $('#professional-search-form').on('submit', function (e) {
+      e.preventDefault();
+ // $("#professional-search-btn").click(function (e) {
+   $('.loader-box').attr('style','display:flex !important');
+    var searchVal = $('.professional-search').val();
+    console.log('searchVal:',searchVal)
+    $.ajax({
+      type: "GET",
+      data: {
+        searchKeyword: searchVal
+      },
+      url: "/my-professionals-searchbar",
+      cache: false,
+      success: function (html) {
+        $('.loader-box').attr('style','display:none !important');
+        console.log('result:', html.filterData)
+        var htmlData = '';
+        if (html.filterData.length > 0) {
+          $.each(html.filterData, function (i, data) {
+            console.log('val:', data)
+            htmlData += '<div class="col-sm-4 col-md-4 col-lg-3"><div class="card card-fix3"><div class="row"><div class="float-left card-header-fix"><div class="semi-circle"> <img class="card-img-top" src="images/recent-user-2.png" alt=""></div></div><div class="float-right card-content-fix"><h5> ' + data.sps_fullname + '</h5><p> ' + data.sps_role_name + '</p></div></div><hr class="divider"><div class="row"><div class="float-left card-icon-fix"> <img class=" card-image-fix" src="images/experience.png" alt="">&nbsp;<span> ' + data.sps_experience + ' years </span></div><div class="float-right card-icon-fix2"> <img class=" card-image-fix" src="images/rating.png" alt="">&nbsp;<span>'+ data.avgRating +' Rating</span></div></div><div class="card-body"> <button type="button" class="btn btn-cancel" style="margin-top: 30px; margin-bottom: 0px;"><a style="color:#fff;" href="/professionals-detail?id='+ data._id +'">View</a></button></div></div></div>';
+
+          });
+        } else {
+          htmlData = '<div class="not-found"><p>Not Found !!</p></div>';
+        }
+        $('#filter_data').html(htmlData);
+      }
+    });
+  });
+
+
+  $('.right-navbar li').click(function () {
+    $('.right-navbar li').each(function () {
+      $(this).removeClass('active');
+    });
+
+    $(this).addClass('active');
+
+  })
+
+</script>
+
+
+
+<!-- ==================================
+Prefessional details message 
+================================== -->
+
+<script>
+  function scrollToBottom() {
+    var objDiv = document.getElementById("message_board");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
+        // $(document).ready(function () {
+        //   scrollToBottom();
+        //   $(".sidenav ul li").click(function () {
+        //     $(".sidenav ul li").removeClass("active");
+        //     $(this).addClass("active");
+        //   });
+        // });
+        // $(document).ready(function () {
+        //   $(".right-navbar li").click(function () {
+        //     $("right-navbar li").removeClass("active");
+        //     $(this).addClass("active");
+        //   });
+        //   //var professional_id = '600a61f24c0d3319bc1279b6';
+        //   //var customer_id= '600915e33d48171a881f48d0';
+        //   //getAllMessage(professional_id,customer_id)
+  
+        // });
+  
+
+  
+        $('#pdm_chat_form #chat_submit').click(function (e) {
+          var comment = $("#pdm_chat_form #comment").val();
+          var professional_id = $("#pdm_chat_form #professional_id").val();
+          var customer_id = $("#pdm_chat_form #customer_id").val();
+          if (comment) {
+            $.ajax({
+              type: "POST",
+              data: {
+                message: comment,
+                sms_receiver_id: professional_id,
+                sms_sender_id: customer_id,
+                sms_sender_type: 'customer',
+                sms_receiver_type: 'service_provider',
+                sms_msg_Date: new Date(),
+                sms_read_status: 'unread'
+              },
+              url: "/api/message",
+              cache: false,
+              success: function (data) {
+                $("#pdm_chat_form #comment").val('');
+                getAllMessage_pdm(professional_id, customer_id);
+              }
+            });
+          }
+        });
+      </script>
+   
+
+<!-- ================================================
+Professional Details 
+================================================ -->
+
+<script>
+  $(document).ready(function () {
+
+    setTimeout(function () {
+      var sps_fullname = $('.professtional_section #sps_fullname').val();
+      var sps_id = $('.professtional_section #sps_id').val();
+      $('#professional').val(sps_fullname);
+      $('#professionalId').val(sps_id);
+    }, 5000);
+  });
+
+
+jQuery(document).ready(function(){
+    var $this = $('.reviews_rating_sec');
+    if ($this.find('div').length > 6) {
+        $('.reviews_rating_sec').append('<div><a href="javascript:;" class="showMore"></a></div>');
+    }
+    // If more than 2 Education items, hide the remaining
+    $('.reviews_rating_sec .side-feedback-sec').slice(0,6).addClass('shown');
+    $('.reviews_rating_sec .side-feedback-sec').not('.shown').hide();
+    $('.reviews_rating_sec .showMore').on('click',function(){
+      $('.reviews_rating_sec .side-feedback-sec').not('.shown').toggle(300);
+      $(this).toggleClass('showLess');
+    });
+});
+
+
+</script>
+<script>
+  
+
+
+  $('#feedbackForm').validate({
+    onfocusout: function (element) {
+      this.element(element);
+    },
+    errorClass: 'error_validate',
+    errorElement: 'span',
+    errorColor: 'red',
+    highlight: function (element, errorClass) {
+      $(element).removeClass(errorClass);
+    },
+    submitHandler: function (form) {
+      $('#submit').attr('disabled', true);
+      //form.submit();
+      //var isChecked = $('.rating_radio').prop('checked');
+      var isChecked = $("input:radio[name='rating']").is(":checked")
+
+      if (isChecked == true) {
+        $('.loader-box').attr('style', 'display:flex !important');
+        $('#rating_message').hide();
+        var spr_id = $('#spr_id').val();
+        var formData = $('#feedbackForm').serialize() + '&spr_id=' + spr_id;
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/add-feedback",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == true) {
+              $('.loader-box').attr('style', 'display:none !important');
+              //$('#rating_message').html('<div class="isa_success"><i class="fa fa-check"></i> ' + data.message + '</div>')
+              $('#feedbackModal').modal('hide');
+              Swal.fire({
+                // position: 'top-end',
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 5000
+              })
+              setTimeout(function () {
+                location.reload(true);
+              }, 5000);
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              //$('.complaint_msg').html('<div class="isa_error"><i class="fa fa-check"></i> ' + data.message + '</div>')
+            }
+          }
+        });
+      } else {
+        $('#rating_message').show();
+        $('#rating_message').text('Rating is required!');
+      }
+    }
+  });
+
+
+
+  $("#addTaskForm").on('submit', function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    console.log('formDataformData:',formData);
+    if (formData) {
+      $('.loader-box').attr('style', 'display:flex !important');
+      $.ajax({
+        type: "POST",
+        data: formData,
+        url: "/api/addTask",
+        cache: false,
+        success: function (data) {
+          $('.loader-box').attr('style', 'display:none !important');
+
+          console.log('data:', data)
+          if (data.status == false) {
+            Swal.fire({
+              icon: 'error',
+              title: data.err_msg,
+              showConfirmButton: true,
+              confirmButtonColor: '#005377'
+              //timer: 1500
+            })
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: data.success_msg,
+              showConfirmButton: false,
+              confirmButtonColor: '#005377',
+              timer: 3000
+            })
+            $('#taskName,#notes,#duedate').val('');
+          }
+        }
+      });
+      // location.reload(true);
+    } else {
+      alert('some thing wrong')
+    }
+  })
+
+  $("#addTask-btn").click(function (e) {
+    $('#addTaskModal').modal('show');
+    var sp_id = $('#sps_id').val();
+    if (sp_id) {
+      $.ajax({
+        type: "POST",
+        data: {
+          spId: sp_id
+        },
+        url: "/api/filterPropertyAdress",
+        cache: false,
+        success: function (data) {
+          console.log(data)
+          var htmlData = '';
+          htmlData += '<option value="">Select Phase</option>';
+          if (data.data.ps_phase_array.length > 0) {
+            $.each(data.data.ps_phase_array, function (i, data) {
+              console.log('val:', data)
+              htmlData += '<option data-phase="'+i+'" value="' + data.phase_name + '">' + data.phase_name + '</option>';
+            });
+          }
+          $('.phase_list').html(htmlData);
+          $('#addTaskModal .property_id').val(data.data._id);
+        }
+      });
+    } else {
+      alert('something wrong')
+    }
+
+  });
+</script>
+
+<!-- ====================================
+Professional Hirenow 
+==================================== -->
+
+
+<script>
+  $(document).ready(function () {
+
+var dtToday = new Date();
+var month = dtToday.getMonth() + 1;
+var day = dtToday.getDate();
+var year = dtToday.getFullYear();
+if(month < 10)
+    month = '0' + month.toString();
+if(day < 10)
+    day = '0' + day.toString();
+
+var maxDate = year + '-' + month + '-' + day;
+$('#deliveryDate').attr('min', maxDate);
+
+
+    // $(".sidenav ul li").click(function () {
+    //   $(".sidenav ul li").removeClass("active");
+    //   $(this).addClass("active");
+    // });
+  });
+  // $(document).ready(function () {
+  //   $(".right-navbar li").click(function () {
+  //     $("right-navbar li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+
+  // With JQuery
+  $("#ex8").slider({
+    tooltip: 'always',
+    tooltip_position: 'bottom',
+    formatter: function (value) {
+      return 'USD: ' + value;
+    },
+  });
+</script>
+
+
+<script>
+
+  $(document).ready(function () {
+
+    // $('#msg').hide();
+    // $('#taskmsg').hide();
+    // $('#cancel_addtask_btn').click(function (e) {
+    //   $("#addTaskForm input").val("");
+    //   $("#addTaskForm textarea").val("");
+    //   $('#myModal').modal('toggle');
+    // })
+    $('.propertySelectBox').change(function (e) {
+      // e.preventDefault();
+      var propertyId = $('.propertySelectBox :selected').val();
+      if (propertyId) {
+        $.ajax({
+          type: "POST",
+          data: 'propertyId=' + propertyId,
+          url: "/api/filterPropertyAdress",
+          cache: false,
+          success: function (data) {
+            console.log(data)
+            //alert(data.data)
+
+            // alert($('#address').val(data.data.ps_property_address))
+            $('.address').val(data.data.ps_property_address)
+            $('.city').val(data.data.ps_property_city_id)
+
+            $('.state').val(data.data.ps_property_state_id)
+            $('.country').val(data.data.ps_property_country_id)
+            $('#zipcode').val(data.data.ps_property_zipcode)
+            $('.property_id').val(data.data._id)
+            var htmlData = '';
+
+            htmlData += '<option value="">Select Phase</option>';
+            if (data.data.ps_phase_array.length > 0) {
+              $.each(data.data.ps_phase_array, function (i, data) {
+                console.log('val:', data)
+                htmlData += '<option data-phase="'+i+'" value="' + data.phase_name + '">' + data.phase_name + '</option>';
+              });
+            }
+            $('.phase_list').html(htmlData);
+
+          }
+        });
+      } else {
+        //alert('something wrong')
+            $('.address').val('')
+            $('.city').val('')
+            $('.state').val('')
+            $('.country').val('')
+            $('#zipcode').val('')
+            $('.property_id').val('')
+
+      }
+    });
+    $('#hirenowform').on('submit', function (e) {
+      e.preventDefault();
+      $('.loader-box').attr('style','display:flex !important');
+      var formdata = $(this).serialize();
+      console.log('formdata:', formdata);
+      $.ajax({
+        type: "POST",
+        data: formdata,
+        url: "/api/hire-now",
+        cache: false,
+        success: function (data) {
+          console.log(data)
+          if (data.status == false) {
+            $('.loader-box').attr('style','display:none !important');
+            //$('#message').show();
+            //$('.message').html('<span class="error_validate flash_msg" style="color: red; margin-bottom: 10px;">' + data.err_msg + '</span>');
+            //setTimeout(function () { $('.message').html(''); }, 5000);
+
+            //$('#msg').html(data.message).delay(5000).fadeOut('success');
+
+            Swal.fire({
+              // position: 'top-end',
+              icon: 'error',
+              title: data.err_msg,
+              showConfirmButton: true,
+              //timer: 1500
+              confirmButtonColor: '#005377'
+            })
+
+          } else {
+            $('.loader-box').attr('style','display:none !important');
+            // $('.message').html('<span class="error_validate flash_msg" style="color: green; margin-bottom: 10px;">' + data.success_msg + '</span>');
+            //setTimeout(function () { $('.message').html(''); }, 5000);
+            //console.log('message:', data.success_msg)
+            //window.location.href = data.redirect;
+
+            //  Swal.fire({
+            //     position: 'top-end',
+            //     icon: 'success',
+            //     title: data.success_msg,
+            //     showConfirmButton: false,
+            //     timer: 3000
+            //   })
+              
+            Swal.fire({
+              icon: 'success',
+              title: data.success_msg,
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonColor: '#005377',
+              denyButtonColor: '#005377',
+              cancelButtonColor: '#d33',
+              confirmButtonText: `Professional List`,
+              denyButtonText: `Add Task`,
+             // html: '<button type="button" data-target="#addTaskModal" role="button"data-toggle="modal" tabindex="0" class="addbtn btn btn-info SwalBtn1 customSwalBtn"onclick="swal.closeModal(); return false;">' + 'Add Task' + '</button>',
+            }).then((result) => {
+              console.log(result)
+              /* Read more about isConfirmed, isDenied below */
+
+              if (result.isConfirmed) {
+                //Swal.fire('Saved!', '', 'success')
+                window.location.href = '/professionals';
+              } else if (result.isDenied) {
+                //Swal.fire('Changes are not saved', '', 'info')
+               // location.reload();
+               $('#addTaskModal').modal('show');
+              }
+            })
+          }
+
+          //$('#ppts_property_id').val(data.data.pps_property_id);
+          //$('#phase_id').val(data.data._id);
+          //$("#hirenowform input").val("");
+          //$("#hirenowform textarea").val("");
+          //$('.propertySelectBox').prop('selectedIndex', 0);
+        }
+      });
+    })
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    var count = 2;
+    $("a[name='addMorePhase']").click(function () {
+      var domElement = $('<div class="row"><div class="professional-input-box"><div class="professional-text-fix"><label>Phase' + count++ + '</label><select class="form-control" id="instruction" placeholder="Instruction" name="instruction" required><option value="">Select Phases</option> <%if(session.active_user_login=="renovator"){ %><option value="Strategic definition">Strategic definition</option><option value="Preparation and Briefing">Preparation and Briefing</option><option value="Spatial coordination">Spatial coordination</option><option value="Technical Design">Technical Design</option><option value="Manifacturing and Construction">Manifacturing and Construction</option><option value="Concept Design">Concept Design</option><option value="Handover">Handover</option><option value="Use">Use</option> <%}else{%><option value="Instruction">Instruction</option><option value="Pre-exchange Submitting the contract">Pre-exchange Submitting the contract</option><option value="Prior to exchange of contracts">Prior to exchange of contracts</option><option value="Exchange of contracts">Exchange of contracts</option><option value="Completion">Completion</option><option value="Post-Completion">Post-Completion</option> <%}%> </select></div></div><div class="professional-input-box"><div class="professional-text-fix"><label>Start Date</label><input type="date" class="form-control  selectBox6  "placeholder="FullName" name="startDate"></div></div><div class="professional-input-box"><div class="professional-text-fix"><label>End Date</label><input type="date" class="form-control  selectBox6  "placeholder="End Date" name="endDate"></div></div></div>');
+      $(".divv").before(domElement);
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $("#cancel_addtask_btn").click(function (e) {
+      e.preventDefault()
+      $('#taskName').val('');
+      $('#duedate').val('');
+      $('#notes').val('')
+      $('#Phase').val('');
+    })
+
+
+
+    $("#msgg").hide();
+    $("#error").hide();
+    // $("#addTaskForm").on('submit', function (e) {
+    //   e.preventDefault();
+    //   var formData = $(this).serialize();
+    //   if (formData) {
+    //     $.ajax({
+    //       type: "POST",
+    //       data: formData,
+    //       url: "/api/addTask",
+    //       cache: false,
+    //       success: function (data) {
+    //         if (data.status == false) {
+    //           //$('#addTaskModal').modal('hide');
+    //           //$('#message').show();
+    //           // $('.errmessage').html('<span class="error_validate flash_msg" style="color: red; margin-bottom: 10px;">' + data.err_msg + '</span>');
+    //           //setTimeout(function () { $('.errmessage').html(''); }, 3000);
+    //           //$('#msg').html(data.message).delay(5000).fadeOut('success');
+
+    //           Swal.fire({
+    //             // position: 'top-end',
+    //             icon: 'error',
+    //             title: data.err_msg,
+    //             showConfirmButton: true,
+    //             confirmButtonColor: '#005377'
+    //             //timer: 1500
+    //           })
+
+
+    //         } else {
+    //           //$('#addTaskModal').modal('hide');
+    //           //$('.errmessage').html('<span class="error_validate flash_msg" style="color: green; margin-bottom: 10px;">' + data.success_msg + '</span>');
+    //           //setTimeout(function () { $('.errmessage').html(''); $('#taskName').val(''); $('#duedate').val(''); $('#notes').val('') }, 3000);
+    //           console.log('meserrmessagesage:', data.success_msg)
+    //           window.location.reload(true)
+    //           //swal(data.success_msg, "", "success");
+
+    //           Swal.fire({
+    //             // position: 'top-end',
+    //             icon: 'success',
+    //             title: data.success_msg,
+    //             showConfirmButton: false,
+    //             confirmButtonColor: '#005377',
+    //             timer: 3000
+    //           })
+
+    //           $('#taskName,#notes,#duedate').val('');
+    //           //$('#notes').val('');
+
+    //         }
+
+    //       }
+    //     });
+    //     // location.reload(true);
+    //   } else {
+    //     alert('some thing wrong')
+    //   }
+    // })
+  });
+</script>
+
+<!-- 
+=================================
+Professional 
+================================ -->
+
+
+
+<script>
+  $(document).on('click.bs.dropdown.data-api', '.dropdown.keep-inside-clicks-open', function (e) {
+    e.stopPropagation();
+  });
+</script>
+<script>
+  // $(document).ready(function () {
+  //   $(".sidenav ul li").click(function () {
+  //     $(".sidenav ul li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+  // $(document).ready(function () {
+  //   $(".right-navbar li").click(function () {
+  //     $("right-navbar li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+
+  $("#professional-role-list li a").click(function (e) {
+    $('#professional-role-list li a').removeClass('active_role');
+    $(this).addClass('active_role');
+    $('.loader-box').attr('style','display:flex !important');
+    var role = $(this).data('role');
+    $.ajax({
+      type: "GET",
+      data: {
+        role: role
+      },
+      url: "/professionals-filter",
+      cache: false,
+      success: function (html) {
+        $('.loader-box').attr('style','display:none !important');
+        console.log('result:', html.filterData)
+        var htmlData = '';
+        if (html.filterData.length > 0) {
+          $.each(html.filterData, function (i, data) {
+            console.log('val:', data)
+            htmlData += '<div class="col-lg-3"><div class="card card-fix2"><div class="row"><div class="float-left card-header-fix"> <a href="/professionals-detail?id=' + data._id + '"> <img class="card-img-top" src="images/recent-user-2.png" alt="Card image cap"> </a></div><div class="float-right card-content-fix"><h5> ' + data.sps_fullname + '</h5><p> ' + data.sps_role_name + '</p></div></div><hr class="divider"><div class="row"><div class="float-left card-icon-fix"> <img class=" card-image-fix" src="images/experience.png" alt="Card image cap">&nbsp;<span> ' + data.sps_experience + ' years </span></div><div class="float-right card-icon-fix2"> <img class=" card-image-fix" src="images/rating.png" alt="Card image cap">&nbsp;<span>' + data.avgRating + ' Rating</span></div></div><div class="card-body"><p class="card-text">' + data.professionalBody + '</p></div></div></div>';
+
+          });
+        } else {
+          htmlData = '<div class="not-found"><p>Not Found !!</p></div>';
+        }
+        $('.professional-find-list #filter_data').html(htmlData);
+      }
+    });
+  });
+
+  //$("#professional-search-btn").click(function (e) {
+    $('.professional-search-form-sec #professional-search-form').on('submit', function (e) {
+      e.preventDefault();
+      $('.loader-box').attr('style','display:flex !important');
+    var searchVal = $('.professional-search-form-sec .professional-search').val();
+    $.ajax({
+      type: "GET",
+      data: {
+        searchKeyword: searchVal
+      },
+      url: "/professionals-searchbar",
+      cache: false,
+      success: function (html) {
+        $('.loader-box').attr('style','display:none !important');
+        console.log('result:', html.filterData)
+        var htmlData = '';
+        if (html.filterData.length > 0) {
+          $.each(html.filterData, function (i, data) {
+            console.log('val:', data)
+            htmlData += '<div class="col-lg-3"><div class="card card-fix2"><div class="row"><div class="float-left card-header-fix"> <a href="/professionals-detail?id=' + data._id + '"> <img class="card-img-top" src="images/recent-user-2.png" alt="Card image cap"> </a></div><div class="float-right card-content-fix"><h5> ' + data.sps_fullname + '</h5><p> ' + data.sps_role_name + '</p></div></div><hr class="divider"><div class="row"><div class="float-left card-icon-fix"> <img class=" card-image-fix" src="images/experience.png" alt="Card image cap">&nbsp;<span> ' + data.sps_experience + ' years </span></div><div class="float-right card-icon-fix2"> <img class=" card-image-fix" src="images/rating.png" alt="Card image cap">&nbsp;<span>' + data.avgRating + ' Rating</span></div></div><div class="card-body"><p class="card-text">' + data.professionalBody + '</p></div></div></div>';
+
+          });
+        } else {
+          htmlData = '<div class="not-found"><p>Not Found !!</p></div>';
+        }
+        $('.professional-find-list #filter_data').html(htmlData);
+      }
+    });
+  });
+
+
+</script>
+
+<!-- 
+===========================
+Track your progess 
+=========================== -->
+
+<script>
+  // $(document).ready(function () {
+  //   $(".sidenav ul li").click(function () {
+  //     $(".sidenav ul li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+  // $(document).ready(function () {
+  //   $(".right-navbar li").click(function () {
+  //     $("right-navbar li").removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+</script>
+
+
+
+<!-- =============================
+Phase-B
+============================== -->
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseB").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseB").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseB").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseB").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseB").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseB").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+<!-- ===================
+Phase-C
+=================== -->
+
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseC").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseC").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseC").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseC").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseC").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseC").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+
+<!-- ==============================
+Pahse-D
+============================== -->
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseD").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseD").serialize();
+  console.log(formData)
+  if (formData) {
+    // $.ajax({
+    //   type: "POST",
+    //   data: formData,
+    //   url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+    //   cache: false,
+    //   success: function (data) {
+    //     if (data.status == false) {
+
+    //       Swal.fire({
+    //         // position: 'top-end',
+    //         icon: 'error',
+    //         title: data.err_msg,
+    //         showConfirmButton: true,
+    //         confirmButtonColor: '#005377'
+    //         //timer: 1500
+    //       })
+
+
+    //     } else {
+
+    //       console.log('meserrmessagesage:', data.success_msg)
+
+
+    //       Swal.fire({
+    //         // position: 'top-end',
+    //         icon: 'success',
+    //         title: data.success_msg,
+    //         showConfirmButton: false,
+    //         confirmButtonColor: '#005377',
+    //         timer: 3000
+    //       })
+    //       location.reload(true)
+    //       $('#notes,#duedate').val('');
+
+
+    //     }
+
+    //   }
+    // });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseD").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseD").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseD").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseD").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+<!-- ====================
+Phase-E 
+=========================== -->
+
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseE").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseE").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseE").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseE").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseE").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseE").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+<!-- =======================
+Phase-F 
+======================= -->
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseF").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseF").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseF").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseF").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseF").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseF").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+
+<!-- ====================
+Phase-G 
+==================== -->
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseG").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseG").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseG").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseG").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseG").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseG").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+<!-- =============================
+Phase-H 
+============================= -->
+
+
+<script language="javascript" type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var val = getParameterByName('id');
+  //alert(val)
+  var scrt_var = val; 
+</script>
+
+
+<script>
+
+$(document).ready(function () {
+// $(".add-professionals").click(function (e) {
+//   $.ajax({
+//     type: "GET",
+//     url: "/api/addTask",
+//     cache: false,
+//     success: function (data) {
+//       console.log(data)
+//       var htmlData = '';
+//       $(".ppts_property_id").val(data.property_id);
+//       var phasename=$('.phsename').val()
+//       //alert(phasename)
+//       $('.ppts_phase_name').val(phasename)
+//       htmlData += '<option value="">Select Hired professional</option>';
+//       if (data.data.length > 0) {
+//         $.each(data.data, function (i, data) {
+//           console.log('val:', data)
+//           htmlData += '<option value="' + data._id + '">' + data.sps_fullname + '</option>';
+//         });
+//       }
+//       $('.add_task_mydreamhome_detial_phase').html(htmlData);
+//     }
+//   });
+// })
+// $(".cancel_task_btn").click(function(e){
+//   $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+// })
+// $("#add_task_submit_form").on('submit', function (e) {
+ 
+//   e.preventDefault();
+//   var formData = $("#add_task_submit_form").serialize();
+
+//   if (formData) {
+//     $.ajax({
+//       type: "POST",
+//       data: formData,
+//       url: "/api/addTask_from_Dreamhome_detial_phase",
+//       cache: false,
+//       success: function (data) {
+//         if (data.status == false) {
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'error',
+//             title: data.err_msg,
+//             showConfirmButton: true,
+//             confirmButtonColor: '#005377'
+//             //timer: 1500
+//           })
+
+
+//         } else {
+
+//           console.log('meserrmessagesage:', data.success_msg)
+
+
+//           Swal.fire({
+//             // position: 'top-end',
+//             icon: 'success',
+//             title: data.success_msg,
+//             showConfirmButton: false,
+//             confirmButtonColor: '#005377',
+//             timer: 3000
+//           })
+//           location.reload(true)
+//           $('#ppts_task_name,#ppts_note,#ppts_due_date').val('');
+
+
+//         }
+
+//       }
+//     });
+
+//   } else {
+//     alert('some thing wrong')
+//   }
+// })
+//buyer==================
+// $(".cancel_existing_task_btn").click(function(e){
+//   $('#notes,#duedate').val('');
+// })
+$("#Add_existing_task_form_buyerPhaseH").on('submit', function (e) {
+  e.preventDefault()
+  //alert('1')
+  var formData = $("#Add_existing_task_form_buyerPhaseH").serialize();
+  console.log(formData)
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//buyer end===============
+//seller existing ==========
+$("#Add_existing_task_form_sellerPhaseH").on('submit', function (e) {
+  e.preventDefault()
+  //alert('seller A')
+  var formData = $("#Add_existing_task_form_sellerPhaseH").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//seller existing end=============
+//renoverot existing start=========
+$("#Add_existing_task_form_renovatorPhaseH").on('submit', function (e) {
+  e.preventDefault()
+  //alert('renovetor A')
+  var formData = $("#Add_existing_task_form_renovatorPhaseH").serialize();
+  console.log(formData)
+  //return;
+  if (formData) {
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "/api/Add_existing_task_from_Dreamhome_detial_phase",
+      cache: false,
+      success: function (data) {
+        if (data.status == false) {
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'error',
+            title: data.err_msg,
+            showConfirmButton: true,
+            confirmButtonColor: '#005377'
+            //timer: 1500
+          })
+
+
+        } else {
+
+          console.log('meserrmessagesage:', data.success_msg)
+
+
+          Swal.fire({
+            // position: 'top-end',
+            icon: 'success',
+            title: data.success_msg,
+            showConfirmButton: false,
+            confirmButtonColor: '#005377',
+            timer: 3000
+          })
+          location.reload(true)
+          $('#notes,#duedate').val('');
+
+
+        }
+
+      }
+    });
+
+  } else {
+    alert('some thing wrong')
+  }
+})
+//renovetor end============
+})
+</script>
+
+<script>
+function phaseTaskList(data,active_user_login){
+console.log('muuuu:',data.value);
+
+$('.phase_task_list').multiselect('refresh');
+$(".phase_task_list").selectedIndex = -1;           
+$('.phase_task_list').multiselect('deselectAll', false);
+$('.phase_task_list').multiselect('updateButtonText');
+
+  if( data.value !='other'){
+      var opt = data.options[data.selectedIndex];
+        var phaseId = parseInt(opt.dataset.phase);
+      console.log('phaseId:',phaseId);
+      $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group,.task_option').css('display','none');
+      $('input#taskName').css('display','block');
+      if(isNaN(phaseId)){
+        $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group').css('display','none');
+      }else{
+        var ppts_phase_flag='';
+        if(phaseId == 0){ ppts_phase_flag='A'; }else if(phaseId == 1){ ppts_phase_flag='B'; }else if(phaseId == 2){ ppts_phase_flag='C'; }else if(phaseId == 3){ ppts_phase_flag='D'; }else if(phaseId == 4){ ppts_phase_flag='E'; }else if(phaseId == 5){ ppts_phase_flag='F'; }else if(phaseId == 6){ ppts_phase_flag='G'; }else if(phaseId == 7){ ppts_phase_flag='H'; }else if(phaseId == 8){ ppts_phase_flag='I'; }else if(phaseId == 9){ ppts_phase_flag='J'; }
+        $('#addTaskForm #ppts_phase_flag,#addTaskForm_mydreamhome_detial #ppts_phase_flag').val(ppts_phase_flag);
+        if(active_user_login == 'buyer'){
+            $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group').css('display','block');
+            $('.buyer_phase_task_list .phase_task_list_'+phaseId).css('display','block');
+          }else if(active_user_login == 'seller'){
+            $('.seller_phase_task_list .phase_task_list_'+phaseId).css('display','block');
+            $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group').css('display','block');
+          }else if(active_user_login == 'renovator'){
+            $('.renovator_phase_task_list .phase_task_list_'+phaseId).css('display','block');
+            $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group').css('display','block');
+          }else{
+            $('#addTaskForm .btn-group,#addTaskForm_mydreamhome_detial .btn-group').css('display','none');
+          }
+      }
+  }
+}
+
+function SelectedTaskList(data){
+  if(data.value){
+      
+      $('input#taskName').css('display','none');
+      $('input#taskName').removeAttr('required','required');
+  }else{
+      $('input#taskName').css('display','block');
+      $('input#taskName').attr('required','required');
+  }
+}
+
+
+function get_selected_phase_existingTask(ppts_phase_flag,active_user_login,data){
+          console.log('PhaseName:',ppts_phase_flag);    
+          console.log('active_user_login:',active_user_login);    
+          var ppts_property_id = $(data).data('ppts_property_id');
+          console.log('ppts_property_id:',ppts_property_id);    
+          if(active_user_login == 'buyer'){
+           // var opt = data.options[data.selectedIndex];
+            //var ppts_property_id = opt.dataset.ppts_property_id;
+            //professionalPhaseH
+            //renovatorPhaseH
+            //sellerPhaseF
+            console.log('Inside Buyer');
+            $.ajax({
+              type: "GET",
+              data: {
+                ppts_phase_flag:ppts_phase_flag,
+                ppts_property_id:ppts_property_id,
+                ppts_assign_to:data.value,
+                ppts_is_active_user_flag:active_user_login
+              },
+              url: "/get_phase_task_list",
+              cache: false,
+              success: function (data) {
+                 var ExistingTasks =[];
+                $("#buyerPhase"+ppts_phase_flag+" .check-permission .task_element").each(function(){
+                       ExistingTasks.push($(this).val());
+                });
+                console.log('ExistingTasks list:',ExistingTasks);
+                     console.log('Getphasetask list:',data);
+                     var taskList= data.taskObject;
+                     if(taskList.length > 0){
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                            for(var i=0; i<taskList.length; i++ ){
+                              console.log('loop list:',taskList[i]);
+                              console.log('loop list:',taskList[i].ppts_task_name);
+                              const isInArray = ExistingTasks.includes(taskList[i].ppts_task_name);
+                              console.log('isInArray:',isInArray);
+                              if(isInArray){
+                                     $('#buyerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').prop('checked', true);
+                                     $('#buyerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onclick','return false');
+                                     $('#buyerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onkeydown','return false');
+                              }
+                            }
+                     }else{
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#buyerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                     }
+              }
+            });
+          }else if(active_user_login == 'seller'){
+console.log('Inside Seller');
+            $.ajax({
+              type: "GET",
+              data: {
+                ppts_phase_flag:ppts_phase_flag,
+                ppts_property_id:ppts_property_id,
+                ppts_assign_to:data.value,
+                ppts_is_active_user_flag:active_user_login
+              },
+              url: "/get_phase_task_list",
+              cache: false,
+              success: function (data) {
+                console.log('ddfdfdfddd:',"#sellerPhase"+ppts_phase_flag+" .check-permission .task_element");
+                 var ExistingTasks =[];
+                $("#sellerPhase"+ppts_phase_flag+" .check-permission .task_element").each(function(){
+                       ExistingTasks.push($(this).val());
+                });
+                console.log('ExistingTasks list:',ExistingTasks);
+                     console.log('Getphasetask list:',data);
+                     var taskList= data.taskObject;
+                     if(taskList.length > 0){
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                            for(var i=0; i<taskList.length; i++ ){
+                              console.log('loop list:',taskList[i]);
+                              console.log('loop list:',taskList[i].ppts_task_name);
+                              const isInArray = ExistingTasks.includes(taskList[i].ppts_task_name);
+                              console.log('isInArray:',isInArray);
+                              if(isInArray){
+                                     $('#sellerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').prop('checked', true);
+                                     $('#sellerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onclick','return false');
+                                     $('#sellerPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onkeydown','return false');
+                              }
+                            }
+                     }else{
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#sellerPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                     }
+              }
+            });
+
+          }else if(active_user_login == 'renovator'){
+            console.log('Inside renovator');
+            $.ajax({
+              type: "GET",
+              data: {
+                ppts_phase_flag:ppts_phase_flag,
+                ppts_property_id:ppts_property_id,
+                ppts_assign_to:data.value,
+                ppts_is_active_user_flag:active_user_login
+              },
+              url: "/get_phase_task_list",
+              cache: false,
+              success: function (data) {
+                 var ExistingTasks =[];
+                $("#renovatorPhase"+ppts_phase_flag+" .check-permission .task_element").each(function(){
+                       ExistingTasks.push($(this).val());
+                });
+                console.log('ExistingTasks list:',ExistingTasks);
+                     console.log('Getphasetask list:',data);
+                     var taskList= data.taskObject;
+                     if(taskList.length > 0){
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                            for(var i=0; i<taskList.length; i++ ){
+                              console.log('loop list:',taskList[i]);
+                              console.log('loop list:',taskList[i].ppts_task_name);
+                              const isInArray = ExistingTasks.includes(taskList[i].ppts_task_name);
+                              console.log('isInArray:',isInArray);
+                              if(isInArray){
+                                     $('#renovatorPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').prop('checked', true);
+                                     $('#renovatorPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onclick','return false');
+                                     $('#renovatorPhase'+taskList[i].ppts_phase_flag+' input[value="' + taskList[i].ppts_task_name + '"]').attr('onkeydown','return false');
+                              }
+                            }
+                     }else{
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').prop('checked', false);
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onclick');
+                        $('#renovatorPhase'+ppts_phase_flag+' .check-permission .task_element').removeAttr('onkeydown');
+                     }
+              }
+            });
+
+          }else{
+                    console.log('Nothig selected in task and usert type')
+          }
+}
+</script>
+</body>
+</html>

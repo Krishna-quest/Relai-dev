@@ -27,6 +27,9 @@ const ComplaintsDetailSchema = new Schema({
   comsd_complaint_filename: {
     type: String
   },
+  comsd_complaint_filetype: {
+    type: String
+  },
   comsd_created_at: {
     type: Date,
     default: Date.now

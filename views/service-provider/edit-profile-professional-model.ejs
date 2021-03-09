@@ -1,0 +1,174 @@
+<!-- Model for professional Chat-->
+<div class="modal fade permission-modal" id="professionalprofile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title text-center"> Edit Professional profile</h2>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="todo-list-table">
+          <table class="table table-responsive ">
+            <thead>
+              <tr>
+                <th style="width:88%"> Profile Steps</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png">
+                      Personal-details </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Personal-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-2" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png"> Other-details
+
+                    </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Other-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-3" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png"> Education-details
+                    </label></a>
+                </td>
+                <td>
+                  <a href="/signup-professionals-profile-3" class="" id="Education-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-4" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png">
+                      Employment-history-details
+                    </label></a>
+                </td>
+                <td>
+                  <a href="/signup-professionals-profile-4" class="" id="Employment-history-details"> <i
+                      class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-5" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png"> Reference-details
+
+                    </label></a>
+                </td>
+                <td>
+                  <a href="/signup-professionals-profile-5?editid=<%= session.user_id%>" class="" id="Reference-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-6" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png"> Identimity-details
+
+                    </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Identimity-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/signup-professionals-profile-7" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png"> Language-details
+
+                    </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Language-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/portfolio" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png">
+                      Portfolio
+
+                    </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Portfolio"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/kyc-professional" alt=""><label class="check-permission font-color-fix"><img
+                        src="../images/recent-user-1.png">
+                      Kyc-details
+                    </label></a>
+                </td>
+                <td>
+                  <a href="#" class="" id="Kyc-details"> <i class="fa fa-edit edit-profile-icon "></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+          <!--<button type="button" class="btn btn-cancel" data-dismiss="modal">Save</button> -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal permission-modal fade " id="changePasswordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="form" action="/api/professional-change-password" method="POST" id="changePasswordForm2">
+        <!-- Modal Header -->
+        <div class="modal-header text-center">
+          <h2 class="modal-title w-100">Change Password</h2>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+          <input type="hidden" name="customer_id" value="<%=session.user_id%>">
+          <div class=" col">
+            <div class="col-sm-12 col-lg-12">
+              <input type="password" class="form-control form-control-fix2" id="oldPassword" placeholder="Old Password"
+                name="oldPassword" value="" data-rule-required="true" data-msg-required="Old Password is required!">
+            </div>
+            <div class="col-sm-12 col-lg-12">
+              <input type="password" class="form-control form-control-fix2" id="newPassword" placeholder="New Password"
+                name="sps_password" value="" data-rule-required="true" data-msg-required="New Password is required!">
+            </div>
+            <div class="col-sm-12 col-lg-12">
+              <input type="password" class="form-control form-control-fix2" id="confirmPassword"
+                placeholder="confirm Password" name="confirmPassword" value="" data-rule-required="true"
+                data-msg-required="confirm password">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+          <button name="submit" type="submit" class="btn btn-cancel">Update</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

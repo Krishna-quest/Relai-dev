@@ -1,0 +1,374 @@
+  <script type="text/javascript">
+$(document).ready(function(){
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var opacity;
+  $(".next").click(function(){
+    var nextid = $(this).attr("id");
+   if(nextid=='1step'){
+      var first_name = $('input#first_name').val();
+      var middle_name = $('input#middle_name').val();
+      var last_name = $('input#last_name').val();
+      var father_name = $('input#father_name').val();
+      var mother_name = $('input#mother_name').val();
+      var gender = $('select#gender').val();
+      var marital_status = $('select#marital_status').val();
+     var dob = $('input#dob').val();
+     var email = $('input#email').val();
+     var age = $('input#age').val();
+     var mobile_number = $('input#mobile_number').val();
+     var alternate_mobile = $('input#alternate_mobile').val();
+     var reference_name = $('input#reference_name').val();
+     var reference_mobile = $('input#reference_mobile').val();
+
+      var residence_type = $('#residence_type').val();
+       var address = $('input#address').val();
+            var locality = $('input#locality').val();
+            var zip_code = $('input#zip_code').val();
+            var landmark = $('input#landmark').val();
+            var landmark = $('input#landmark').val();
+             var bfl_branch = $('input#bfl_branch').val();
+             var state = $('input#state').val();
+
+
+
+      $("input#first_name").keypress(function(){
+        $('input#first_name').css("border", "1px solid #f1f6f8");
+      });
+      $("input#middle_name").keypress(function(){
+        $('input#middle_name').css("border", "1px solid #f1f6f8");
+      });
+      $("input#last_name").keypress(function(){
+        $('input#last_name').css("border", "1px solid #f1f6f8");
+      });
+      $("input#father_name").keypress(function(){
+        $('input#father_name').css("border", "1px solid #f1f6f8");
+      });
+      $("input#mother_name").keypress(function(){
+        $('input#mother_name').css("border", "1px solid #f1f6f8");
+      });
+      $("select#gender").change(function(){
+        var gender = $(this).children("option:selected").val();
+        $('select#gender').css("border", "1px solid #f1f6f8");
+      });
+      $("select#marital_status").change(function(){
+        var marital_status = $(this).children("option:selected").val();
+        $('select#marital_status').css("border", "1px solid #f1f6f8");
+      });
+       $("input#dob").keypress(function(){
+        $('input#dob').css("border", "1px solid #f1f6f8");
+      });
+      $("input#email").keypress(function(){
+        $('input#email').css("border", "1px solid #f1f6f8");
+      });
+       $("input#age").keypress(function(){
+        $('input#age').css("border", "1px solid #f1f6f8");
+      });
+       $("input#mobile_number").keypress(function(){
+        $('input#mobile_number').css("border", "1px solid #f1f6f8");
+      });
+        $("input#alternate_mobile").keypress(function(){
+        $('input#alternate_mobile').css("border", "1px solid #f1f6f8");
+      });
+      $("input#reference_name").keypress(function(){
+        $('input#reference_name').css("border", "1px solid #f1f6f8");
+      }); 
+      $("input#reference_mobile").keypress(function(){
+        $('input#reference_mobile').css("border", "1px solid #f1f6f8");
+      });
+           $("#residence_type").keypress(function(){
+        $('#residence_type').css("border", "1px solid #f1f6f8");
+      });
+      $("#address").keypress(function(){
+        $('#address').css("border", "1px solid #f1f6f8");
+      });
+      $("#locality").keypress(function(){
+        $('#locality').css("border", "1px solid #f1f6f8");
+      });
+       $("#zip_code").keypress(function(){
+        $('#zip_code').css("border", "1px solid #f1f6f8");
+      });
+       $("#landmark").keypress(function(){
+        $('#landmark').css("border", "1px solid #f1f6f8");
+      });
+          $("#bfl_branch").keypress(function(){
+        $('#bfl_branch').css("border", "1px solid #f1f6f8");
+      });
+                 $("#state").keypress(function(){
+        $('#state').css("border", "1px solid #f1f6f8");
+      });
+       
+       
+      if(first_name==''){
+         $('input#first_name').css("border", "1px solid red");
+      }else if(middle_name==''){
+          $('input#middle_name').css("border", "1px solid red");
+      }else if(last_name==''){
+          $('input#last_name').css("border", "1px solid red");
+      }else if(father_name==''){
+          $('input#father_name').css("border", "1px solid red");
+      }else if(mother_name==''){
+          $('input#mother_name').css("border", "1px solid red");
+      }else if(gender==''){
+       $('select#gender').css("border", "1px solid red");
+      }else if(marital_status==''){
+          $('select#marital_status').css("border", "1px solid red");
+      }else if(dob==''){
+          $('input#dob').css("border", "1px solid red");
+      }else if(email==''){
+          $('input#email').css("border", "1px solid red");
+      }else if(age==''){
+          $('input#age').css("border", "1px solid red");
+      }else if(mobile_number==''){
+          $('input#mobile_number').css("border", "1px solid red");
+      }else if(alternate_mobile==''){ 
+          $('input#alternate_mobile').css("border", "1px solid red");
+      }else if(reference_name==''){
+          $('input#reference_name').css("border", "1px solid red");
+      }else if(reference_mobile==''){
+          $('input#reference_mobile').css("border", "1px solid red");
+      }else if(residence_type==''){
+          $('#residence_type').css("border", "1px solid red");
+      }else if(address==''){ 
+          $('#address').css("border", "1px solid red");
+      }else if(locality==''){
+          $('#locality').css("border", "1px solid red");
+      }else if(zip_code==''){
+          $('#zip_code').css("border", "1px solid red");
+      }else if(landmark==''){
+          $('#landmark').css("border", "1px solid red");
+      }else if(bfl_branch==''){
+          $('#bfl_branch').css("border", "1px solid red");
+      }else if(state==''){
+          $('#state').css("border", "1px solid red");
+      }else{     
+        current_fs = $(this).parent();
+          next_fs = $(this).parent().next();
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+          //show the next fieldset
+          next_fs.show();
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+          step: function(now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+          'display': 'none',
+          'position': 'relative'
+          });
+          next_fs.css({'opacity': opacity});
+          },
+          duration: 600
+          });
+      }
+    }else if(nextid=='2step'){
+      var employment_type = $('select#employment_type').val();
+       var other_company = $('#other_company').val();
+       var company_name = $('input#company_name').val();
+       var designation = $('input#designation').val();
+       var company_nature = $('input#company_nature').val();
+       var qualification = $('select#qualification').val();
+       var monthly_income = $('input#monthly_income').val();
+       var dealer_responsibility = $('select#dealer_responsibility').val();
+       
+      
+
+      
+      $("select#employment_type").change(function(){
+        var employment_type = $(this).children("option:selected").val();
+        $('select#employment_type').css("border", "1px solid #f1f6f8");
+      });
+      $("input#other_company").keypress(function(){
+        $('input#other_company').css("border", "1px solid #f1f6f8");
+      });
+      $("input#company_name").keypress(function(){
+        $('input#company_name').css("border", "1px solid #f1f6f8");
+      });
+      $("input#designation").keypress(function(){
+        $('input#designation').css("border", "1px solid #f1f6f8");
+      });
+      $("input#company_nature").keypress(function(){
+        $('input#company_nature').css("border", "1px solid #f1f6f8");
+      });
+      $("input#qualification").keypress(function(){
+        $('input#qualification').css("border", "1px solid #f1f6f8");
+      });
+       $("select#qualification").change(function(){
+        var qualification = $(this).children("option:selected").val();
+        $('select#qualification').css("border", "1px solid #f1f6f8");
+      });
+      $("input#monthly_income").keypress(function(){
+        $('input#monthly_income').css("border", "1px solid #f1f6f8");
+      });
+      $("select#qualification").change(function(){
+        var qualification = $(this).children("option:selected").val();
+        $('select#qualification').css("border", "1px solid #f1f6f8");
+      });
+      $("input#dealer_responsibility").keypress(function(){
+        $('input#dealer_responsibility').css("border", "1px solid #f1f6f8");
+      });
+
+var employment_type = $('select#employment_type').val();
+       var other_company = $('#other_company').val();
+       var company_name = $('input#company_name').val();
+       var designation = $('input#designation').val();
+       var company_nature = $('input#company_nature').val();
+       var qualification = $('select#qualification').val();
+       var monthly_income = $('input#monthly_income').val();
+       var dealer_responsibility = $('select#dealer_responsibility').val();
+
+
+      if(employment_type==''){
+         $('select#employment_type').css("border", "1px solid red");
+      }else if(company_name==''){
+          $('input#company_name').css("border", "1px solid red");
+      }else if(designation==''){
+          $('input#designation').css("border", "1px solid red");
+      }else if(company_nature==''){
+          $('input#company_nature').css("border", "1px solid red");
+      }else if(qualification==''){
+          $('select#qualification').css("border", "1px solid red");
+      }else if(monthly_income==''){
+          $('input#monthly_income').css("border", "1px solid red");
+      }else if(dealer_responsibility==''){
+          $('input#dealer_responsibility').css("border", "1px solid red");
+      }else{
+        current_fs = $(this).parent();
+          next_fs = $(this).parent().next();
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+          //show the next fieldset
+          next_fs.show();
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+          step: function(now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+          'display': 'none',
+          'position': 'relative'
+          });
+          next_fs.css({'opacity': opacity});
+          },
+          duration: 600
+          });
+      }
+    }else if(nextid=='3step'){
+       var poi_type = $('select#poi_type').val();
+       
+      
+
+      // $("input#first_name").keypress(function(){
+      //   $('input#first_name').css("border", "1px solid #f1f6f8");
+      // });
+      $("select#poi_type").change(function(){
+        var employment_type = $(this).children("option:selected").val();
+        $('select#poi_type').css("border", "1px solid #f1f6f8");
+      });
+     
+      if(poi_type==''){
+         $('select#poi_type').css("border", "1px solid red");
+      }else{
+        current_fs = $(this).parent();
+          next_fs = $(this).parent().next();
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+          //show the next fieldset
+          next_fs.show();
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+          step: function(now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+          'display': 'none',
+          'position': 'relative'
+          });
+          next_fs.css({'opacity': opacity});
+          },
+          duration: 600
+          });
+      }
+    }else if(nextid=='4step'){
+      
+       var select_dealer = $('select#select_dealer').val();
+      
+
+      // $("input#first_name").keypress(function(){
+      //   $('input#first_name').css("border", "1px solid #f1f6f8");
+      // });
+      $("select#select_dealer").change(function(){
+        var select_dealer = $(this).children("option:selected").val();
+        $('select#select_dealer').css("border", "1px solid #f1f6f8");
+      });
+     
+      if(select_dealer==''){
+         $('select#select_dealer').css("border", "1px solid red");
+      }else{
+          current_fs = $(this).parent();
+          next_fs = $(this).parent().next();
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+          //show the next fieldset
+          next_fs.show();
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+          step: function(now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+          'display': 'none',
+          'position': 'relative'
+          });
+          next_fs.css({'opacity': opacity});
+          },
+          duration: 600
+          });
+      }
+    }
+
+});
+
+$(".previous").click(function(){
+current_fs = $(this).parent();
+previous_fs = $(this).parent().prev();
+//Remove class active
+$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+//show the previous fieldset
+previous_fs.show();
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+step: function(now) {
+// for making fielset appear animation
+opacity = 1 - now;
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+previous_fs.css({'opacity': opacity});
+},
+duration: 600
+});
+});
+
+// $('.radio-group .radio').click(function(){
+// $(this).parent().find('.radio').removeClass('selected');
+// $(this).addClass('selected');
+// });
+
+$(".submit").click(function(){
+  alert();
+return false;
+})
+
+});
+
+</script>

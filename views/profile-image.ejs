@@ -1,6 +1,6 @@
 <div class="user-profile">
   <% if(session.imagename=='' ){%>
-    <img src="images/profile.png" alt="" class="profile-image" title="">
+    <img src="images/img_avatar.png" alt="" class="profile-image" title="">
     <%} else{%>
       <img src="/upload/<%= session.imagename%>" alt="" title="" class="profile-image" value="">
       <%} %>

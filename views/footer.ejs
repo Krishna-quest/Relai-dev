@@ -60,7 +60,7 @@
             <p class="copy-right mobile-none">Copyright © 2020 by <a href="#">Relai</a>.&nbsp; All Rights Reserved.
             </p>
             <div class="btns-signin-signup desktop-none">
-              <a href="/signin" class="btn btn-signin">Sign in</a>
+              <a href="/signin-intro" class="btn btn-signin">Sign in</a>
               <a href="/intro" class="btn btn-signup">Sign up</a>
             </div>
           </div>
@@ -68,7 +68,7 @@
         <div class="col-sm-6 col-lg-6">
           <p class="copy-right desktop-none">Copyright © 2020 by <a href="#">Relai</a>.&nbsp; All Rights Reserved.</p>
           <div class="btns-signin-signup mobile-none">
-            <a href="/signin" class="btn btn-signin">Sign in</a>
+            <a href="/signin-intro" class="btn btn-signin">Sign in</a>
             <a href="/intro" class="btn btn-signup">Sign up</a>
           </div>
         </div>
@@ -212,32 +212,32 @@
     document.documentElement.scrollTop = 0;
   }
 </script>
-  <script>
-         function myFunction() {
-           var x = document.getElementById("myDIV");
-           if (x.style.display === "none") {
-             x.style.display = "block";
-           } else {
-             x.style.display = "none";
-           }
-             var y = document.getElementById("myDIV2");
-           if (y.style.display === "block") {
-             y.style.display = "none";
-           } else {
-             y.style.display = "block";
-           }
-         }
-      </script>
+<script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+    var y = document.getElementById("myDIV2");
+    if (y.style.display === "block") {
+      y.style.display = "none";
+    } else {
+      y.style.display = "block";
+    }
+  }
+</script>
 
 
-      <script type="text/javascript">
-        
+<script type="text/javascript">
 
-        $('.add-active').on('click', function(){
+
+  $('.add-active').on('click', function () {
     $('.add-active').removeClass('current');
     $(this).addClass('current');
-});
-      </script>
+  });
+</script>
 </body>
 
 </html>

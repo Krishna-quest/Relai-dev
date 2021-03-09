@@ -13,7 +13,7 @@ const customerRoutes = require("./routes/api/customers");
 const serviceProviderRoutes = require("./routes/api/service_provider");
 const renderRouters = require("./routes/renderRoutes");
 const uploadsDocs = require("./routes/uploadsDocs");
-
+const spRoutes = require("./routes/spRoutes");
 
 
 const app = express();
@@ -84,7 +84,7 @@ app.use("/api", customerRoutes); //create three seprate api like buyerCustomerRo
 app.use("/api", serviceProviderRoutes);
 app.use("/", renderRouters);
 app.use("/", uploadsDocs);
-
+app.use('/', spRoutes);
 
 app.get('/', (req, res) => res.render('index'));
 

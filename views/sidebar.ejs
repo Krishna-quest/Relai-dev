@@ -16,10 +16,14 @@
         <a href="/mydreamhome"><img class="act-img" src="images/dreamhome-active.png"><img
             src="images/dreamhome.png"> My dream home</a>
       </li>
-      <li class="<%if(session.pagename=='mydreamhome-details-to-dos'){%>active<%}%>">
+      <!-- <li class="<%if(session.pagename=='mydreamhome-details-to-dos'){%>active<%}%>">
         <a href="/mydreamhome-details-to-dos"><img class="act-img" src="images/to-do-list-active.png"><img
-            src="images/to-do-list.png"> To do list</a>
-      </li>
+            src="images/to-do-list.png"> To do list </a>
+      </li> -->
+      <li class="<%if(session.pagename=='to-do-list'){%>active<%}%>">
+            <a href="/to-do-list"><img class="act-img" src="images/to-do-list-active.png"><img
+                src="images/to-do-list.png"> To do list </a>
+          </li>
       <li class="<%if(session.pagename=='complaints'){%>active<%}%>">
         <a href="/complaints"><img class="act-img" src="images/complaints-active.png"><img
             src="images/complaints.png"> My Complaint</a>

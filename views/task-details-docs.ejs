@@ -1,0 +1,395 @@
+<%- include('dashboard_header')-%>
+  <%- include('edit-profile-model')-%>
+    <!-- The Modal -->
+    <div class="modal fade permission-modal" data-backdrop="static" data-keyboard="false" id="changePermisionModal">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="permissionForm" action="" method="POST">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title text-center">Change Permissions</h2>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <input type="hidden" name="cust_id" class="cust_id" value="<%=session.user_id%>">
+              <input type="hidden" name="doc_id" class="doc_id" value="">
+
+              <div class="todo-list-table">
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th style="width:70%">Hired Professional</th>
+                      <th>View</th>
+                      <th>Download</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% var i=0; data.forEach(function(row){ %>
+
+                      <tr>
+                        <td><label class="check-permission"><img src="images/recent-user-1.png">
+                            <%= row.sps_fullname%>, <span>
+                                <%= row.sps_role_name%>
+                              </span>
+                          </label></td>
+                        <td> <label class="check-permission"><input type="checkbox"
+                              class="per_checkbox view_box_<%= row._id%>" onchange="viewPermission(this)"
+                              name="view_checkbox[]" class="chekbox" value="<%= row._id%>"
+                              data-property_id="<%= row.pps_property_id%>" data-user_id="<%= row.pps_user_id%>">
+                            <span class="checkmark"></span></label>
+                        </td>
+                        <td><label class="check-permission"><input type="checkbox"
+                              class="per_checkbox download_box_<%= row._id%>" onchange="downloadPermission(this)"
+                              name="download_checkbox[]" class="chekbox_1" value="<%= row._id%>"
+                              data-property_id="<%= row.pps_property_id%>" data-user_id="<%= row.pps_user_id%>">
+                            <span class="checkmark"></span></label>
+                        </td>
+                      </tr>
+                      <% i++; });%>
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div style="display: block;" class="modal-footer">
+              <span class="message_data"></span>
+              <button type="button" class="btn btn-cancel btn-cancel-changepermision">Close</button>
+              <!-- <button type="button" class="btn btn-cancel" id="change-permision-save-btn"
+              data-dismiss="modal">Save</button> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+
+              <%- include('profile-image')-%>
+
+                <div class="user-name">
+                  <h2>
+                    <%= session.name %>
+                  </h2>
+                  <a href="#">
+                    <%= session.email %>
+                      <%- include('edit-profile-icon')-%>
+                  </a>
+                </div>
+            </div>
+            <%- include('sidebar')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+            <div class="dashboard-inner">
+              <div class="row">
+                <div class="breadcumb">
+                  <ul>
+                    <li><a href="/mydreamhome-details?id=<%=session.property_id%>"><i class="fa fa-long-arrow-left"
+                          aria-hidden="true"></i> Back
+                        to <%=property.ps_property_name%></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="docs-files-section">
+                <div class="row">
+                  <div class="col-sm-12 col-lg-12">
+                    <div class="docs-files">
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <h2>Docs & Files</h2>
+                          <!-- <% if(typeof success_msg!="undefined" ){ %> <%= success_msg %> <% }%> -->
+                        </div>
+                        <form action="/upload-new-document" method="post" id="newDocumentform"
+                          enctype="multipart/form-data">
+
+                          <div class="float-right">
+                           
+                          
+                            <a href="#" class="upload-any"><img src="images/upload.png">
+                               <span>
+                                <div class="custom-file-input">
+                                  <input type="hidden" name="property_id" value='<%=property._id%>'
+                                    id="hiddenPropertyId">
+                                  <input onchange="previewFile(this);" type="file" id="image" name="new_Docs" value="" required>
+                                  <input type="button">
+                                </div>
+                              </span>
+                            </a>
+                          
+                            <button class="btn btn-add-property">Add New Document</button>
+                          </div>
+                        </form>
+                      </div>
+                      <ul class="docs-list">
+                        <span id="upload-doc-view"></span>
+                        <% allDocument.forEach(function(row){%>
+                          <%if(row.cuds_document_type=='image'){%>
+                            <li><a href="#"><img src="/upload/<%= row.cuds_document_name%>" alt="" title=""><br><span
+                                  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                  <%= row.cuds_document_name%>
+                                </span></a>
+                            </li>
+                          <%}else if(row.cuds_document_type=='pdf'){%> 
+                            <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/pdficon.png" alt="" title=""><br><span
+                              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                              <%= row.cuds_document_name%>
+                            </span></a>
+                            </li>
+                          <%}else if(row.cuds_document_type=='doc'){%>
+                            <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/docicon.png" alt="" title=""><br><span
+                              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                              <%= row.cuds_document_name%>
+                            </span></a>
+                            </li>
+                          <%}else if(row.cuds_document_type=='txt'){%>
+                            <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/txticon.png" alt="" title=""><br><span
+                              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                              <%= row.cuds_document_name%>
+                            </span></a>
+                            </li>
+                          <%}else if(row.cuds_document_type=='video'){%> 
+                            <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/videoicon.png" alt="" title=""><br><span
+                              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                              <%= row.cuds_document_name%>
+                            </span></a>
+                            </li>
+                          <%}%>
+                        <%});%>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="doc-table">
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th>Document Name</th>
+                      <th>Date</th>
+                      <th>Permissions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%if(allDocument.length==0){%>
+                      <tr><td><h5>Docs & Files Not Uploaded</h5></td></tr>
+                      <%}else{%>
+                    <% allDocument.forEach(function(row){ %>
+                      <%if(row.cuds_document_type=='image'){%>
+                        <tr>
+                          <td>
+                            <img class="pdf-file" src="/upload/<%= row.cuds_document_name%>">
+                            <p><span>
+                                <%= row.cuds_document_name%>
+                              </span>
+                              <%= row.cuds_document_size%>
+                            </p>
+                          </td>
+                          <td><span class="professionals-view">
+                              <%=moment.unix( row.cuds_created_at/1000).format("D MMM YYYY") %>| Downloaded by<ul>
+                                  <li class="dropdown"><a href="#" class="dropdown-toggle" type="button"
+                                      id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">2 professionals</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                        Jackson</a>
+                                      <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                        Jackson</a>
+                                    </div>
+                                  </li>
+                                </ul>
+                            </span></td>
+                          <td>
+                            <div class="recent-img">
+                              <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
+                                class="mr-10" src="images/recent-user-3.png">
+                              <!--data-toggle="modal" data-target="#changePermisionModal" -->
+                              <a href="javascript:void(0)" value="<%=row._id%>"
+                                class="getDocId changePermissionModal">Change permission</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <%}else if(row.cuds_document_type=='pdf'){ %> 
+                          <!-- <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/pdficon.png" alt="" title=""><br><span
+                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <%= row.cuds_document_name%>
+                          </span></a>
+                          </li> -->
+
+                          <tr>
+                            <td>
+                              <img class="pdf-file" src="images/pdficon.png">
+                              <p><span>
+                                  <%= row.cuds_document_name%>
+                                </span>
+                                <%= row.cuds_document_size%>
+                              </p>
+                            </td>
+                            <td><span class="professionals-view">
+                                <%=moment.unix( row.cuds_created_at/1000).format("D MMM YYYY") %>| Downloaded by<ul>
+                                    <li class="dropdown"><a href="#" class="dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">2 professionals</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                              </span></td>
+                            <td>
+                              <div class="recent-img">
+                                <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
+                                  class="mr-10" src="images/recent-user-3.png">
+                                <!--data-toggle="modal" data-target="#changePermisionModal" -->
+                                <a href="javascript:void(0)" value="<%=row._id%>"
+                                  class="getDocId changePermissionModal">Change permission</a>
+                              </div>
+                            </td>
+                          </tr>
+
+                        <%}else if(row.cuds_document_type=='doc'){ %>
+                          <!-- <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/docicon.png" alt="" title=""><br><span
+                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <%= row.cuds_document_name%>
+                          </span></a>
+                          </li> -->
+                          <tr>
+                            <td>
+                              <img class="pdf-file" src="images/docicon.png">
+                              <p><span>
+                                  <%= row.cuds_document_name%>
+                                </span>
+                                <%= row.cuds_document_size%>
+                              </p>
+                            </td>
+                            <td><span class="professionals-view">
+                                <%=moment.unix( row.cuds_created_at/1000).format("D MMM YYYY") %>| Downloaded by<ul>
+                                    <li class="dropdown"><a href="#" class="dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">2 professionals</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                              </span></td>
+                            <td>
+                              <div class="recent-img">
+                                <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
+                                  class="mr-10" src="images/recent-user-3.png">
+                                <!--data-toggle="modal" data-target="#changePermisionModal" -->
+                                <a href="javascript:void(0)" value="<%=row._id%>"
+                                  class="getDocId changePermissionModal">Change permission</a>
+                              </div>
+                            </td>
+                          </tr>
+                        <%}else if(row.cuds_document_type=='txt'){ %>
+                          <!-- <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/txticon.png" alt="" title=""><br><span
+                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <%= row.cuds_document_name%>
+                          </span></a>
+                          </li> -->
+                          <tr>
+                            <td>
+                              <img class="pdf-file" src="images/txticon.png">
+                              <p><span>
+                                  <%= row.cuds_document_name%>
+                                </span>
+                                <%= row.cuds_document_size%>
+                              </p>
+                            </td>
+                            <td><span class="professionals-view">
+                                <%=moment.unix( row.cuds_created_at/1000).format("D MMM YYYY") %>| Downloaded by<ul>
+                                    <li class="dropdown"><a href="#" class="dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">2 professionals</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                              </span></td>
+                            <td>
+                              <div class="recent-img">
+                                <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
+                                  class="mr-10" src="images/recent-user-3.png">
+                                <!--data-toggle="modal" data-target="#changePermisionModal" -->
+                                <a href="javascript:void(0)" value="<%=row._id%>"
+                                  class="getDocId changePermissionModal">Change permission</a>
+                              </div>
+                            </td>
+                          </tr>
+
+                        <%}else{%>
+
+                          <!-- <li><a download href="/upload/<%= row.cuds_document_name%>"><img src="images/videoicon.png" alt="" title=""><br><span
+                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <%= row.cuds_document_name%>
+                          </span></a>
+                          </li> -->
+
+                          <tr>
+                            <td>
+                              <!-- <video width="200" height="100" controls>
+                                <source src="/upload/<%= row.cuds_document_name%>" type="video/mp4">
+
+                              </video> -->
+                              <img class="pdf-file" src="images/videoicon.png">
+                              <p><span>
+                                  <%= row.cuds_document_name%>
+                                </span>
+                                <%= row.cuds_document_size%>
+                              </p>
+                            </td>
+                            <td><span class="professionals-view">
+                                <%=moment.unix( row.cuds_created_at/1000).format("D MMM YYYY") %>| Downloaded by<ul>
+                                    <li class="dropdown"><a href="#" class="dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">2 professionals</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                        <a class="dropdown-item" href="#"><img src="images/recent-user-3.png"> Alex
+                                          Jackson</a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                              </span></td>
+                              <td>
+                                <div class="recent-img">
+                                  <img src="images/recent-user-1.png"><img class="mr-10" src="images/recent-user-2.png"><img
+                                    class="mr-10" src="images/recent-user-3.png">
+                                  <!--data-toggle="modal" data-target="#changePermisionModal" -->
+                                  <a href="javascript:void(0)" value="<%=row._id%>"
+                                    class="getDocId changePermissionModal">Change permission</a>
+                                </div>
+                              </td>
+                          </tr>
+                          <%}%>
+                            <% });%>
+                            <%}%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <%- include('dashboard_footer')-%>

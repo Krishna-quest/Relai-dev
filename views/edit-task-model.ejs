@@ -1,0 +1,77 @@
+<!-- Model for add Existing Tasks for phase-a,b,c,d,e,f--->
+<div class="modal fade permission-modal" id="editTask">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id='edit_task_submit_form' name="edit_task_submit_form">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title text-center">Edit Task</h2>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+          <div class="todo-list-table">
+            <select class="form-control selectBox2 ppts_assign_to add_task_mydreamhome_detial_phase" style="height:48px"
+              id="add_task_mydreamhome_detial_phase" name="ppts_assign_to" data-rule-required="true"
+              data-msg-required="professional is required!">
+              <option value="">Select existing professional</option>
+              <option value="">
+                old Professional
+              </option>
+              <option value="">
+                old Professional
+              </option>
+            </select>
+            <select class="form-control selectBox2 ppts_new_assign_to add_task_mydreamhome_detial_phase"
+              style="height:48px" id="add_task_mydreamhome_detial_phase" name="ppts_new_assign_to">
+              <option value="">Select new professional</option>
+              <option value="">
+                new professional
+              </option>
+              <option value="">
+                new professional
+              </option>
+            </select>
+            <input type="hidden" name="ppts_property_id" class="ppts_property_id" value="">
+            <input type="hidden" name="ppts_phase_name" class="ppts_phase_name" value="">
+            <input type="text" class="form-control  form-control-fix2 ppts_task_name" id="ppts_task_name"
+              placeholder="Task Name" name="ppts_task_name" required>
+
+            <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2 ppts_due_date"
+              id="ppts_due_date" placeholder="Due on Date" name="ppts_due_date">
+
+            <textarea class="form-control  form-control-fix2 ppts_note" rows="2" name="ppts_note" id="ppts_note"
+              placeholder="Add Notes(If any)"></textarea>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel cancel_task_btn" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-cancel submit_task_btn" data-dismiss="">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p>
+          <%=row.ppts_note%>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,352 @@
+<%- include('dashboard_header_professional')-%>
+  <%- include('edit-profile-professional-model')-%>
+
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+              <div class="user-profile">
+                <img src="../images/user-3.png" alt="" title="">
+              </div>
+              <div class="user-name">
+                <h6>
+                  <%= session.name%>,<span><i>
+                        <%= session.role %>
+                      </i>
+                    </span>
+                </h6>
+
+                <a href="#"><i>
+                    <%= session.email%>
+                      <%- include('edit-profile-professional-icon')-%>
+                  </i></a>
+              </div>
+            </div>
+            <%- include('sidebar-professional')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+            <div class="upper-new-heading">
+              Track your progress
+            </div>
+            <div class="dashboard-inner loadmore">
+              <%if(propertyData.length>0){%>
+                <%propertyData.forEach(function(row,i){%>
+                <div class="docs-files-section progress-box">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="left-side-content-progress">
+                        <h3><%=row.ps_property_name%></h3>
+                        <p><img src="../images/dreamhome.png"> <%=row.ps_property_address%>, <%=row.ps_property_country_id%></p>
+                        <ul>
+                          <%if(row.user_image==undefined){%>
+                            <li><img src="../images/recent-user-2.png">
+                              <%}else{%>
+                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="<%=row.user_name%>"><img
+                                  src="../upload/<%=row.user_image%> " style="border-radius: 50%;"></a></li>
+                            <%}%> 
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="progress-line">
+                        <ul>
+                          <li class="progress-1"><a href="/service-provider/property-detail"><img
+                                src="../images/white-prgress=arrow.png"></a>
+                            <span>Phase
+                              A</span>
+                          </li>
+                          <li class="progress-2"><img src="../images/white-prgress=arrow.png"> <span>Phase B</span></li>
+                          <li class="progress-3"><img src="../images/white-prgress=arrow.png"> <span>Phase C</span></li>
+                          <li class="progress-4"><img src="../images/white-prgress=arrow.png"> <span>Phase D</span></li>
+                          <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase E</span></li>
+                          <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase F</span></li>
+                        </ul>
+                      </div>
+                      <div class="time-schedule">
+                        <ul>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              2 weeks
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              2 weeks
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              2 weeks
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              2 weeks
+                            </div>
+                          </li>
+                        </ul>
+                        <ul>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              5,000 $
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              5,000 $
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              5,000 $
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <img src="../images/track-active.png">
+                              5,000 $
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%})%>
+                <%}else{%>
+                  <p style="text-align: center; font-size: 20px;">Result Not Found !!</p>
+                  <%}%>
+                
+<!-- 
+
+              <div class="docs-files-section progress-box">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="left-side-content-progress">
+                      <h3>Nacary Apartment</h3>
+                      <p><img src="../images/dreamhome.png"> Sudhirman, Central Jakarta</p>
+                      <ul>
+                        <li><img src="../images/recent-user-1.png"></li>
+                        <li><img src="../images/recent-user-2.png"></li>
+                        <li><img src="../images/recent-user-3.png"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="progress-line">
+                      <ul>
+                        <li class="progress-1"><a href="/service-provider/property-detail"><img
+                              src="../images/white-prgress=arrow.png"></a>
+                          <span>Phase
+                            A</span>
+                        </li>
+                        <li class="progress-2"><img src="../images/white-prgress=arrow.png"> <span>Phase B</span></li>
+                        <li class="progress-3"><img src="../images/white-prgress=arrow.png"> <span>Phase C</span></li>
+                        <li class="progress-4"><img src="../images/white-prgress=arrow.png"> <span>Phase D</span></li>
+                        <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase E</span></li>
+                        <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase F</span></li>
+                      </ul>
+                    </div>
+                    <div class="time-schedule">
+                      <ul>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="docs-files-section progress-box">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="left-side-content-progress">
+                      <h3>Nacary Apartment</h3>
+                      <p><img src="../images/dreamhome.png"> Sudhirman, Central Jakarta</p>
+                      <ul>
+                        <li><img src="../images/recent-user-1.png"></li>
+                        <li><img src="../images/recent-user-2.png"></li>
+                        <li><img src="../images/recent-user-3.png"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="progress-line">
+                      <ul>
+                        <li class="progress-1"><a href="/service-provider/property-detail"><img
+                              src="../images/white-prgress=arrow.png">
+                          </a><span>Phase
+                            A</span></li>
+                        <li class="progress-2"><img src="../images/white-prgress=arrow.png"> <span>Phase B</span></li>
+                        <li class="progress-3"><img src="../images/white-prgress=arrow.png"> <span>Phase C</span></li>
+                        <li class="progress-4"><img src="../images/white-prgress=arrow.png"> <span>Phase D</span></li>
+                        <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase E</span></li>
+                        <li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase F</span></li>
+                      </ul>
+                    </div>
+                    <div class="time-schedule">
+                      <ul>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            2 weeks
+                          </div>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                        <li>
+                          <div>
+                            <img src="../images/track-active.png">
+                            5,000 $
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%-include('professional-footer')-%>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <!-- <script>
+        var start = 0;
+        var limit = 5;
+        var reachedMax = false;
+        //getPostData();
+        $(window).scroll(function (e) {
+          if ($(window).scrollTop() +1 >= $(document).height() - $(window).height()) {
+              //$('body').css('background','red');
+              getPostData();
+          }
+        });
+      //});
+      function getPostData(){
+        alert('1')
+        $.ajax({
+        url : '/service-provider/track-your-progress-professionals',
+        method: 'POST',
+        dataType: 'text',
+        cache:false,
+        data : {getData:1,start:start,limit:limit},
+        success:function(response){
+          if(response=="") {
+            //$(".loader-image").hide();
+            //$("#loadBtn").html("<button type='button' class='btn btn-success btn-outline'>That is All</button>");
+          }else{
+             start += limit;
+             var htmlData = '';
+             $.each(response.data, function (i, data) {
+              htmlData += '<div class="col-md-3"><div class="left-side-content-progress"><h3>Nacary Apartment</h3><p><img src="../images/dreamhome.png"> Sudhirman, Central Jakarta</p><ul><li><img src="../images/recent-user-1.png"></li><li><img src="../images/recent-user-2.png"></li><li><img src="../images/recent-user-3.png"></li></ul></div></div><div class="col-md-9"><div class="progress-line"><ul><li class="progress-1"><a href="/service-provider/property-detail"><imgsrc="../images/white-prgress=arrow.png"></a><span>PhaseA</span></li><li class="progress-2"><img src="../images/white-prgress=arrow.png"> <span>Phase B</span></li><li class="progress-3"><img src="../images/white-prgress=arrow.png"> <span>Phase C</span></li><li class="progress-4"><img src="../images/white-prgress=arrow.png"> <span>Phase D</span></li><li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase E</span></li><li class=""><img src="../images/white-prgress=arrow.png"> <span>Phase F</span></li></ul></div><div class="time-schedule"><ul><li><div><img src="../images/track-active.png">2 weeks</div></li><li><div><img src="../images/track-active.png">2 weeks</div></li><li><div><img src="../images/track-active.png">2 weeks</div></li><li><div><img src="../images/track-active.png">2 weeks</div></li></ul><ul><li><div><img src="../images/track-active.png">5,000 $</div></li><li><div><img src="../images/track-active.png">5,000 $</div></li><li><div><img src="../images/track-active.png">5,000 $</div></li><li><div><img src="../images/track-active.png">5,000 $</div></li></ul></div></div>';
+             })
+           // $(".loader-image").show();
+           //$('.loadmore').html(htmlData); 
+          }
+        }
+      });
+      }
+    </script> -->
+
+      </body>
+
+      </html>

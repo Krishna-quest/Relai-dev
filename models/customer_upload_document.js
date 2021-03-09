@@ -28,7 +28,7 @@ const CustomerUploadDocsSchema = new Schema({
 
   cuds_document_type: {
     type: String,
-    enum: ['image', 'video']
+    enum: ['image', 'video', 'pdf', 'doc', 'txt']
   },
   cuds_verification_status: {
     type: String,
@@ -49,7 +49,24 @@ const CustomerUploadDocsSchema = new Schema({
     type: String,
     enum: ['buyer', 'seller', 'renovator'],
   },
-
+  //==============================task fild==================
+  cuds_phase_name: {
+    type: String,
+    },
+    cuds_task_name: {
+    type: String,
+    },
+    cuds_task_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'property_professional_task'
+    },
+    cuds_service_provider_id: {
+    type: Schema.Types.ObjectId,
+    ref: "service_provider"
+    },
+    cuds_phase_flag: {
+    type: String,
+    }
 });
 
 module.exports = customersuploaddocs = mongoose.model('customersuploaddocs', CustomerUploadDocsSchema);

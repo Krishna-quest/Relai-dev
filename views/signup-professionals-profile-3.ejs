@@ -1,16 +1,16 @@
 <%- include('head')-%>
   <!-- The Modal -->
-  <div class="modal permission-modal fade " id="myModal">
+  <div class="modal permission-modal fade " data-backdrop="static" data-keyboard="false" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <form class="form" action="#" method="POST" id="educationForm">
-        <!-- Modal Header -->
-        <div class="modal-header text-center">
-          <h2 class="modal-title w-100">Add Education</h2>
-        </div>
-       
-        <!-- Modal body -->
-        <div class="modal-body">
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Add Education</h2>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
             <input type="hidden" name="serviceProviderUserId" value="<%=session.user_id%>">
             <input type="text" class="form-control form-control-fix2" id="schoolName"
               placeholder="School(ex: Oxford University)" name="spes_university_school_name" data-rule-required="true"
@@ -22,20 +22,22 @@
 
             <div class="row">
               <div class="col-sm-12 col-lg-6">
-                <input type="date" class="form-control  form-control-fix2" id="FromDate" placeholder="from Date"
-                  name="spes_from_date" data-rule-required="true" data-msg-required="From Date is required!">
+                <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2" id="FromDate"
+                  placeholder="from Date" name="spes_from_date" data-rule-required="true"
+                  data-msg-required="From Date is required!">
               </div>
               <div class="col-sm-12 col-lg-6">
-                <input type="date" class="form-control  form-control-fix2" id="toDate" placeholder="toDate"
-                  name="spes_to_date" data-rule-required="true" data-msg-required="To Date is required!">
+                <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2" id="toDate"
+                  placeholder="toDate" name="spes_to_date" data-rule-required="true"
+                  data-msg-required="To Date is required!">
               </div>
             </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
-          <button name="submit" type="submit" class="btn btn-cancel">Save</button>
-        </div>
+            <input type="hidden" name="education_id" value="" class="edit_education_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <button name="submit" type="submit" class="btn btn-cancel education_submit">Save</button>
+          </div>
 
         </form>
       </div>
@@ -159,7 +161,7 @@
               <div class="row">
                 <div class="col-sm-12 col-lg-9">
                   <div class="signup-header">
-                    <p>START FOR FREE</p>
+                    <!-- <p>START FOR FREE</p> -->
 
                   </div>
                 </div>
@@ -172,154 +174,291 @@
                 </div>
                 <div class="col-sm-12 col-lg-3">
                   <div class="page-count">
-                    <p> 3 of 6</p>
+                    <p> 3 of 7</p>
                   </div>
                 </div>
               </div>
-             
-                <% if(typeof err_msg!='undefined' ){ %>
-                  <span class="error_validate flash_msg" style="color: red; padding-bottom: 20px;">
-                    <%= err_msg %>
-                  </span>
-                  <% }%>
-                    <% if(typeof success_msg!='undefined' ){ %>
-                      <span class="succ_flash_msg" style="color: green;">
-                        <%= success_msg %>
-                      </span>
-                      <% }%>
-                        <div class="eductaion-sec">
-                         <div class="education_lists"> 
+
+              <% if(typeof err_msg!='undefined' ){ %>
+                <span class="error_validate flash_msg" style="color: red; padding-bottom: 20px;">
+                  <%= err_msg %>
+                </span>
+                <% }%>
+                  <% if(typeof success_msg!='undefined' ){ %>
+                    <span class="succ_flash_msg" style="color: green;">
+                      <%= success_msg %>
+                    </span>
+                    <% }%>
+                      <div class="eductaion-sec">
+                        <div class="education_lists">
                           <%education.forEach(function(row){%>
-                          <div class="row">
-                            <div class="col-sm-12 col-lg-9">
-                              <div class="">
-                                <p><%=row.spes_university_school_name%></p>
-                                <h6><%=row.spes_qualification_obtained%></h6>
-                                <h6><%=moment(row.spes_from_date).format("YYYY")%>-<%=moment(row.spes_to_date).format("YYYY")%></h6>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-9">
+                                <div class="">
+                                  <p><b>
+                                      <%=row.spes_university_school_name%>
+                                    </b></p>
+                                  <h6>
+                                    <%=row.spes_qualification_obtained%>
+                                  </h6>
+                                  <h6>
+                                    <%=moment(row.spes_from_date).format("YYYY")%>-
+                                      <%=moment(row.spes_to_date).format("YYYY")%>
+                                  </h6>
+                                </div>
+                              </div>
+                              <div class="col-sm-12 col-lg-3">
+                                <div class="">
+                                  <img onclick="editEducation('<%= row._id %>')" style="width:19%"
+                                    src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <img onclick="deleteEducation('<%= row._id %>')" style="width:19%"
+                                    src="images/delete-icon.png" alt="">
+                                </div>
                               </div>
                             </div>
-                            <div class="col-sm-12 col-lg-3">
-                              <div class="">
-                                <img style="width:19%" src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;<img
-                                  style="width:19%" src="images/delete-icon.png" alt="">
-                              </div>
-                            </div>
-                          </div> 
-                          <%});%>
-                         </div>
-                          <div class="row">
-                            <div class="edu-btn float-left">
-                              <a href="#" class="btn add-edu-btn" data-toggle="modal" data-target="#myModal"><i
-                                  class="fa fa-plus"></i>&nbsp;&nbsp;
-                                AddEducation</a>
-                            </div>
+                            <%});%>
+                        </div>
+                        <div class="row">
+                          <div class="edu-btn float-left">
+                            <a href="#" class="btn add-edu-btn"><i class="fa fa-plus"></i>&nbsp;&nbsp;
+                              AddEducation</a>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-6 col-sm-6 col-lg-6">
+                          <div class="prev-btn float-left">
+                            <a href="/signup-professionals-profile-2" class="btn previous-btn" style="width: 164px;">
+                              PREVIOUS</a>
                           </div>
                         </div>
 
-
-                        <div class="row">
-                          <div class="col-6 col-sm-6 col-lg-6">
-                            <div class="prev-btn float-left">
-                              <a href="/signup-professionals-profile-2" class="btn previous-btn" style="width: 164px;">
-                                PREVIOUS</a>
-                            </div>
+                        <div class="col-6 col-sm-6 col-lg-6">
+                          <div class="prev-btn float-right">
+                            <a href="/signup-professionals-profile-4" class="btn btn-next" style="width: 164px;">
+                              NEXT</a>
                           </div>
 
-                          <div class="col-6 col-sm-6 col-lg-6">
-                            <div class="prev-btn float-right">
-                              <a href="/signup-professionals-profile-4" class="btn btn-next" style="width: 164px;">
-                                NEXT</a>
-                            </div>
-         
+                        </div>
+                      </div>
+
             </div>
           </div>
-
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Optional JavaScript -->
+      <!-- Optional JavaScript -->
 
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-  <script>
-    $(document).ready(function () {
-      $(".sidenav ul li").click(function () {
-        $(".sidenav ul li").removeClass("active");
-        $(this).addClass("active");
-      });
-    });
-    $(document).ready(function () {
-      $(".right-navbar li").click(function () {
-        $("right-navbar li").removeClass("active");
-        $(this).addClass("active");
-      });
-    });
-  </script>
+      <script>
+        $(document).ready(function () {
+          $(".sidenav ul li").click(function () {
+            $(".sidenav ul li").removeClass("active");
+            $(this).addClass("active");
+          });
+        });
+        $(document).ready(function () {
+          $(".right-navbar li").click(function () {
+            $("right-navbar li").removeClass("active");
+            $(this).addClass("active");
+          });
+        });
+      </script>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
-    integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
-    crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+        integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+      <script type="text/javascript">
+
+        $(".add-edu-btn").click(function (e) {
+          $('#educationForm')[0].reset();
+          $('#myModal').modal('show');
+          $('.education_submit').text('Save');
+          $('#educationForm .edit_education_id').val();
+          $('#educationForm h2.modal-title.w-100').text('Add Education');
+        });
 
 
-  <script type="text/javascript">
-    $('#educationForm').validate({
-      onfocusout: function (element) {
-        this.element(element);
-      },
-      errorClass: 'error_validate',
-      errorElement: 'span',
-      highlight: function (element, errorClass) {
-        $(element).removeClass(errorClass);
-      },
-      submitHandler: function (form) {
-        var formdata = $('#educationForm').serialize();
-          console.log('formdata:', formdata);
+        $('#educationForm').validate({
+          onfocusout: function (element) {
+            this.element(element);
+          },
+          errorClass: 'error_validate',
+          errorElement: 'span',
+          highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass);
+          },
+          submitHandler: function (form) {
+            var formdata = $('#educationForm').serialize();
+            console.log('formdata:', formdata);
+            $.ajax({
+              type: "POST",
+              data: formdata,
+              url: "/api/service_provider_education",
+              cache: false,
+              dataType: 'json',
+              success: function (data) {
+                console.log(data)
+                if (data.status == true) {
+                  $('#educationForm')[0].reset();
+                  if (data.action == 'add') {
+                    var fromDateYear = new Date(data.educationDetail.spes_from_date).getFullYear();
+                    var toDateYear = new Date(data.educationDetail.spes_to_date).getFullYear();
+                    $('#myModal').modal('hide');
+                    $('.education_lists').append('<div class="row"><div class="col-sm-12 col-lg-9"><div class=""><p><b>' + data.educationDetail.spes_university_school_name + '</b></p><h6>' + data.educationDetail.spes_qualification_obtained + '</h6><h6>' + fromDateYear + '-' + toDateYear + '</h6></div></div><div class="col-sm-12 col-lg-3"><div class=""> <img style="width:19%" onclick="editEducation(' + "'" + data.educationDetail._id + "'" + ')" src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:19%" onclick="deleteEducation(' + data.educationDetail._id + ')" src="images/delete-icon.png" alt=""></div></div></div>')
+                  } else {
+                    Swal.fire({
+                      icon: 'success',
+                      title: data.success_msg,
+                      showConfirmButton: false,
+                      confirmButtonColor: '#005377',
+                      timer: 3000
+                    })
+                    setTimeout(function () {
+                      location.reload(true);
+                    }, 3000);
+                  }
+                } else {
+
+                  Swal.fire({
+                    icon: 'error',
+                    title: data.err_msg,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#005377',
+                    timer: 3000
+                  })
+                  setTimeout(function () {
+                    location.reload(true);
+                  }, 3000);
+
+
+                }
+              }
+            });
+          }
+        });
+
+
+        function editEducation(id) {
+          var eduId = id;
           $.ajax({
             type: "POST",
-            data: formdata,
-            url: "/api/service_provider_education",  
+            data: {
+              eduId: eduId,
+              action: 'education-edit'
+            },
+            url: "/api/edit-professional-basic-details",
             cache: false,
-            dataType:'json',
             success: function (data) {
-              console.log(data)
-              var fromDateYear = new Date(data.educationDetail.spes_from_date).getFullYear();
-              var toDateYear = new Date(data.educationDetail.spes_to_date).getFullYear();
-              $('#myModal').modal('hide');
-              $('.education_lists').append('<div class="row"><div class="col-sm-12 col-lg-9"><div class=""><p>'+data.educationDetail.spes_university_school_name+'</p><h6>'+data.educationDetail.spes_qualification_obtained+'</h6><h6>'+fromDateYear+'-'+toDateYear+'</h6></div></div><div class="col-sm-12 col-lg-3"><div class=""> <img style="width:19%" src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:19%" src="images/delete-icon.png" alt=""></div></div></div>')
+              console.log(data);
+              $('#myModal').modal('show');
+              if (data.status == true) {
+                $('.edit_education_id').val(data.data._id);
+                $('#schoolName').val(data.data.spes_university_school_name);
+                $('#QualificationObtained').val(data.data.spes_qualification_obtained);
+                $('#FromDate').val(data.data.spes_from_date);
+                $('#toDate').val(data.data.spes_to_date);
+                $('.education_submit').text('Update');
+                $('#educationForm h2.modal-title.w-100').text('Update Education');
+
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: data.message,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                setTimeout(function () {
+                  location.reload(true);
+                }, 3000);
+              }
             }
           });
-      }
-    });
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var flash_msg = $('.flash_msg').html();
-      if (flash_msg != "" && flash_msg != undefined) {
-        setTimeout(function () { $('.flash_msg').html(''); }, 4000);
-      }
-    });
+        }
 
-    $(document).ready(function () {
-      var succ_flash_msg = $('.succ_flash_msg').html();
-      if (succ_flash_msg != "" && succ_flash_msg != undefined) {
-        setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
-      }
-    });  
-  </script>
 
-  </body>
+        function deleteEducation(id) {
+          var eduId = id;
+          Swal.fire({
+            title: 'Are you sure want to remove?',
+            showCancelButton: true,
+            confirmButtonText: `Yes`,
+            confirmButtonColor: '#005377',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                type: "POST",
+                data: {
+                  eduId: eduId,
+                  action: 'education-delete'
+                },
+                url: "/api/delete-professional-basic-details",
+                cache: false,
+                success: function (data) {
+                  console.log(data);
+                  if (data.status == true) {
+                    //location.reload(true);
+                    Swal.fire({
+                      icon: 'success',
+                      title: data.message,
+                      showConfirmButton: false,
+                      confirmButtonColor: '#005377',
+                      timer: 3000
+                    })
+                    setTimeout(function () {
+                      location.reload(true);
+                    }, 3000);
+                  } else {
+                    Swal.fire({
+                      icon: 'error',
+                      title: data.message,
+                      showConfirmButton: false,
+                      confirmButtonColor: '#005377',
+                      timer: 3000
+                    })
+                    setTimeout(function () {
+                      location.reload(true);
+                    }, 3000);
+                  }
+                }
+              });
+            }
+          })
+        }
 
-  </html>
+      </script>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          var flash_msg = $('.flash_msg').html();
+          if (flash_msg != "" && flash_msg != undefined) {
+            setTimeout(function () { $('.flash_msg').html(''); }, 4000);
+          }
+        });
+
+        $(document).ready(function () {
+          var succ_flash_msg = $('.succ_flash_msg').html();
+          if (succ_flash_msg != "" && succ_flash_msg != undefined) {
+            setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
+          }
+        });
+      </script>
+
+      </body>
+
+      </html>

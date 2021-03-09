@@ -92,7 +92,19 @@ const ServiceProviderSchema = new Schema({
     enum: ['active', 'inactive'],
     default: 'active',
 
-  }
+  },
+  sps_email_verification_status: {
+    type: String,
+    enum: ['yes', 'no'],
+    default: 'no'
+  },
+  sps_otp: {
+    type: String,
+
+  },
+  sps_otp_expire_time: {
+    type: String,
+  },
 });
 
 

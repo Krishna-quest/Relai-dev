@@ -48,6 +48,9 @@ const ComplaintsSchema = new Schema({
   coms_complaint_filename: {
     type: String
   },
+  coms_complaint_filetype: {
+    type: String
+  },
   coms_complaint_status: {
     type: String,
     enum: ['pending', 'completed'],

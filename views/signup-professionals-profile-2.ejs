@@ -109,7 +109,7 @@
               <div class="row">
                 <div class="col-sm-12 col-lg-9">
                   <div class="signup-header">
-                    <p>START FOR FREE</p>
+                    <!-- <p>START FOR FREE</p> -->
 
                   </div>
                 </div>
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-sm-12 col-lg-3">
                   <div class="page-count">
-                    <p> 2 of 6</p>
+                    <p> 2 of 7</p>
                   </div>
                 </div>
               </div>
@@ -140,11 +140,30 @@
                       </div>
                       <div class="col-sm-12 col-lg-2">
                         <label class="radio-inline">
-                          <input type="radio" name="spods_option_work_permit_for_uk" value="yes" required>
+                          <input type="radio" name="spods_option_work_permit_for_uk" id="yes1" value="yes" required>
                           &nbsp;Yes&nbsp;&nbsp;
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" name="spods_option_work_permit_for_uk" value="no">&nbsp;No&nbsp;&nbsp;
+                          <input type="radio" name="spods_option_work_permit_for_uk" id="no1"
+                            value="no">&nbsp;No&nbsp;&nbsp;
+                        </label>
+                      </div>
+                      <div class="col-sm-12 col-lg-4">
+
+                      </div>
+
+                      <div class="col-sm-12 col-lg-6">
+                        <p>Do you hold a current UK driving licence?
+                        </p>
+                      </div>
+                      <div class="col-sm-12 col-lg-2">
+                        <label class="radio-inline">
+                          <input type="radio" name="spods_option_uk_driving_licence" value="yes" id="yes3" required>
+                          &nbsp;Yes&nbsp;&nbsp;
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="spods_option_uk_driving_licence" id="no3" value="no">
+                          &nbsp;No&nbsp;&nbsp;
                         </label>
                       </div>
                       <div class="col-sm-12 col-lg-4">
@@ -155,13 +174,13 @@
                       </div>
                       <div class="col-sm-12 col-lg-2">
                         <label class="radio-inline">
-                          <input type="radio" name="spods_option_criminal_convictions" id="criminal_convictions"
-                            value="yes" required>
+                          <input type="radio" name="spods_option_criminal_convictions" value="yes"
+                            onclick="javascript:yesnoCheck();" id="yesCheck" required>
                           &nbsp;Yes&nbsp;&nbsp;
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" id="criminal_convictions" name="spods_option_criminal_convictions"
-                            value="no">
+                          <input type="radio" name="spods_option_criminal_convictions" value="no"
+                            onclick="javascript:yesnoCheck();" id="noCheck">
                           &nbsp;No&nbsp;&nbsp;
                         </label>
                       </div>
@@ -171,23 +190,6 @@
                         </div>
 
                       </div>
-                      <div class="col-sm-12 col-lg-6">
-                        <p>Do you hold a current UK driving licence?
-                        </p>
-                      </div>
-                      <div class="col-sm-12 col-lg-2">
-                        <label class="radio-inline">
-                          <input type="radio" name="spods_option_uk_driving_licence" value="yes" required>
-                          &nbsp;Yes&nbsp;&nbsp;
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="spods_option_uk_driving_licence" value="no">
-                          &nbsp;No&nbsp;&nbsp;
-                        </label>
-                      </div>
-                      <div class="col-sm-12 col-lg-4">
-
-                      </div>
                     </div>
                     <% if(typeof err_msg!='undefined' ){ %>
                       <span class="error_validate flash_msg" style="color: red; padding-bottom: 10px;">
@@ -195,11 +197,11 @@
                       </span>
                       <% }%>
                         <div class="row">
-                          <div class="col-sm-12 col-lg-12">
+                          <div class="col-sm-12 col-lg-12" id="ifYes">
                             <div class="input-box-size">
-                              <input type="text" class="form-control text-field-size " id=""
+                              <input type="text" class="form-control text-field-size " id="criminal_convictions"
                                 name="spods_details_of_convictions"
-                                placeholder="Please give details of any point/convictions">
+                                placeholder="Please give details of any point/convictions" required>
                             </div>
 
                           </div>
@@ -208,10 +210,16 @@
                           <div class="col-sm-5 col-lg-6">
                             <div class="input-box-size-fix3">
                               <input type="text" class="form-control text-field-size " id=""
-                                placeholder="Professional Body" name="spods_professional_body">
+                                placeholder="Professional Body" name="spods_professional_body" required>
                             </div>
                           </div>
-                          <div class="col-sm-5 col-lg-5">
+                          <div class="col-sm-5 col-lg-6">
+                            <div class="input-box-size-fix3">
+                              <input type="text" class="form-control text-field-size " id=""
+                                placeholder="Professional Body Membership No." name="spods_membership_number">
+                            </div>
+                          </div>
+                          <!-- <div class="col-sm-5 col-lg-5">
                             <div class="input-box-size-fix3">
                               <input type="date" class="form-control date-field-size " id="" placeholder="End date"
                                 name="spods_date_registered">
@@ -221,17 +229,17 @@
                             <div class="">
                               <a href="#" class="btn signup-professional-plus-btn"><i class="fa fa-plus"></i></a>
                             </div>
-                          </div>
+                          </div> -->
 
                         </div>
                         <div class="row">
-                          <div class="col-sm-5 col-lg-6">
+                          <!-- <div class="col-sm-5 col-lg-6">
                             <div class="input-box-size-fix3">
                               <input type="text" class="form-control text-field-size " id=""
                                 placeholder="Professional Body Membership No." name="spods_membership_number">
                             </div>
-                          </div>
-                          <div class="col-sm-5 col-lg-5">
+                          </div> -->
+                          <!-- <div class="col-sm-5 col-lg-5">
                             <div class="input-box-size-fix3">
                               <input type="date" class="form-control date-field-size " id="" placeholder="endDate"
                                 name="spods_membership_no_date_registered">
@@ -241,13 +249,13 @@
                             <div class="">
                               <a href="#" class="btn signup-professional-plus-btn"><i class="fa fa-plus"></i></a>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                         <div class="row">
                           <div class="col-sm-12 col-lg-6">
                             <div class="input-box-size-fix3">
                               <input type="text" class="form-control text-field-size" id=""
-                                placeholder="Other relevant Qualifications" name="spods_other_relevant_qualification">
+                                placeholder="Other Relevant Qualifications" name="spods_other_relevant_qualification">
                             </div>
                           </div>
 
@@ -276,6 +284,7 @@
       </div>
     </div>
   </div>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -285,13 +294,32 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/countrystatecity.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById('ifYes').style.display = 'none';
+    }
+
+    function yesnoCheck() {
+      if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.display = 'block';
+      }
+      else {
+        document.getElementById('ifYes').style.display = 'none';
+      }
+    }
+
+  </script>
 
   <script type="text/javascript">
+
     $('#form2').validate({
       onfocusout: function (element) {
         this.element(element);
@@ -302,11 +330,60 @@
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#form2').serialize();
+
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/service_provider_other_details",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+              if (data.redirectpage == true) {
+                setTimeout(function () {
+                  //location.reload(true);
+                  window.location.href = data.redirect;
+                }, 4000);
+              }
+
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                window.location.href = "/signup-professionals-profile-3";
+              }, 4000);
+
+            }
+          }
+        });
+
+
       }
     });
   </script>
+
   <script type="text/javascript">
     $(document).ready(function () {
       var flash_msg = $('.flash_msg').html();
@@ -320,7 +397,7 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
   </script>
 
 

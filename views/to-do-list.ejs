@@ -1,0 +1,240 @@
+<%- include('dashboard_header')-%>
+  <%- include('edit-profile-model')-%>
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+
+              <%- include('profile-image')-%>
+
+                <div class="user-name">
+                  <h2>
+                    <%= session.name %>
+                  </h2>
+                  <a href="#">
+                    <%= session.email %>
+                      <%- include('edit-profile-icon')-%>
+                  </a>
+                </div>
+            </div>
+            <%- include('sidebar')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+            <div class="row complaints-sec">
+              <div class="col-sm-12 col-lg-6">
+                <div class="complaints">
+                  <h2>To do list</h2>
+                  
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-4">
+                                
+                <select name="propertyDropDown" class=" form-control selectBox5" id="propertyDropDown" style="height: 48px;">
+                    <option value="">Select Property</option>
+                  <%if(propertyObj.length!=0){%>
+                    <%propertyObj.forEach(function(row,i){%>
+                    <option value="<%=row._id%>"><%=row.ps_property_name%></option>
+                    <%});%>
+                  <%}else{%>
+                    <p>please add property</p>
+                    <%}%>
+                </select>
+                
+            </div>
+
+
+            </div>
+            <div class="todos-inner">
+              <p style="    font-family: 'Abhaya Libre', serif;color: #005377;font-size: 24px;margin-left: 10px; margin-top: 20px;" id="propertyName">Please Select Property</p>
+              <div class="todo-list-table ">
+                <div class="phaselistDiv"><p></p></div>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function () {
+        $(".sidenav ul li").click(function () {
+          $(".sidenav ul li").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+      $(document).ready(function () {
+        $(".right-navbar li").click(function () {
+          $("right-navbar li").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".buyertab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/buyer",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+        $(".sellertab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/seller",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+        $(".renovatortab").click(function (e) {
+          $.ajax({
+            type: "GET",
+            url: "/renovator",
+            cache: false,
+            success: function (html) {
+            }
+          });
+          location.reload(true);
+        });
+      });
+    </script>
+  <script> 
+  
+  $(document).ready(function () {
+    // $(".take-action").click(function(e){
+      
+    //   var property_id = $(this).attr('id');
+    //   $.ajax({
+    //         data:{property_id :property_id},
+    //         type: "POST",
+    //         url: "/mydreamhome-details-phase-a",
+    //         cache: false,
+    //         success: function (data) {
+            
+    //          var htmlData = '';
+    //          if(data.status==true){
+               
+    //           // $.each(data.data, function (i, data) {
+    //           //   console.log('val:', data)
+                
+    //           // })
+    //            window.location.href = data.redairect            
+    //           }
+    //         }
+    //       });
+    // })
+   });
+  </script>
+<script>
+ 
+  $(document).ready(function () {
+  $("#propertyDropDown").change(function(e){
+     var property_id=$(this).val();
+     if(property_id){
+          $.ajax({
+                  type: "POST",
+                  data:{property_id:property_id},
+                  url: "/get_property_by_id",
+                  cache: false,
+                  success: function (data) {
+                      console.log(data);
+                      if(data.status==true){
+                          $('#propertyName').html(data.data.ps_property_name);
+                          var property_id=data.data._id;
+                          // <table class="table table-responsive"><thead><tr><th>To-dos</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody><tr><td></td></tr></tbody></table>
+                          var htmlData = '<table class="table table-responsive"><thead><tr><th>To-dos</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody>';
+                          if (data.data.ps_phase_array.length > 0) {
+                            var element=''
+                            var active_user_login='<%=session.active_user_login%>'
+                            //alert(datasession) active_user_login
+                              $.each(data.data.ps_phase_array, function (i, data) {
+                               if(active_user_login=='renovator'){
+                                if(i==0){
+                                  element='a'
+                                }else if(i==1){
+                                  element='b'
+                                }else if(i==2){
+                                  element='c'
+                                }else if(i==3){
+                                  element='d'
+                                }else if(i==4){
+                                  element='e'
+                                }else if(i==5){
+                                  element='f'
+                                }else if(i==6){
+                                  element='g'
+                                }else if(i==7){
+                                  element='h'
+                                }else if(i==8){
+                                  element='o'
+                                }
+                               }else{
+                                if(i==0){
+                                  element='a'
+                                }else if(i==1){
+                                  element='b'
+                                }else if(i==2){
+                                  element='c'
+                                }else if(i==3){
+                                  element='d'
+                                }else if(i==4){
+                                  element='e'
+                                }else if(i==5){
+                                  element='f'
+                                }else if(i==6){
+                                  element='o'
+                                }
+                               }
+                                
+                                
+                                  console.log('val:', data)
+                                  if(data.phase_status=='pending'){
+                            
+                            //$( "a" ).removeClass( "btn-pending" ).addClass( "btn-complete" );
+
+                            htmlData +='<tr><td> <label class="check-todos"><p>'+data.phase_name+'</p><input type="checkbox"><span class="checkmark"></span></label></td><td><a class="btn btn-pending status">'+data.phase_status+'</a></td><td><span>'+data.end_date+'</span></td><td><a class="take-action" href="/mydreamhome-details-phase-'+element+'?id='+property_id+'&phase='+data.phase_name+'&step='+element.toUpperCase()+'" id="">Take Action</a></td></tr>';
+                          }else{
+                            htmlData +='<tr><td> <label class="check-todos"><p>'+data.phase_name+'</p><input type="checkbox"><span class="checkmark"></span></label></td><td><a class="btn btn-complete status">'+data.phase_status+'</a></td><td><span>'+data.end_date+'</span></td><td><a class="take-action" href="/mydreamhome-details-phase-'+element+'?id='+property_id+'&phase='+data.phase_name+'&step='+element.toUpperCase()+'" id="">Take Action</a></td></tr>';
+                            
+                            
+                          }
+                              });
+                              htmlData+='</tbody></table>';
+                          }else{
+                              htmlData = '<div class="not-found"><p>Not Found !!</p></div>';
+                          }  
+                          $('.phaselistDiv').html(htmlData);
+                        
+                      // ============
+                      }
+                  
+                  
+                  }
+          });
+     }else{
+         //alert("property not found")
+     }
+  })
+  }) ;    
+  </script>
+    </body>
+
+    </html>

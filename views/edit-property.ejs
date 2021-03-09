@@ -1,0 +1,1816 @@
+<%- include('dashboard_header')-%>
+  <%- include('edit-profile-model')-%>
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+              <%- include('profile-image')-%>
+                <div class="user-name">
+                  <h2>
+                    <%= session.name %>
+                  </h2>
+                  <a href="#">
+                    <%= session.email %>
+                      <%- include('edit-profile-icon')-%>
+                  </a>
+                </div>
+            </div>
+            <%- include('sidebar')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+            <div class="property-inner">
+              <div class="row ">
+                <div class="col-sm-12 col-lg-8">
+                  <div class="breadcumb">
+                    <ul>
+                      <li><a href="/mydreamhome"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                          Back
+                          to My Dream Home</a></li>
+                    </ul>
+                    <%if(propertyObj=='null'){%>
+                      <h2>Add Property</h2>
+                      <%}else{%>
+                        <h2>Edit Property</h2>
+                        <%}%>
+                  </div>
+                  <div class="message"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-inner">
+              <div class="firstFormDive">
+                <!--first form dive open-->
+                <form method="post" action="" id="propertyform1">
+                  <!--form1-->
+                  <!-- <form method="post" action="" id="propertyform" enctype="multipart/form-data"> -->
+
+                  <% if(typeof err_msg!='undefined' ){ %>
+                    <span class="error_validate flash_msg" style="color: red;">
+                      <%= err_msg %>
+                    </span>
+                    <% }%>
+                      <% if(typeof success_msg!='undefined' ){ %>
+                        <span class="succ_flash_msg" style="color: green;">
+                          <%= success_msg %>
+                        </span>
+                        <% }%>
+
+
+                          <div class="property-form">
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="property-step">
+                                  <!-- <p>STEP 1</p> -->
+                                  <h6>Add property name & address</h6>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="input-field">
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                  <%if(propertyObj=='null'){%>
+                                    <input type="text" class="form-control property-form-control-size-fix "
+                                      id="propertyname" placeholder="Hilton Avenue Flat*" name="ps_property_name"
+                                      data-rule-required="true" data-msg-required="Property Name is required!" value="">
+                                    <%}else{%>
+                                      <input type="text" class="form-control property-form-control-size-fix "
+                                        id="propertyname" placeholder="Hilton Avenue Flat*" name="ps_property_name"
+                                        data-rule-required="true" data-msg-required="Property Name is required!"
+                                        value="<%=propertyObj.ps_property_name%>">
+                                      <%}%>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                  <%if(propertyObj=='null'){%>
+                                    <input type="text" class="form-control property-form-control-size-fix " id="address"
+                                      placeholder="Enter address*" name="ps_property_address" data-rule-required="true"
+                                      data-msg-required="Property address is required!" value="">
+                                    <%}else{%>
+                                      <input type="text" class="form-control property-form-control-size-fix "
+                                        id="address" placeholder="Enter address*" name="ps_property_address"
+                                        data-rule-required="true" data-msg-required="Property address is required!"
+                                        value="<%=propertyObj.ps_property_address%>">
+                                      <%}%>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                  <div class="form-group  ">
+                                    <%if(propertyObj=='null'){%>
+                                      <select name="country" class="countries form-control selectBox5" id="countryId"
+                                        required style="height: 48px;" data-rule-required="true"
+                                        data-msg-required="Country name is required!">
+                                        <option value="">Select Country*</option>
+                                      </select>
+                                      <%}else{%>
+                                        <select name="country" class=" form-control selectBox5" id="countryId" required
+                                          style="height: 48px;" data-rule-required="true"
+                                          data-msg-required="Country name is required!">
+                                          <option value="<%=propertyObj.ps_property_country_id%>">
+                                            <%=propertyObj.ps_property_country_id%>
+                                          </option>
+                                        </select>
+                                        <%}%>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-4">
+                                <div class="form-group  ">
+                                  <%if(propertyObj=='null'){%>
+                                    <select name="state" class="states form-control selectBox5" id="stateId" required
+                                      style="height: 48px;" data-rule-required="true"
+                                      data-msg-required="County name is required!">
+                                      <option value="">Select County*</option>
+                                    </select>
+                                    <%}else{%>
+                                      <select name="state" class=" form-control selectBox5" id="stateId" required
+                                        style="height: 48px;" data-rule-required="true"
+                                        data-msg-required="County name is required!">
+                                        <option value="<%=propertyObj.ps_property_state_id%>">
+                                          <%=propertyObj.ps_property_state_id%>
+                                        </option>
+                                      </select>
+                                      <%}%>
+                                </div>
+                              </div>
+                              <div class="col-sm-12 col-lg-4">
+                                <div class="form-group ">
+                                  <%if(propertyObj=='null'){%>
+                                    <select name="city" class="cities form-control selectBox5" id="cityId" required
+                                      style="height: 48px;" data-rule-required="true"
+                                      data-msg-required="City name is required!">
+                                      <option value="">Select City*</option>
+                                    </select>
+                                    <%}else{%>
+                                      <select name="city" class="cities form-control selectBox5" id="cityId" required
+                                        style="height: 48px;" data-rule-required="true"
+                                        data-msg-required="City name is required!">
+                                        <option value="<%=propertyObj.ps_property_city_id%>">
+                                          <%=propertyObj.ps_property_city_id%>
+                                        </option>
+                                      </select>
+                                      <%}%>
+                                </div>
+                              </div>
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="text" class="form-control property-form-control-size-fix " id="zipcode"
+                                    placeholder="Zip code*" name="ps_property_zipcode" data-rule-required="true"
+                                    data-msg-required="Zipcode is required!" value="">
+                                  <%}else{%>
+                                    <input type="text" class="form-control property-form-control-size-fix " id="zipcode"
+                                      placeholder="Zip code*" name="ps_property_zipcode" data-rule-required="true"
+                                      data-msg-required="Zipcode is required!"
+                                      value="<%=propertyObj.ps_property_zipcode%>">
+                                    <%}%>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <div class="property-step">
+                                <!-- <p>STEP 2</p> -->
+                                <h6>Add other party</h6>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-field">
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="text" class="form-control property-form-control-size-fix " id="buyer"
+                                    placeholder="Full Name*" name="ps_other_party_fullname" value=""
+                                    data-rule-required="true" data-msg-required="Full Name is required!">
+                                  <%}else{%>
+                                    <input type="text" class="form-control property-form-control-size-fix " id="buyer"
+                                      placeholder="Full Name*" name="ps_other_party_fullname"
+                                      value="<%=propertyObj.ps_other_party_fullname%>" data-rule-required="true"
+                                      data-msg-required="Full Name is required!">
+                                    <%}%>
+                              </div>
+
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="email" class="form-control property-form-control-size-fix "
+                                    id="emailaddress" placeholder="Enter email address*" name="ps_other_party_emailid"
+                                    value="" data-rule-required="true" data-msg-required="Email is required!">
+                                  <%}else{%>
+                                    <input type="email" class="form-control property-form-control-size-fix "
+                                      id="emailaddress" placeholder="Enter email address*" name="ps_other_party_emailid"
+                                      value="<%=propertyObj.ps_other_party_emailid%>" data-rule-required="true"
+                                      data-msg-required="Email is required!">
+                                    <%}%>
+                              </div>
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <select name="property_type" class=" form-control selectBox5" id="property_type"
+                                    required style="height: 48px;" data-rule-required="true"
+                                    data-msg-required="Property Type is required!">
+                                    <option value="">Select Property Type</option>
+                                    <option value="New">New</option>
+                                    <option value="Chain">Chain</option>
+                                  </select>
+                                  <%}else{%>
+                                    <select name="property_type" class=" form-control selectBox5" id="property_type"
+                                      required style="height: 48px;" data-rule-required="true"
+                                      data-msg-required="Property Type is required!">
+                                      <option value="<%=propertyObj.ps_property_type%>">
+                                        <%=propertyObj.ps_property_type%>
+                                      </option>
+                                      <%if(propertyObj.ps_property_type=='New'){%>
+                                        <option value="Chain">Chain</option>
+                                        <%}else{%>
+                                          <option value="New">New</option>
+                                          <%}%>
+                                    </select>
+                                    <%}%>
+                              </div>
+
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <select name="ps_existing_property" class=" form-control selectBox5"
+                                    id="ps_existing_property" required style="height: 48px;" data-rule-required="true"
+                                    data-msg-required="existing property Type is required!">
+                                    <option value="">Select existing Property</option>
+                                    <option value="commercial">commercial</option>
+                                    <option value="Residential">Residential</option>
+                                  </select>
+                                  <%}else{%>
+                                    <select name="ps_existing_property" class=" form-control selectBox5"
+                                      id="ps_existing_property" required style="height: 48px;" data-rule-required="true"
+                                      data-msg-required="existing property Type is required!">
+                                      <option value="<%=propertyObj.ps_existing_property%>">
+                                        <%=propertyObj.ps_existing_property%>
+                                      </option>
+                                      <%if(propertyObj.ps_existing_property=='commercial'){%>
+                                        <option value="Residential">Residential</option>
+                                        <%}else{%>
+                                          <option value="commercial">commercial</option>
+
+                                          <%}%>
+                                    </select>
+                                    <%}%>
+                              </div>
+                              <div class="AllPropertyListingDiv col-sm-12 col-lg-4">
+                                <select name="ps_chain_property" class=" ps_chain_property form-control selectBox5"
+                                  id="ps_chain_property" style="height: 48px;">
+                                  <option value="">Select Property for Chain</option>
+
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <div class="property-step">
+                                <!-- <p>STEP 3</p> -->
+                                <h6>Add property details</h6>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="input-field">
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="text" class="form-control property-form-control-size-fix " id="area"
+                                    placeholder="Area(sq. ft.)*" name="ps_property_area" data-rule-required="true"
+                                    data-msg-required="Area is required!" value="">
+                                  <%}else{%>
+                                    <input type="text" class="form-control property-form-control-size-fix " id="area"
+                                      placeholder="Area(sq. ft.)*" name="ps_property_area" data-rule-required="true"
+                                      data-msg-required="Area is required!" value="<%=propertyObj.ps_property_area%>">
+                                    <%}%>
+                              </div>
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="text" class="form-control property-form-control-size-fix " id="bedroom"
+                                    placeholder="Bedroom*" name="ps_property_bedroom" data-rule-required="true"
+                                    data-msg-required="Bedroom field is required!" value="">
+                                  <%}else{%>
+                                    <input type="text" class="form-control property-form-control-size-fix " id="bedroom"
+                                      placeholder="Bedroom*" name="ps_property_bedroom" data-rule-required="true"
+                                      data-msg-required="Bedroom field is required!"
+                                      value="<%=propertyObj.ps_property_bedroom%>">
+                                    <%}%>
+                              </div>
+                              <div class="col-sm-12 col-lg-4">
+                                <%if(propertyObj=='null'){%>
+                                  <input type="text" class="form-control property-form-control-size-fix " id="bedroom2"
+                                    placeholder="Bathroom*" name="ps_property_bathroom" data-rule-required="true"
+                                    data-msg-required="Bathroom  field is required!" value="">
+                                  <%}else{%>
+                                    <input type="text" class="form-control property-form-control-size-fix "
+                                      id="bedroom2" placeholder="Bathroom*" name="ps_property_bathroom"
+                                      data-rule-required="true" data-msg-required="Bathroom  field is required!"
+                                      value="<%=propertyObj.ps_property_bathroom%>">
+                                    <%}%>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <%if(propertyObj=='null'){%>
+                                  <textarea type="text" style=" width:95%"
+                                    class="form-control property-form-control-size-fix " id="address"
+                                    name="ps_additional_note" value="" placeholder="Additional notes(if any)">
+                              </textarea>
+                                  <%}else{%>
+                                    <textarea type="text" style=" width:95%"
+                                      class="form-control property-form-control-size-fix " id="address"
+                                      name="ps_additional_note" value="<%=propertyObj.ps_additional_note%>"
+                                      placeholder="Additional notes(if any)">
+                              </textarea>
+                                    <%}%>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <div class="property-step">
+                                <!-- <p>STEP 4</p> -->
+                                <h6>Add Phases</h6>
+                              </div>
+                            </div>
+
+                          </div>
+                          <%if(session.active_user_login=='renovator'){ %>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase1</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase1" style="border-radius:10px; width:85%"
+                                            placeholder="Strategic definition" name="Phase[]"
+                                            value="Strategic definition" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[0].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[0].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase2</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase2" style="border-radius:10px; width:85%"
+                                            placeholder="Preparation and Briefing" name="Phase[]"
+                                            value="Preparation and Briefing" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[1].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[1].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase3</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase3" style="border-radius:10px; width:85%"
+                                            placeholder="Spatial coordination" name="Phase[]"
+                                            value="Spatial coordination" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[2].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[2].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase4</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase4" style="border-radius:10px; width:85%"
+                                            placeholder="Technical Design" name="Phase[]" value="Technical Design"
+                                            readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[3].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[3].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase5</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase5" style="border-radius:10px; width:85%"
+                                            placeholder="Manifacturing and Construction" name="Phase[]"
+                                            value="Manifacturing and Construction" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[4].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[4].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase6</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Pahse6" style="border-radius:10px; width:85%"
+                                            placeholder="Concept Design" name="Phase[]" value="Concept Design" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[5].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[5].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase7</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase7" style="border-radius:10px; width:85%" placeholder="Handover"
+                                            name="Phase[]" value="Handover" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[6].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[6].end_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                <div class="home-section">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>Phase8</label>
+                                          <input type="read-only" class="form-control form-control-size-fix "
+                                            id="Phase8" style="border-radius:10px; width:85%" placeholder="Use"
+                                            name="Phase[]" value="Use" readonly>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="proprty-text-fix">
+                                          <label>Start Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix "
+                                              id="startDate1" style="border-radius:10px; width:85%"
+                                              placeholder="Start Date" name="startDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[7].start_date%>">
+                                              <%}%>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                      <div class="property-input-box">
+                                        <div class="property-text-fix">
+                                          <label>End Date</label>
+                                          <%if(propertyObj=='null'){%>
+                                            <input type="date" class="form-control form-control-size-fix " id="endDate1"
+                                              style="border-radius:10px; width: 85%;" placeholder="End Date"
+                                              name="endDate[]" required>
+                                            <%}else{%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required
+                                                value="<%=propertyObj.ps_phase_array[7].end_date%>">
+                                              <%}%>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="">
+                                  <div class="">
+
+                                    <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                      Phase</a>
+                                  </div>
+                                </div> -->
+                                  </div>
+                                  <div class="row divv"></div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <%} else { %>
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase1</label>
+                                            <input type="read-only" name="Phase[]"
+                                              class="form-control form-control-size-fix " id="Instruction"
+                                              style="border-radius:10px; width:85%" placeholder="Instruction"
+                                              value="Instruction" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[0].start_date%>">
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[0].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <!-- <div class="row divv"></div> -->
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase2</label>
+                                            <input type="read-only" class="form-control form-control-size-fix "
+                                              id="Phase2" style="border-radius:10px; width:85%"
+                                              placeholder="Pre-exchange Submitting the contract" name="Phase[]"
+                                              value="Pre-exchange Submitting the contract" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[1].start_date%>">
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[1].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <div class="row divv"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase3</label>
+                                            <input type="read-only" class="form-control form-control-size-fix "
+                                              id="Phase3" style="border-radius:10px; width:85%"
+                                              placeholder="Prior to exchange of contracts" name="Phase[]"
+                                              value="Prior to exchange of contracts" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]"
+                                                  value="<%=propertyObj.ps_phase_array[2].start_date%>" required>
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[2].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <div class="row divv"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase4</label>
+                                            <input type="read-only" class="form-control form-control-size-fix "
+                                              id="Phase4" style="border-radius:10px; width:85%"
+                                              placeholder="Exchange of contracts" name="Phase[]"
+                                              value="Exchange of contracts" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[3].start_date%>">
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[3].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <div class="row divv"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase5</label>
+                                            <input type="read-only" class="form-control form-control-size-fix "
+                                              id="Phase5" style="border-radius:10px; width:85%" placeholder="Completion"
+                                              name="Phase[]" value="Completion" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]"
+                                                  value="<%=propertyObj.ps_phase_array[4].start_date%>" required>
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[4].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <div class="row divv"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                  <div class="home-section">
+                                    <div class="row">
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>Phase6</label>
+                                            <input type="read-only" class="form-control form-control-size-fix "
+                                              id="Phase6" style="border-radius:10px; width:85%"
+                                              placeholder="Post-Completion" name="Phase[]" value="Post-Completion"
+                                              readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="proprty-text-fix">
+                                            <label>Start Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="startDate1" style="border-radius:10px; width:85%"
+                                                placeholder="Start Date" name="startDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="startDate1" style="border-radius:10px; width:85%"
+                                                  placeholder="Start Date" name="startDate[]"
+                                                  value="<%=propertyObj.ps_phase_array[5].start_date%>" required>
+                                                <%}%>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                        <div class="property-input-box">
+                                          <div class="property-text-fix">
+                                            <label>End Date</label>
+                                            <%if(propertyObj=='null'){%>
+                                              <input type="date" class="form-control form-control-size-fix "
+                                                id="endDate1" style="border-radius:10px; width: 85%;"
+                                                placeholder="End Date" name="endDate[]" required>
+                                              <%}else{%>
+                                                <input type="date" class="form-control form-control-size-fix "
+                                                  id="endDate1" style="border-radius:10px; width: 85%;"
+                                                  placeholder="End Date" name="endDate[]" required
+                                                  value="<%=propertyObj.ps_phase_array[4].end_date%>">
+                                                <%}%>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="">
+                                    <div class="">
+  
+                                      <a href="javascript:void(0)" name="addMorePhase" class="btn btn-add-task-fix">Add
+                                        Phase</a>
+                                    </div>
+                                  </div> -->
+                                    </div>
+                                    <div class="row divv"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <%}%>
+                                <div class="row">
+                                  <div class="col-sm-12 col-lg-12">
+                                    <div class="property-btn float-right">
+                                      <%if(propertyObj=='null'){%>
+                                        <input type="hidden" name="editPropertyId" id="editPropertyId" value="">
+                                        <%}else{%>
+                                          <input type="hidden" name="editPropertyId" id="editPropertyId"
+                                            value="<%=propertyObj._id%>">
+                                          <%}%>
+                                            <%if(propertyObj=='null'){%>
+                                              <button type="submit" class="btn btn-next-info submit_first_form">Next</button>
+                                              <%}else{%>
+                                                <button type="submit" class="btn btn-next-info submit_first_form">Next</button>
+                                                <%}%>
+                                    </div>
+                                  </div>
+                                </div>
+                </form>
+                <!--form1-->
+              </div><!-- first form div close-->
+              <div class="secondFormDiv">
+                <!--second form dive start prop image-->
+                <%if(propertyObj=='null'){%>
+                  <form method="post" action="" id="propertyform2" enctype="multipart/form-data">
+                    <!--second form-->
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <div class="property-step">
+                          <!-- <p>STEP 5</p> -->
+                          <h6>Add property pictures</h6>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <!-- <form></form> -->
+                        <!-- <form action="/upload-properties-pic" class="form" method="post"enctype="multipart/form-data"> -->
+                        <div class="property-box ">
+
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar1">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p class="Picture_1">Picture 1</p>
+                          </div>
+                          <div class="property-upload">
+                            <!-- <a href="#">Upload</a> -->
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input prop_1">
+                              <input type="file" name="propertiespic" class="propertiespic" id="propertiespic1" value=""
+                                required
+                                onchange="document.getElementById('avtar1').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+
+                        <div class="property-box  prop_2">
+
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar2">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p CLASS="Picture_2">Picture 2</p>
+                          </div>
+                          <div class="property-upload">
+                            <!-- <a href="#">Upload</a> -->
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input">
+                              <input type="file" name="propertiespic" class="propertiespic2" id="propertiespic2"
+                                value=""
+                                onchange="document.getElementById('avtar2').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+                        <!-- </form> -->
+                        <!-- <form action="/upload-properties-pic" class="form" method="post"enctype="multipart/form-data"> -->
+                        <div class="property-box  prop_3">
+
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar3">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p CLASS="Picture_3">Picture 3</p>
+                          </div>
+                          <div class="property-upload">
+                            <!-- <a href="#">Upload</a> -->
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input">
+                              <input type="file" name="propertiespic" value="" class="propertiespic3"
+                                id="propertiespic3"
+                                onchange="document.getElementById('avtar3').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+                        <!-- </form> -->
+                      </div>
+                    </div>
+                    <input type="hidden" class="img_property_id" name="property_id" value="">
+                    <input type="hidden" name="editPropertyImageId" class="editPropertyImageId" value="">
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <div class="property-btn2">
+                          <button type="submit" class="btn btn-next-info  submit_second_form">Next</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!--second form-->
+                  <%}else{%>
+                    <form method="post" action="" id="propertyform2" enctype="multipart/form-data">
+                      <!--second form-->
+                      <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                          <div class="property-step">
+                            <!-- <p>STEP 5</p> -->
+                            <h6>Edit property pictures</h6>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+
+                        <div class="col-sm-12 col-lg-12">
+                          <%if(propertyImageObject.length>0){%>
+                            <!-- <form method="post" id="imge_form1" enctype="multipart/form-data"> -->
+                            <div class="property-box ">
+                              <input type="hidden" name="editPropertyImageId" class="editPropertyImageId"
+                                value="<%=propertyImageObject[0]._id%>">
+
+                              <div class=property-inner-section>
+                                <img src="/propimg/<%=propertyImageObject[0].pps_property_image_name%>"
+                                  id="avtar_<%=propertyImageObject[0]._id%>">
+                              </div>
+                              <div class="driving-liences-portfolio ">
+                                <p class="Picture_0">
+                                  <%=propertyImageObject[0].pps_property_image_name%>
+                                </p>
+                              </div>
+                              <div class="property-upload">
+                                <!-- <a href="#">Upload</a> -->
+                                <button class="btn btn-upload">Upload</button>
+                              </div>
+                              <!-- <div>
+                                <button type="button"class="btn btn-info btn-upload abc">Edit This</button>
+                              </div> -->
+                              <span>
+                                <div class="custom-file-input prop_0">
+                                  <input type="file" name="propertiespic" class="propertiespic" id="PropertyImageOne"
+                                    value=""
+                                    onchange="document.getElementById('avtar_<%=propertyImageObject[0]._id%>').src = window.URL.createObjectURL(this.files[0])" >
+                                  <input type="button">
+                                </div>
+                              </span>
+                              <input type="hidden" name="old_prop_img_1_id" id='image_one_id' value="<%=propertyImageObject[0]._id%>">
+                              <input type="hidden" name="old_prop_img_1"
+                                value="<%=propertyImageObject[0].pps_property_image_name%>">
+
+
+
+                            </div>
+                            <!-- </form> -->
+                            
+                            <%}else{%>
+                              <div class="property-box ">
+
+                                <div class=property-inner-section>
+                                  <img src="images/upload-icon.png" id="avtar1">
+                                </div>
+                                <div class="driving-liences-portfolio ">
+                                  <p class="Picture_1">Picture 1</p>
+                                </div>
+                                <div class="property-upload">
+                                  <!-- <a href="#">Upload</a> -->
+                                  <button class="btn btn-upload">Upload</button>
+                                </div>
+                                <span>
+                                  <div class="custom-file-input prop_1">
+                                    <input type="file" name="propertiespic" class="propertiespic" id="propertiespic1"
+                                      value="" required
+                                      onchange="document.getElementById('avtar1').src = window.URL.createObjectURL(this.files[0])">
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </div>
+                              <%}%>
+                                <!--1  -->
+                                <%if(propertyImageObject.length>1){%>
+                                  <div class="property-box ">
+                                    <input type="hidden" name="editPropertyImageId" class="editPropertyImageId"
+                                      value="<%=propertyImageObject[1]._id%>">
+                                    <div class=property-inner-section>
+                                      <img src="/propimg/<%=propertyImageObject[1].pps_property_image_name%>"
+                                        id="avtar_<%=propertyImageObject[1]._id%>">
+                                    </div>
+                                    <div class="driving-liences-portfolio ">
+                                      <p class="Picture_1">
+                                        <%=propertyImageObject[1].pps_property_image_name%>
+                                      </p>
+                                    </div>
+                                    <div class="property-upload">
+                                      <!-- <a href="#">Upload</a> -->
+                                      <button class="btn btn-upload">Upload</button>
+                                    </div>
+                                    <span>
+                                      <div class="custom-file-input prop_1">
+                                        <input type="file" name="propertiespic" class="propertiespic"
+                                          id="PropertyImageTwo" value=""
+                                          onchange="document.getElementById('avtar_<%=propertyImageObject[1]._id%>').src = window.URL.createObjectURL(this.files[0])">
+                                        <input type="button">
+                                      </div>
+                                    </span>
+                                    <input type="hidden" id="image_two_id" name="old_prop_img_2_id"
+                                      value="<%=propertyImageObject[1]._id%>" >
+                                    <input type="hidden" name="old_prop_img_2"
+                                      value="<%=propertyImageObject[1].pps_property_image_name%>">
+
+
+
+                                  </div>
+                                  <%}else{%>
+
+                                    <div class="property-box  prop_2">
+
+                                      <div class=property-inner-section>
+                                        <img src="images/upload-icon.png" id="avtar2">
+                                      </div>
+                                      <div class="driving-liences-portfolio ">
+                                        <p CLASS="Picture_2">Picture 2</p>
+                                      </div>
+                                      <div class="property-upload">
+                                        <!-- <a href="#">Upload</a> -->
+                                        <button class="btn btn-upload">Upload</button>
+                                      </div>
+                                      <span>
+                                        <div class="custom-file-input">
+                                          <input type="file" name="propertiespic" class="propertiespic2"
+                                            id="propertiespic2" value=""
+                                            onchange="document.getElementById('avtar2').src = window.URL.createObjectURL(this.files[0])">
+                                          <input type="button">
+                                        </div>
+                                      </span>
+                                    </div>
+                                    <%}%>
+                                      <!-- 2 -->
+                                      <%if(propertyImageObject.length>2){%>
+                                        <div class="property-box ">
+                                          <input type="hidden" name="editPropertyImageId" class="editPropertyImageId"
+                                            value="<%=propertyImageObject[2]._id%>">
+                                          <div class=property-inner-section>
+                                            <img src="/propimg/<%=propertyImageObject[2].pps_property_image_name%>"
+                                              id="avtar_<%=propertyImageObject[2]._id%>">
+                                          </div>
+                                          <div class="driving-liences-portfolio ">
+                                            <p class="Picture_2">
+                                              <%=propertyImageObject[2].pps_property_image_name%>
+                                            </p>
+                                          </div>
+                                          <div class="property-upload">
+                                            <!-- <a href="#">Upload</a> -->
+                                            <button class="btn btn-upload">Upload</button>
+                                          </div>
+                                          <span>
+                                            <div class="custom-file-input prop_2">
+                                              <input type="file" name="propertiespic" class="propertiespic"
+                                                id="PropertyImageThree" value=""
+                                                onchange="document.getElementById('avtar_<%=propertyImageObject[2]._id%>').src = window.URL.createObjectURL(this.files[0])">
+                                              <input type="button">
+                                            </div>
+                                          </span>
+                                          <input type="hidden" name="old_prop_img_3_id"
+                                            value="<%=propertyImageObject[2]._id%>" id="image_three_id"> 
+                                          <input type="hidden" name="old_prop_img_3"
+                                            value="<%=propertyImageObject[2].pps_property_image_name%>">
+
+
+
+                                        </div>
+
+                                        <%}else{%>
+                                          <div class="property-box  prop_3">
+
+                                            <div class=property-inner-section>
+                                              <img src="images/upload-icon.png" id="avtar3">
+                                            </div>
+                                            <div class="driving-liences-portfolio ">
+                                              <p CLASS="Picture_3">Picture 3</p>
+                                            </div>
+                                            <div class="property-upload">
+                                              <!-- <a href="#">Upload</a> -->
+                                              <button class="btn btn-upload">Upload</button>
+                                            </div>
+                                            <span>
+                                              <div class="custom-file-input">
+                                                <input type="file" name="propertiespic" value="" class="propertiespic3"
+                                                  id="propertiespic3"
+                                                  onchange="document.getElementById('avtar3').src = window.URL.createObjectURL(this.files[0])">
+                                                <input type="button">
+                                              </div>
+                                            </span>
+                                          </div>
+                                          <%}%>
+
+                                            <!---------------- work abouw ----------------->
+                        </div>
+                      </div>
+
+
+                      <input type="hidden" class="img_property_id" name="property_id" value="">
+                      <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                          <div class="property-btn2">
+                            <button type="submit" class="btn btn-next-info  submit_second_form">Next</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <!--second form-->
+                    <%}%>
+              </div>
+              <!--second form div close -->
+              <div class="thirdFormDiv">
+                <!--third form div start prop plan image-->
+                <%if(propertyObj=='null'){%>
+                  <form method="post" class="propertyPlanform" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <div class="property-step">
+                          <!-- <p>STEP 6</p> -->
+                          <h6>Add plan pictures</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="message_data"></span>
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <!-- <form action="/upload-properties-plan-pic" class="form" method="post"enctype="multipart/form-data"> -->
+                        <div class="property-box  prop_4">
+
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar4">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p CLASS="Picture_4">Picture 1</p>
+                          </div>
+                          <div class="property-upload">
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input">
+                              <input type="file" name="planImage" id="propertiesplanpic1" value="" required
+                                onchange="document.getElementById('avtar4').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+
+                        <div class="property-box  prop_5">
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar5">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p CLASS="Picture_5">Picture 2</p>
+                          </div>
+                          <div class="property-upload">
+                            <!-- <a href="#">Upload</a> -->
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input">
+                              <input type="file" name="planImage" id="propertiesplanpic2" value=""
+                                onchange="document.getElementById('avtar5').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+                        <div class="property-box  prop_6">
+
+                          <div class=property-inner-section>
+                            <img src="images/upload-icon.png" id="avtar6">
+                          </div>
+                          <div class="driving-liences-portfolio ">
+                            <p CLASS="Picture_6">Picture 3</p>
+                          </div>
+                          <div class="property-upload">
+                            <!-- <a href="#">Upload</a> -->
+                            <button class="btn btn-upload">Upload</button>
+                          </div>
+                          <span>
+                            <div class="custom-file-input">
+                              <input type="file" name="planImage" id="propertiesplanpic3" value=""
+                                onchange="document.getElementById('avtar6').src = window.URL.createObjectURL(this.files[0])">
+                              <input type="button">
+                            </div>
+                          </span>
+                        </div>
+                        <!-- </form> -->
+                      </div>
+                    </div>
+                    <input type="hidden" class="plan_img_property_id" name="property_id" value="">
+                    <input type="hidden" name="editPropertyPlanImageId" class="editPropertyPlanImageId" value="">
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12">
+                        <div class="property-btn">
+                          <button type="submit" class="btn submit-btn submit_third_form">Add
+                            Property</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <%}else{%>
+                    <form method="post" class="propertyPlanform" enctype="multipart/form-data">
+
+                      <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                          <div class="property-step">
+                            <!-- <p>STEP 6</p> -->
+                            <h6>Edit plan pictures</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="message_data"></span>
+                      <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                          <%if(propertyPlanImageObject.length>0){%>
+
+                            <div class="property-box  plan_prop_0">
+                              <input type="hidden" name="editPropertyPlanImageId" class="editPropertyPlanImageId"
+                                value="<%=propertyPlanImageObject[0]._id%>">
+                              <div class=property-inner-section>
+                                <img src="/propplanimg/<%=propertyPlanImageObject[0].ppps_plan_image_name%>"
+                                  id="avtar_<%=propertyPlanImageObject[0]._id%>">
+                              </div>
+                              <div class="driving-liences-portfolio ">
+                                <p CLASS="planPicture_0">
+                                  <%=propertyPlanImageObject[0].ppps_plan_image_name%>"
+                                </p>
+                              </div>
+                              <div class="property-upload">
+                                <button class="btn btn-upload">Upload</button>
+                              </div>
+                              <span>
+                                <div class="custom-file-input">
+                                  <input type="file" name="planImage" id="PropertyPlanImageOne" value=""
+                                    onchange="document.getElementById('avtar_<%=propertyPlanImageObject[0]._id%>').src = window.URL.createObjectURL(this.files[0])">
+                                  <input type="button">
+                                  <input type="hidden" name="plan_image_one_id"
+                                            value="<%=propertyPlanImageObject[0]._id%>" id="plan_image_one_id">
+                                </div>
+                              </span>
+                            </div>
+                            <%}else{%>
+                              <div class="property-box  prop_4">
+
+                                <div class=property-inner-section>
+                                  <img src="images/upload-icon.png" id="avtar4">
+                                </div>
+                                <div class="driving-liences-portfolio ">
+                                  <p CLASS="Picture_4">Picture 1</p>
+                                </div>
+                                <div class="property-upload">
+                                  <button class="btn btn-upload">Upload</button>
+                                </div>
+                                <span>
+                                  <div class="custom-file-input">
+                                    <input type="file" name="planImage" id="propertiesplanpic1" value="" required
+                                      onchange="document.getElementById('avtar4').src = window.URL.createObjectURL(this.files[0])">
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </div>
+                              <%}%>
+                                <%if(propertyPlanImageObject.length>1){%>
+                                  <div class="property-box  plan_prop_1">
+                                    <input type="hidden" name="editPropertyPlanImageId" class="editPropertyPlanImageId"
+                                      value="<%=propertyPlanImageObject[1]._id%>">
+                                    <div class=property-inner-section>
+                                      <img src="/propplanimg/<%=propertyPlanImageObject[1].ppps_plan_image_name%>"
+                                        id="avtar_<%=propertyPlanImageObject[1]._id%>">
+                                    </div>
+                                    <div class="driving-liences-portfolio ">
+                                      <p CLASS="planPicture_1">
+                                        <%=propertyPlanImageObject[1].ppps_plan_image_name%>"
+                                      </p>
+                                    </div>
+                                    <div class="property-upload">
+                                      <button class="btn btn-upload">Upload</button>
+                                    </div>
+                                    <span>
+                                      <div class="custom-file-input">
+                                        <input type="file" name="planImage" id="PropertyPlanImageTwo" value=""
+                                          onchange="document.getElementById('avtar_<%=propertyPlanImageObject[1]._id%>').src = window.URL.createObjectURL(this.files[0])">
+                                        <input type="button">
+                                        <input type="hidden" name="plan_image_two_id"
+                                            value="<%=propertyPlanImageObject[1]._id%>" id="plan_image_two_id">
+                                      </div>
+                                    </span>
+                                  </div>
+                                  <%}else{%>
+                                    <div class="property-box  prop_5">
+                                      <div class=property-inner-section>
+                                        <img src="images/upload-icon.png" id="avtar5">
+                                      </div>
+                                      <div class="driving-liences-portfolio ">
+                                        <p CLASS="Picture_5">Picture 2</p>
+                                      </div>
+                                      <div class="property-upload">
+                                        <!-- <a href="#">Upload</a> -->
+                                        <button class="btn btn-upload">Upload</button>
+                                      </div>
+                                      <span>
+                                        <div class="custom-file-input">
+                                          <input type="file" name="planImage" id="propertiesplanpic2" value=""
+                                            onchange="document.getElementById('avtar5').src = window.URL.createObjectURL(this.files[0])">
+                                          <input type="button">
+                                        </div>
+                                      </span>
+                                    </div>
+
+
+                                    <%}%>
+                                      <%if(propertyPlanImageObject.length>2){%>
+                                        <div class="property-box  plan_prop_2">
+                                          <input type="hidden" name="editPropertyPlanImageId"
+                                            class="editPropertyPlanImageId" value="<%=propertyPlanImageObject[2]._id%>">
+                                          <div class=property-inner-section>
+                                            <img src="/propplanimg/<%=propertyPlanImageObject[2].ppps_plan_image_name%>"
+                                              id="avtar_<%=propertyPlanImageObject[2]._id%>">
+                                          </div>
+                                          <div class="driving-liences-portfolio ">
+                                            <p CLASS="planPicture_2">
+                                              <%=propertyPlanImageObject[2].ppps_plan_image_name%>"
+                                            </p>
+                                          </div>
+                                          <div class="property-upload">
+                                            <button class="btn btn-upload">Upload</button>
+                                          </div>
+                                          <span>
+                                            <div class="custom-file-input">
+                                              <input type="file" name="planImage" id="PropertyPlanImageThree" value=""
+                                                onchange="document.getElementById('avtar_<%=propertyPlanImageObject[2]._id%>').src = window.URL.createObjectURL(this.files[0])">
+                                              <input type="button">
+                                              <input type="hidden" name="plan_image_three_id"
+                                            value="<%=propertyPlanImageObject[2]._id%>" id="plan_image_three_id">
+                                            </div>
+                                          </span>
+                                        </div>
+                                        <%}else{%>
+                                          <div class="property-box  prop_6">
+
+                                            <div class=property-inner-section>
+                                              <img src="images/upload-icon.png" id="avtar6">
+                                            </div>
+                                            <div class="driving-liences-portfolio ">
+                                              <p CLASS="Picture_6">Picture 3</p>
+                                            </div>
+                                            <div class="property-upload">
+                                              <!-- <a href="#">Upload</a> -->
+                                              <button class="btn btn-upload">Upload</button>
+                                            </div>
+                                            <span>
+                                              <div class="custom-file-input">
+                                                <input type="file" name="planImage" id="propertiesplanpic3" value=""
+                                                  onchange="document.getElementById('avtar6').src = window.URL.createObjectURL(this.files[0])">
+                                                <input type="button">
+                                              </div>
+                                            </span>
+                                          </div>
+
+                                          <%}%>
+
+
+                        </div>
+                      </div>
+                      <input type="hidden" class="plan_img_property_id" name="property_id" value="">
+                      <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                          <div class="property-btn">
+                            <button type="submit" class="btn submit-btn submit_third_form">Edit
+                              Property</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <%}%>
+              </div>
+              <!--third form div close-->
+            </div>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <%- include('dashboard_footer')-%>

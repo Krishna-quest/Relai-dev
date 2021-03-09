@@ -1,0 +1,199 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+  integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+  crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+  var locations = [
+    ['Bondi Beach', -33.890542, 151.274856, 4],
+    ['Coogee Beach', -33.923036, 151.259052, 5],
+    ['Cronulla Beach', -34.028249, 151.157507, 3],
+    ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+    ['Maroubra Beach', -33.950198, 151.259302, 1]
+  ];
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: new google.maps.LatLng(-33.92, 151.25),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+
+  for (i = 0; i < locations.length; i++) {
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map
+    });
+
+    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+      return function () {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+  }
+</script>
+<script>
+  $(document).ready(function () {
+    $(".sidenav ul li").dblclick(function () {
+      $(".sidenav ul li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+  $(document).ready(function () {
+    $(".right-navbar li").dblclick(function () {
+      $("right-navbar li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+  $('#changePasswordForm2').validate({
+    onfocusout: function (element) {
+      this.element(element);
+    },
+    errorClass: 'error_validate',
+    errorElement: 'span',
+    errorColor: 'red',
+    highlight: function (element, errorClass) {
+      $(element).removeClass(errorClass);
+    },
+    submitHandler: function (form) {
+      // $('#submit').attr('disabled', true);
+      //$('#changePasswordForm').submit(function (e) {
+      //e.preventDefault();
+      var formData = $('#changePasswordForm2').serialize();
+      console.log('formData:', formData)
+      $.ajax({
+        type: "POST",
+        data: formData,
+        url: "/api/professional-change-password",
+        cache: false,
+        success: function (data) {
+          console.log(data);
+          if (data.status == true) {
+            $('#changePasswordModal').modal('hide');
+            // $('.complaint_msg').html('<div class="isa_success"><i class="fa fa-check"></i> '+data.message+'</div>')
+            // setTimeout(function () {
+            //   location.reload(true);
+            // }, 4000);
+            Swal.fire({
+              // position: 'top-end',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: false,
+              confirmButtonColor: '#005377',
+              timer: 4000
+            })
+          } else {
+
+            Swal.fire({
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              confirmButtonColor: '#005377',
+              timer: 4000
+            })
+
+            //$('.complaint_msg').html('<div class="isa_error"><i class="fa fa-check"></i> '+data.message+'</div>')
+          }
+        }
+      });
+      //location.reload(true);
+
+    }
+  });
+
+  function editProfile(user_id) {
+
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getPersonalProfile",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getOtherProfile",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getEducationdetails",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getEmploymenthistorydetails",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getReferencedetails",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getIdentimitydetails",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+    $.ajax({
+      type: "GET",
+      data: { user_id },
+      url: "/getLanguagedetails",
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        var htmlData = '';
+      }
+    });
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>

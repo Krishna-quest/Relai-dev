@@ -1,0 +1,83 @@
+<%- include('head')-%>
+
+  <section style="overflow: hidden;">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-lg-6 p-0">
+          <div class="signup">
+            <div class="clearfix header-login">
+              <div class="logo-signup float-left">
+                <a class="navbar-brand" href="/index"><img src="images/logo-2.png" class="d-inline-block align-top"></a>
+              </div>
+              <div class="float-right">
+                <a href="/intro" class="signin text-right">
+                  <button type="submit" class="btn btn-sign">SIGN UP</button>
+                </a>
+              </div>
+            </div>
+            <p>START FOR FREE</p>
+            <h1>Sign in</h1>
+            <div class="col">
+              <div class="intro-box">
+                <a href="/signin-professional"><img src="images/service-provider.png">&nbsp;&nbsp;&nbsp;<span
+                    class="intro-text">Signin with
+                    service
+                    provider</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/right.png" alt=""></a>
+              </div>
+
+              <div class="intro-box">
+                <a href="/signin"> <img src="images/customer.png">&nbsp;&nbsp;&nbsp;<span class="intro-text">Signin with
+
+                    customer</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                    src="images/right.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="login-slider">
+
+            <div class="item">
+              <img src="images/becom3.png" alt="">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="find-slider">Find the customer for your service</h5>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $(".sidenav ul li").click(function () {
+        $(".sidenav ul li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+    $(document).ready(function () {
+      $(".right-navbar li").click(function () {
+        $("right-navbar li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script>
+  </body>
+
+  </html>

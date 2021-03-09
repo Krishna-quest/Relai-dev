@@ -1305,6 +1305,7 @@ label.check-permission span {
     border: none;
     text-align: center;
     margin: 0 auto;
+     display: flow-root; 
 }
 .permission-modal .modal-dialog {
     max-width: 570px;
@@ -1633,7 +1634,7 @@ a.btn.btn-new {
         width: 100%;
         border-radius: 10px;
 }
-.carousel-item img{
+.carousel-item-fix img{
     max-height: 250px;
     min-height: 250px;
     border-radius: 10px;
@@ -1903,6 +1904,7 @@ ul.docs-list.last-doc li{
 }
 .property-btn-fix.float-right {
     margin-top: 20px;
+   
 }
 .property-box {
     border: 2px dashed #d6d6d6;
@@ -2542,8 +2544,13 @@ ul.docs-list.last-doc li{
         margin-left: 35px;
         padding-left: 20px;
     }
-    .icon-fix2, .btn-hire-now-small{
+    .icon-fix2{
         padding-top: 25px;
+        margin-left: 15px;
+        padding-left: 20px;
+    }
+    .btn-hire-now-small{
+        padding-top: 15px;
         margin-left: 15px;
         padding-left: 20px;
     }
@@ -2583,6 +2590,7 @@ ul.docs-list.last-doc li{
         color: #005377;
         /* width: 81px; */
         padding: 7px 9px;
+        margin-top: 8px;
         margin-bottom: 50px;
         margin-left: 10px;
         border-radius: 10px;
@@ -2749,7 +2757,7 @@ ul.docs-list.last-doc li{
     color: #005377;
     width: 52px;
     padding: 12px 9px;
-    margin-top: 15px;
+    margin-top: 19px;
     margin-left: -10px;
     border-radius: 10px;
     border: 2px solid #005377;
@@ -3166,7 +3174,7 @@ button.portfolio-btn {
     position: relative;
 }
 .kyc-box-portfolio .custom-file-input {
-    height: 130px;
+    height: 100%;
     width: 100%;
     position: absolute;
     left: 0;
@@ -3218,7 +3226,7 @@ margin-top: 40px;;
     height: 40px;
     float: left;
     width: 100px;
-    padding: 0px 10px 10px 10px;
+    padding: 5px 10px 10px 10px;
     text-align: center;
     border-radius: 5px;
     margin-bottom: 11px;
@@ -3530,7 +3538,7 @@ color: #005377;
        padding-bottom: 190px;
     }
     .edu-btn {
-        margin-left: 0px;
+        margin-left: 20px;
         margin-top: 20px;
         margin-bottom: 20px;
     }
@@ -3606,7 +3614,7 @@ color: #005377;
         margin-top: 15px;
     }
     .profile-radio{
-        margin-top: 15px;
+        margin-top: 18px;
     }
     .input-box-size-fix p{
         color:#8a8989;
@@ -4173,7 +4181,12 @@ width: 33%;
 
 .property-btn{
     margin-top: 20px;
-    margin-right: 10px;
+    margin-right: 50px;
+}
+.property-btn2{
+    margin-top: 20px;
+   text-align: center;
+   
 }
 .property-form p {
         font-size: 14px;
@@ -4228,7 +4241,7 @@ span.float-right u {
     background: #005377;
     /* margin: 0 auto; */
     display: block;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     margin-bottom: 30px;
 }
 .kyc-submit-btn {
@@ -4722,6 +4735,7 @@ a.btn.btn-add-property, a.btn.btn-get-help, button.btn.btn-cancel{
 }
 .permission-modal .modal-footer {
     margin: unset;
+    display: flex;
 }
 .docs-files .float-left, .docs-files .float-right {
     float: none !important;
@@ -5579,4 +5593,224 @@ a .clip-icon{
   }.professional-dropdown a:hover {background-color: #ddd;}
 
   .profile-dropdown:hover .professional-dropdown {display: block;}
+
+  .dream-home-edit-icon{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 15px;
+    text-transform: capitalize;
+    background-color: #005377
+  }
+  .edit-profile-icon{
+    /* position: absolute; */
+    right: 20px;
+    top: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 15px;
+    text-transform: capitalize;
+    background-color: #005377
+  }
+  .font-color-fix{
+    color: #005377;
+  }
+  .btn-next-info {
+    color: #fff;
+    background-color: #005377;
+    border-color: #0053;
+    border-radius: 7px;
+}
+
+.side-feedback-sec{
+    margin: 20px;
+    }
+    .side-feedback-sec .img-rating-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+    .side-feedback-sec .img-rating-box .img-side-part{
+    color: #000;
+    } 
+    .side-feedback-sec .img-rating-box .img-side-part img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .side-feedback-sec .img-rating-box .rating-star p i {
+        color: #f0a309;
+    }
+    .side-feedback-sec .img-rating-box .rating-star p {
+        margin-bottom: 0;
+        text-align: right;
+        font-size: 12px;
+        font-weight: 500;
+        color: #c1c1c1;
+    }
+    .side-feedback-sec .comment-text {
+        font-size: 12px;
+        font-weight: 500;
+        color: #afadad;
+        text-align: justify;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+    
+    .feedback-modal .modal-title {
+        margin-bottom: 30px;
+        color: #005377;
+        font-weight: 600;
+        font-size: 22px;
+    }
+    .feedback-modal .form-group label {
+        font-weight: 600;
+        /* color: #000; */
+    }
+    .feedback-modal .form-group .form-control{
+        border-radius: 0;
+    }
+    .feedback-modal .btn-add-property{
+        margin: 0;
+    }
+
+     .rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}  
+  .rating > label { 
+    color: #ddd; 
+   float: right; 
+  }
   
+  /**** CSS Magic to Highlight Stars on Hover ****/
+  
+  .rating > input:checked ~ label, 
+  .rating:not(:checked) > label:hover,
+  .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } 
+  
+  .rating > input:checked + label:hover,
+  .rating > input:checked ~ label:hover,
+  .rating > label:hover  input:checked  label,
+  .rating > input:checked  label:hover  label { color: #FFED85;  } 
+  
+
+
+  /*********Rating Progress Bar************/
+  .star-rating-piramid{
+    width: 20%;
+    }
+    .star-rating-piramid ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        text-align: right;
+        justify-content: flex-end;
+        margin-bottom: 0;
+    }
+    .star-rating-piramid ul li {
+        list-style: none;
+        color: #bdb9b9;
+        margin: 0 1px;
+        font-size: 12px;
+    }
+    .progress-rating {
+        width: 80%;
+    }
+    .progress-rating ul{
+        padding-left: 0;
+        text-align: right;
+        margin-bottom: 0;
+    }
+    .progress-rating ul li {
+        list-style: none;
+        margin: 8px 10px 13px;
+    }
+    .ratting-overall-box{
+        display: flex;
+        align-items: top;
+    }
+    .progress-rating .progress {
+        height: 5px;
+        background-color: transparent;
+    }
+    .pointer-fix.new-rating-number{
+    color: #005377;
+    margin: 0;
+    }
+
+    /*******Loader Style********/
+    .loader-box {
+        background-color: rgba(0, 0, 0,0.7);
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .loader-box img{
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #ddd;
+    }
+    @media (max-width: 768px) {
+
+        .star-rating-piramid {
+            width: 35%;
+        }
+        .progress-rating {
+            width: 65%;
+        }
+        .mt-5{
+            margin-top: 0 !important;
+        }
+        }
+
+
+        /* input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+} */
+
+.table-checkbox{
+    border: 2px solid #c1c1c1;
+    border-radius:10px; 
+    margin-top: 20px;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }       
+.doc_name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

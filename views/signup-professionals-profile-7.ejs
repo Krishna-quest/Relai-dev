@@ -109,7 +109,7 @@
               <div class="row">
                 <div class="col-sm-12 col-lg-9">
                   <div class="signup-header">
-                    <p>START FOR FREE</p>
+                    <!-- <p>START FOR FREE</p> -->
 
                   </div>
                 </div>
@@ -126,7 +126,7 @@
                   </div>
                 </div>
               </div>
-              <form action="/api/service_provider_language" method="post" class="form form-section">
+              <form action="/api/service_provider_language" method="post" class="form form-section" id="form7">
 
                 <% if(typeof err_msg!='undefined' ){ %>
                   <span class="error_validate flash_msg" style="color: red; padding-bottom: 20px;">
@@ -171,12 +171,13 @@
                           </div>
                           <div class="col-sm-12 col-lg-1">
                             <div class="add-btn">
-                              <a href="#" class="btn signup-professional7-add-btn"><i class="fa fa-plus"></i></a>
+                              <button class="btn signup-professional7-add-btn" name="addPlusbtn"><i
+                                  class="fa fa-plus"></i></button>
                             </div>
                           </div>
                         </div>
 
-
+                        <div class="divv"></div>
                         <div class="row">
                           <div class="col-6 col-sm-6 col-lg-6">
                             <div class="prev-btn-fix2 float-left">
@@ -206,6 +207,7 @@
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -215,12 +217,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/countrystatecity.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-    $('#registerform').validate({
+    $('#form7').validate({
       onfocusout: function (element) {
         this.element(element);
       },
@@ -230,8 +236,54 @@
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#form7').serialize();
+
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/service_provider_language",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+              if (data.redirectpage == true) {
+                setTimeout(function () {
+                  //location.reload(true);
+                  window.location.href = data.redirect;
+                }, 4000);
+              }
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                window.location.href = "/portfolio";
+              }, 4000);
+
+            }
+          }
+        });
+
       }
     });
   </script>
@@ -248,7 +300,25 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      var c = 2;
+      $("button[name='addPlusbtn']").click(function (e) {
+        e.preventDefault();
+
+        var domElement = $('<div class="row"> <div class="col-sm-12 col-lg-5"> <div class="input-box-size-fix3"><select class="form-control " class="text-field-size" id="selectBox" name="spls_language"><option value="0">Select Language</option>           <option value="english">English</option> <option value="german">German</option>           <option value="french">French</option> <option value="spanish">Spanish</option> </select>  </div> </div> <div class="col-sm-12 col-lg-5"> <div class="input-box-size-fix3">     <select class="form-control " class="text-field-size" id="selectBox"              name="spls_language_proficiency_level"> <option value="0">Select Language Proficiency Level</option><option value="level1">Level 1 - Elementary Proficiency</option>           <option value="level2">Level 2 - Limited Working Proficiency</option><option value="level3">Level 3 - Professional Working Proficiency</option> <option value="level4">Level 4 - Full Professional Proficiency </option> <option value="level5">Level 5 - Native / Bilingual Proficiency </option>  </select> </div> </div></div>' + c++);
+
+        if (c == 5) {
+
+          $("button[name='addPlusbtn']").attr('disabled', true);
+        }
+        $(".divv").before(domElement);
+
+      });
+
+    });
   </script>
   </body>
 

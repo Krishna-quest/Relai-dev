@@ -1,0 +1,168 @@
+<%- include('dashboard_header_professional')-%>
+  <%- include('edit-profile-professional-model')-%>
+
+    <!-- The Modal -->
+    <div class="modal permission-modal fade " id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Raise a Complaint</h2>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <select class="form-control " id="selectBox">
+              <option value="0">Select professional</option>
+              <option value="">2</option>
+            </select>
+
+            <input type="text" class="form-control  form-control-fix2" id="subject" placeholder="Subject"
+              name="subject">
+            <textarea class="form-control  form-control-fix2" rows="3" id="comment">Add Notes</textarea>
+
+            <div class="model-btn-fix">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+              <div class="user-profile">
+                <img src="../images/user-3.png" alt="" title="">
+              </div>
+              <div class="user-name">
+                <h6>
+                  <%= session.name%>,<span><i>
+                        <%= session.role %>
+                      </i>
+                    </span>
+                </h6>
+
+                <a href="#"><i>
+                    <%= session.email%>
+                      <%- include('edit-profile-professional-icon')-%>
+                  </i></a>
+              </div>
+            </div>
+            <%- include('sidebar-professional')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+
+            <div class="row complaints-sec">
+              <div class="col-sm-12 col-lg-6">
+                <div class="complaints">
+                  <h2>To do list</h2>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class=" dashboard-inner">
+              <div class="todo-list-table">
+                <table class="table table-responsive  table-phase-fix1">
+                  <thead>
+                    <tr>
+                      <th>To-dos</th>
+                      <th>Property</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> <label class="todos check-todos">
+                          <p>Instruct solicitor</p>
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-pending">Pending</a></td>
+                      <td><span>16 Nov, 2020 <a href="/service-provider/myproperties-detail-phaseA">Take
+                            Action</a></span></td>
+
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>Instruct other professionals</p>
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-pending">Pending</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>ID/Passport</p>
+                          <input type="checkbox" checked="checked">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-complete">Complete</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>Proof of address</p>
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-pending">Pending</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>Proof of fund (cash buyers)/agreement in principle (mortgage)</p>
+                          <input type="checkbox" checked="checked">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-complete">Complete</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>Checks. Title/property/chains et al</p>
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-pending">Pending</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                    <tr>
+                      <td><label class="todos check-todos">
+                          <p>Memorandum of sales</p>
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label></td>
+                      <td>Nacary Apartment</td>
+                      <td><a class="btn btn-pending">Pending</a></td>
+                      <td><span>16 Nov, 2020 <a href="#">Take Action</a></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <%-include('professional-footer')-%>
+      </body>
+
+      </html>

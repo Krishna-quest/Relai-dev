@@ -42,7 +42,11 @@
                         <% chatData.forEach(function(row){ %>
                           <div class="messages-box clearfix">
                             <div class="message-user-img">
-                              <img src="images/recent-user-1.png" alt="" title="">
+                              <% if(row.sms_user_profile_img){ %>
+                                <img src="upload/<%= row.sms_user_profile_img%>" alt="" title="">
+                              <% }else{ %>
+                                <img src="images/img_avatar.png" alt="" title="">
+                              <%}%>
                             </div>
                             <div class="message-content">
                               <h3><%= row.senderName%></h3>
@@ -53,12 +57,17 @@
                           <% }); %>
                       </div>
                       <div class="text-message-box clearfix">
+                        <% var userid=''; if(session.active_user_login == property.ps_is_active_user_flag){ %> 
+                            <%userid = property.ps_user_id%>
+                        <% }else{%>  
+                           <%userid = property.ps_tagged_user_id%>
+                        <% } %> 
                         <form method="POST" id="chat_form">
                           <div class="text-box">
                             <input type="hidden" name="professional_id" data-val="<%=professional_id%>"
                               value="<%=professional_id%>" id="professional_id">
                             <input type="hidden" name="property_id" value="<%=property._id%>" id="property_id">
-                            <input type="hidden" name="customer_id" value="<%=property.ps_user_id%>" id="customer_id">
+                            <input type="hidden" name="customer_id" value="<%=userid%>" id="customer_id">
                             <textarea name="chat_input" class="form-control"
                               style="min-width: 80%; margin-bottom: 10px; " rows="3" id="comment"></textarea>
                             <button id="chat_submit" type="button" class="btn btn-next"
@@ -77,156 +86,42 @@
       </div>
     </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
+    <%- include('dashboard_footer')-%>
 
-    <script>
-
-function scrollToBottom() {
-  var objDiv = document.getElementById("message_board");
-  objDiv.scrollTop = objDiv.scrollHeight;
-}
-
-      $(document).ready(function () {
-        scrollToBottom();
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-
+<script>
       function getAllMessage(sms_receiver_id, sms_sender_id, sms_property_id) {
-        $.ajax({
-          type: "GET",
-          data: {
-            sms_receiver_id: sms_receiver_id,
-            sms_sender_id: sms_sender_id,
-            sms_property_id: sms_property_id
-          },
-          url: "/get-message-property",
-          cache: false,
-          success: function (datas) {
-            if (datas.chatData.length > 0) {
-              var htmlData = '';
-              $.each(datas.chatData, function (i, data) {
-                htmlData += '<div class="messages-box clearfix"><div class="message-user-img"> <img src="images/recent-user-1.png" alt="" title=""></div><div class="message-content"><h3>' + data.senderName + '</h3><p>'+data.sms_message.trim()+'</p><p class="hours-ago text-right">' + data.msgTime + '</p></div></div>';
-              });
-              $('#message_board').html(htmlData);
-            }
+      $.ajax({
+        type: "GET",
+        data: {
+          sms_receiver_id: sms_receiver_id,
+          sms_sender_id: sms_sender_id,
+          sms_property_id: sms_property_id
+        },
+        url: "/get-message-property",
+        cache: false,
+        success: function (datas) {
+          if (datas.chatData.length > 0) {
+            console.log('data:',datas)
+            var htmlData = '';
+            $.each(datas.chatData, function (i, data) {
+              var imageData='';
+              if(data.sms_user_profile_img){
+                imageData = '<img src="upload/'+data.sms_user_profile_img+'" alt="" title="">';
+              }else{
+                imageData = '<img src="images/img_avatar.png" alt="" title="">';
+              }
+              htmlData += '<div class="messages-box clearfix"><div class="message-user-img">'+imageData+'</div><div class="message-content"><h3>' + data.senderName + '</h3><p>'+data.sms_message.trim()+'</p><p class="hours-ago text-right">' + data.msgTime + '</p></div></div>';
+            });
+            $('#message_board').html(htmlData);
           }
-        });
-      }
-
-      setInterval(function () {
-        var professional_id = $("#chat_form #professional_id").val();
-        var customer_id = $("#customer_id").val();
-        var property_id = $("#chat_form  #property_id").val();
-        //console.log('professional_id:',professional_id);
-        //console.log('customer_id:',customer_id);
-        //console.log('property_id:',property_id);
-         getAllMessage(professional_id, customer_id, property_id);
-      }, 1000);
-
-      $('#chat_submit').click(function (e) {
-        var comment = $("#comment").val();
-        var professional_id = $("#chat_form #professional_id").val();
-        var customer_id = $("#customer_id").val();
-        var property_id = $("#chat_form #property_id").val();
-        console.log('professional_id:', professional_id);
-        console.log('customer_id:', customer_id);
-        console.log('property_id:', property_id);
-        console.log('comment:', comment);
-        if (comment) {
-          $.ajax({
-            type: "POST",
-            data: {
-              message: comment.trim(),
-              sms_receiver_id: professional_id,
-              sms_property_id: property_id,
-              sms_sender_id: customer_id,
-              sms_sender_type: 'customer',
-              sms_receiver_type: 'service_provider',
-              sms_msg_Date: new Date(),
-              sms_read_status: 'unread'
-            },
-            url: "/api/message",
-            cache: false,
-            success: function (data) {
-              $("#comment").val('');
-              getAllMessage(professional_id, customer_id, property_id);
-            }
-          });
         }
       });
+    }
 
-
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-
-    <!-- <script language="javascript" type="text/javascript">
-    function getParameterByName(name, url) {
-          if (!url) url = window.location.href;
-          name = name.replace(/[\[\]]/g, "\\$&");
-          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-          if (!results) return null;
-          if (!results[2]) return '';
-          return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-        var val = getParameterByName('id');
-        //alert(val) onclick="location.href=this.href+'?id='+scrt_var;return false;"
-      var scrt_var = val; 
-      </script> -->
-    </body>
-
-
-    </html>
+    setInterval(function () {
+      var professional_id = $("#chat_form #professional_id").val();
+      var customer_id = $("#customer_id").val();
+      var property_id = $("#chat_form  #property_id").val();
+        getAllMessage(professional_id, customer_id, property_id);
+    }, 1000);
+  </script>

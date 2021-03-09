@@ -9,17 +9,17 @@
                 <a class="navbar-brand" href="/index"><img src="images/logo-2.png" class="d-inline-block align-top"></a>
               </div>
               <div class="float-right">
-                <a href="/signin" class="signin text-right">
+                <a href="/signin-intro" class="signin text-right">
                   <button type="submit" class="btn btn-sign">SIGN IN</button>
                 </a>
               </div>
             </div>
             <p>START FOR FREE</p>
-            <h1>Let’s get you started</h1>
-            <form id="registerform" class="form" method="post" action="/api/cust_register">
+            <h1>Customer Registration</h1>
+            <form id="registerform" class="form" method="POST" action="#">
 
 
-              <% if(typeof err_msg!='undefined' ){ %>
+              <!-- <% if(typeof err_msg!='undefined' ){ %>
                 <span class="error_validate flash_msg" style="color: red; margin-bottom: 10px;">
                   <%= err_msg %>
                 </span>
@@ -28,111 +28,107 @@
                     <span class="succ_flash_msg" style="color: green;">
                       <%= success_msg %>
                     </span>
-                    <% }%>
+                    <% }%> -->
 
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <input type="text" class="form-control form-control-size " id="fullName"
-                              placeholder="Frist Name" name="cus_firstname" required data-rule-required="true"
-                              data-rule-minlength="2" data-msg-required="FirstName is required!">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <input type="text" class="form-control form-control-size " id="fullName"
-                              placeholder="Last Name" name="cus_lastname" required data-rule-required="true"
-                              data-rule-minlength="2" data-msg-required="LastName is required!">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <input type="email" class="form-control form-control-size" id="email" placeholder="Email ID"
-                              name="cus_email_id" required data-rule-required="true" data-rule-email="true"
-                              data-msg-required="Email Id is required." data-msg-email="Please Enter Valid Email-ID.">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="text" class="form-control form-control-size" id="phoneNumber"
-                              placeholder="Phone Number" name="cus_phone_number" required data-rule-required="true"
-                              data-rule-minlength="10" data-msg-required="PhoneNumber is required!">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <input type="text" class="form-control form-control-size" id="address" placeholder="Address"
-                              name="cus_address" required data-rule-required="true"
-                              data-msg-required="Address is required!">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <select name="country" class="countries form-control selectBox4" id="countryId" required
-                              style="height: 44px;" data-rule-required="true"
-                              data-msg-required="Country name is required!">
-                              <option value="">Select Country</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group  ">
-                            <select name="state" class="states form-control selectBox4" id="stateId" required
-                              style="height: 44px;" data-rule-required="true"
-                              data-msg-required="County name is required!">
-                              <option value="">Select County</option>
-                            </select>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <input type="hidden" class="form-control " id="token" name="token">
+                    <input type="text" class="form-control form-control-size " id="Forename" placeholder="Forename"
+                      name="cus_firstname" required data-rule-required="true" data-rule-minlength="2"
+                      data-msg-required="Forename is required!">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <input type="text" class="form-control form-control-size " id="Surname" placeholder="Surname"
+                      name="cus_lastname" required data-rule-required="true" data-rule-minlength="2"
+                      data-msg-required="Surname is required!">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <input type="email" class="form-control form-control-size" id="email" placeholder="Email ID"
+                      name="cus_email_id" required data-rule-required="true" data-rule-email="true"
+                      data-msg-required="Email Id is required." data-msg-email="Please Enter Valid Email-ID.">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="number" class="form-control form-control-size" id="phoneNumber"
+                      placeholder="Phone Number" name="cus_phone_number" required data-rule-required="true"
+                      data-rule-minlength="10" data-rule-maxlength="12" data-msg-required="PhoneNumber is required!">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <input type="text" class="form-control form-control-size" id="address" placeholder="Address"
+                      name="cus_address" required data-rule-required="true" data-msg-required="Address is required!">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <select name="country" class="countries form-control selectBox4" id="countryId" required
+                      style="height: 44px;" data-rule-required="true" data-msg-required="Country name is required!">
+                      <option value="">Select Country</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group  ">
+                    <select name="state" class="states form-control selectBox4" id="stateId" required
+                      style="height: 44px;" data-rule-required="true" data-msg-required="County name is required!">
+                      <option value="">Select County</option>
+                    </select>
 
-                            <!-- <input type="text" class="form-control form-control-size" id="city" placeholder="City"
+                    <!-- <input type="text" class="form-control form-control-size" id="city" placeholder="City"
                               name="cus_city" required data-rule-required="true"
                               data-msg-required="City name is required!"> -->
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group ">
-                            <select name="city" class="cities form-control selectBox4" id="cityId" required
-                              style="height: 44px;" data-rule-required="true"
-                              data-msg-required="City name is required!">
-                              <option value="">Select City</option>
-                            </select>
-                            <!-- <input type="text" class="form-control form-control-size" id="country" placeholder="Country"
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                    <select name="city" class="cities form-control selectBox4" id="cityId" required
+                      style="height: 44px;" data-rule-required="true" data-msg-required="City name is required!">
+                      <option value="">Select City</option>
+                    </select>
+                    <!-- <input type="text" class="form-control form-control-size" id="country" placeholder="Country"
                               name="cus_country_id" required data-rule-required="true"
                               data-msg-required="Country name is required!"> -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group  "><input type="password" class="form-control form-control-size"
-                              id="password" placeholder="Password" name="cus_password" required
-                              data-rule-required="true" data-rule-minlength="6"
-                              data-msg-required="Password is required!">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group  "><input type="password" class="form-control form-control-size" id="password"
+                      placeholder="Password" name="cus_password" required data-rule-required="true"
+                      data-rule-minlength="6" data-msg-required="Password is required!">
 
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group ">
-                            <input type="password" class="form-control form-control-size" id="password"
-                              placeholder="Confirm password" name="confirmPassword" required data-rule-required="true"
-                              data-rule-minlength="6" data-msg-required="Confirm Password is required!">
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                    <input type="password" class="form-control form-control-size" id="password"
+                      placeholder="Confirm password" name="confirmPassword" required data-rule-required="true"
+                      data-rule-minlength="6" data-msg-required="Confirm Password is required!">
+                  </div>
+                </div>
+              </div>
 
 
-                      <p class="text-center">By signing up, you agree to the <a href="/termandconditions">terms and
-                          conditions</a> of Relai.</p>
-                      <!-- <a href="/otp" class="btn btn-next">SIGN UP</a> -->
-                      <button type="submit" name="submit" class="btn btn-next">SIGN UP</button>
-                      <p class="text-center" style="margin-top :10px">Already have an account? <a href="/signin"> Sign
-                          in
-                        </a> </p>
+              <p class="text-center">By signing up, you agree to the <a href="/termandconditions">terms and
+                  conditions</a> of Relai.</p>
+              <!-- <a href="/otp" class="btn btn-next">SIGN UP</a> -->
+              <button type="submit" name="submit" class="btn btn-next">SIGN UP</button>
+              <p class="text-center" style="margin-top :10px">Already have an account? <a href="/signin"> Sign
+                  in
+                </a> </p>
             </form>
           </div>
 
@@ -219,7 +215,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="../js/countrystatecity.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script>
 
     $(document).ready(function () {
@@ -240,19 +236,86 @@
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
   <script type="text/javascript">
+    // $('#registerform').validate({
+    //   onfocusout: function (element) {
+    //     this.element(element);
+    //   },
+    //   errorClass: 'error_validate',
+    //   errorElement: 'span',
+    //   highlight: function (element, errorClass) {
+    //     $(element).removeClass(errorClass);
+    //   },
+    //   submitHandler: function (form) {
+    //     $('#submit').attr('disabled', true);
+    //     form.submit();
+    //   }
+    // });
+
     $('#registerform').validate({
       onfocusout: function (element) {
         this.element(element);
       },
       errorClass: 'error_validate',
       errorElement: 'span',
+      errorColor: 'red',
       highlight: function (element, errorClass) {
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#registerform').serialize();
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/cust_register",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                // window.location.href = "/otp?email=" + data.customers.cus_email_id;
+                window.location.href = "/signin"
+              }, 4000);
+
+            }
+          }
+        });
+
+
       }
+    });
+
+  </script>
+  <script>
+    jQuery.extend(jQuery.validator.messages, {
+      accept: "Please enter a value with a valid extension.",
+      maxlength: jQuery.validator.format("Please  don't enter more than {0} digit."),
+      minlength: jQuery.validator.format("Please enter at least {0} digit."),
+      rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+      range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+      max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+      min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
     });
   </script>
   <script type="text/javascript">
@@ -282,6 +345,29 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-149371669-1');
+  </script>
+  <script>function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    var email = getParameterByName('email'); // "lorem"
+    var token = getParameterByName('token');
+    if (token) {
+      $('#token').val(token);
+    }
+    if (email) {
+      $('#email').val(email);
+      $('#email').attr('readonly', 'readonly');
+    }
+    else {
+      $('#email').val('');
+      $('#email').attrRemove('readonly');
+    }
+
   </script>
 
   </body>

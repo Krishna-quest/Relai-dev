@@ -1,5 +1,5 @@
 <%- include('dashboard_header')-%>
-<%- include('edit-profile-model')-%>
+  <%- include('edit-profile-model')-%>
     <div class="dashboard-wpr">
       <div class="container-fluid">
         <div class="row content">
@@ -36,6 +36,7 @@
             </div>
 
             <div class=" dashboard-inner">
+              <% if(complaintData.length > 0){ %>
               <table class="table table-responsive table-phase-fix">
                 <thead>
                   <tr>
@@ -49,40 +50,40 @@
                 </thead>
                 <tbody>
                   <% var i=0; complaintData.forEach(function(row){ %>
-                  <tr>
-                    <td>
-                      <p><%= row.coms_complaint_code%></p>
-                    </td>
-                    <td><%= row.coms_complaint_help%></td>
-                    <td><%= row.coms_complaint_subject%></td>
-                    <td><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date(row.coms_created_at)) %> </td>
-                    <td><a href="complaints-detail.html" class="btn btn-pending"><%= row.coms_complaint_status%></a></td>
-                    <td> <a href="/complaints-detail?complaintID=<%= row.coms_complaint_code%>"><img src="images/eye.png"></a> </td>
-                  </tr>
-                  <% i++;});%> 
+                    <tr>
+                      <td>
+                        <p>
+                          <%= row.coms_complaint_code%>
+                        </p>
+                      </td>
+                      <td>
+                        <%= row.coms_complaint_help%>
+                      </td>
+                      <td>
+                        <%= row.coms_complaint_subject%>
+                      </td>
+                      <td>
+                        <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit'
+                          }).format(new Date(row.coms_created_at)) %>
+                      </td>
+                      <td><a href="javascript:void(0)" class="btn btn-pending">
+                          <%= row.coms_complaint_status%>
+                        </a></td>
+                      <td> <a href="/complaints-detail?complaintID=<%= row.coms_complaint_code%>" data-toggle="tooltip"
+                          data-placement="top" title="Complaint-detail"><img src=" images/eye.png"></a> </td>
+                    </tr>
+                    <% i++;});%>
                 </tbody>
               </table>
+              <% }else{ %> 
+                <p style="text-align:center">Complaint Not found !!</p>  
+              <% } %>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+    </div>
+    </div>
+    <%- include('dashboard_footer')-%>
 
-    <%- include('my-script') -%>
-</body>
-
-</html>

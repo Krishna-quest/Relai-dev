@@ -17,9 +17,13 @@ const PropertyProfessionalSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "customers"
   },
-  pps_pofessional_budget: { type: String },
+  pps_pofessional_budget: { type: Number },
   pps_exptected_delivery_date: { type: Date },
-  pps_status: { type: String },
+  pps_status: {
+     type: String,
+    enum: ['0', '1'],
+    default: '1'
+  },
   pps_created_at: {
     type: Date,
     default: Date.now

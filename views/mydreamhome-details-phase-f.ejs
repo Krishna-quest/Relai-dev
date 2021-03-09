@@ -1,0 +1,1569 @@
+<%- include('dashboard_header')-%>
+  <%- include('edit-profile-model')-%>
+    <!-- The Modal -->
+    <div class="modal permission-modal fade " id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Raise a Complaint</h2>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <select class="form-control " id="selectBox">
+              <option value="0">Select professional</option>
+              <option value="">2</option>
+            </select>
+
+            <input type="text" class="form-control  form-control-fix2" id="subject" placeholder="Subject"
+              name="subject">
+            <textarea class="form-control  form-control-fix2" rows="3" id="comment">Add Notes</textarea>
+
+            <div class="model-btn-fix">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-wpr">
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-2 sidenav hidden-xs-down">
+            <div class="user-login text-center">
+
+              <%- include('profile-image')-%>
+
+                <div class="user-name">
+                  <h2>
+                    <%= session.name %>
+                  </h2>
+                  <a href="#">
+                    <%= session.email %>
+                      <%- include('edit-profile-icon')-%>
+                  </a>
+                </div>
+            </div>
+            <%- include('sidebar')-%>
+          </div>
+          <div class="col-sm-12 col-lg-10">
+            <div class="dashboard-inner">
+              <div class="row">
+                <div class="breadcumb">
+                  <ul>
+                    <li><a href="/mydreamhome-details"
+                        onclick="location.href=this.href+'?id='+scrt_var;return false;"><i class="fa fa-long-arrow-left"
+                          aria-hidden="true" id="backtodeatils"></i> Back
+                        to <%=propertyData.ps_property_name%></a>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+              <div class="todo-list-table">
+                <div class="clearfix">
+                  <div class="heading-top float-left">
+                    <input type="hidden" class="phsename" value="<%=phase%>">
+                    <h2>
+                      <%=propertyData.ps_property_name%> <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Phase
+                        <%=step%> :<%=phase%>
+                    </h2>
+                  </div>
+                  <div class="total-time-cost float-right">
+                    <div class="total-time"><a href="#">TOTAL TIME<br><span>525 days</span></a></div>
+                    <div class="total-time"><a href="#">TOTAL COST<br><span>100,000 ￡</span></a></div>
+                  </div>
+                </div>
+                <%if(session.active_user_login=='renovator'){%>
+                  <div class="phase-progress">
+                    <ul>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                    </ul>
+                  </div>
+                  <%}%>
+                <div class="action-owner">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <p>Action</p>
+                    </div>
+                    <div class="float-left">
+                      <p>Action Owners</p>
+                    </div>
+                    <% if(session.active_user_login=='buyer' ){%>
+                      <div class="float-right">
+                        <a href="#" class="add-professionals existingTaskListModal" data-toggle="modal"
+                          data-target="#buyerPhaseF">Add
+                          Existing Task</a>
+                      </div>
+                      <%} else if(session.active_user_login=='seller' ){%>
+                        <div class="float-right">
+                          <a href="#" class="add-professionals existingTaskListModal" data-toggle="modal"
+                            data-target="#sellerPhaseF">Add
+                            Existing Task</a>
+                        </div>
+                        <%} else {%>
+                          <div class="float-right">
+                            <a href="#" class="add-professionals existingTaskListModal" data-toggle="modal"
+                              data-target="#renovatorPhaseF">Add
+                              Existing Task</a>
+                          </div>
+                          <%}%>
+                            <div class="float-right">
+                              <a href="#" class="add-professionals existingTaskListModal" data-toggle="modal"
+                                data-target="#addTask">Add
+                                Task</a>
+                            </div>
+
+                  </div>
+                </div>
+                <%if(session.active_user_login=='renovator'){%>
+                  <div>
+                    <h4>Renovator Task</h4>
+                  </div>
+                  <table class="table  table-phase-fix-2">
+                    <thead>
+                      <tr>
+                        <th>Task</th>
+                        <!-- <th>Buyer</th>
+                      <th>Solicitor</th> -->
+                        <%if(hiredProfessional_list.length>0){%>
+                          <%hiredProfessional_list.forEach(function(row,i){%>
+                            <th>
+                              <%=row.sps_fullname%>
+                            </th>
+                            <!-- <th>Professional B</th>
+                      <th>Professional C</th> -->
+                            <%})%>
+                              <%}else{%>
+                                <th>Professional NA</th>
+                                <%}%>
+                                  <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%if(taskObject.length==0){%>
+                        <tr>
+                          <td style='text-align: right;'>Task Not Found</td>
+                        </tr>
+                        <%}else{%>
+                          <%taskObject.forEach(function(row,i){%>
+                            <tr>
+                              <td> <label class="check-todos">
+                                  <p>
+                                    <%=row.ppts_task_name%>
+                                  </p>
+
+                                  <input type="checkbox">
+                                  <span class="checkmark"></span>
+                                </label></td>
+
+                              <!-- <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td>
+                            <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td> -->
+                              <%if(hiredProfessional_list.length>0){%>
+                                <%hiredProfessional_list.forEach(function(hp,i){%>
+                                  <%if(row.ppts_assign_to.includes(hp._id)){%>
+
+                                    <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                        <span>
+                                          <div class="custom-file-input">
+                                             <input type="file" name="task-document" onchange="previewFile_upload_task_document(this,'<%=row._id%>','<%=hp._id%>','<%=row.ppts_phase_name%>','<%=row.ppts_task_name%>','<%=row.ppts_property_id%>','F')">
+                                            <input type="button">
+                                          </div>
+                                        </span>
+                                      </a>
+                                      <a href="/mydreamhome-details-message?id=<%=row.ppts_property_id%>&pid=<%=hp._id%>"><img src="images/chat.png"></a>
+                                    </td>
+                                    <%}else{%>
+                                      <td>
+                                        <p>...</p>
+                                      </td>
+                                      <%}%>
+                                        <%});%>
+                                          <%}%>
+                            
+                                            <td><a class="btn help-btn" href="#" data-toggle="modal"
+                                                data-target="#myModal">Help</a>
+                                            </td>
+                                            <td>
+                                              <span>
+                                                <div class="profile-dropdown">
+                                                  <i class="fa fa-pencil editbtn"></i>
+                                                  <div class="dropdown-content">
+                                                    <a href="#" data-toggle="modal"
+                                                      data-target="#todoNotesModal<%=row._id%>">View
+                                                      Notes</a>
+                                                    <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                                      onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                                      data-target="#editTask">Edit-task</a>
+                                                    <!-- <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                              onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                              data-target="#removeProfessional">Remove Professional</a> -->
+                                                    <!-- <a href="#" data-toggle="model" data-target="#vewLogs">View Logs</a> -->
+                                                  </div>
+                                                </div>
+                                              </span>
+                                              <!-- <i class="fa fa-pencil editbtn" data-toggle="modal"
+                        data-target="#todoNotesModal<%=row._id%>"></i> -->
+
+                                            </td>
+                                            <td>
+                                              <div class="modal fade permission-modal" id="editTask">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form' name="edit_task_submit_form"
+                                                      action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Edit Task</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              No Professional Found
+                                                            </option>
+
+                                                          </select>
+                                                          <select
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" required>
+                                                            <option value="">Select new professional</option>
+                                                            <option value="">
+                                                              No professional found
+                                                            </option>
+
+                                                          </select>
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="text" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <textarea
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value=""></textarea>
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Update</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="modal fade permission-modal" id="removeProfessional">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form2'
+                                                      name="edit_task_submit_form" action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Remove Professional</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              Professional Not Found
+                                                            </option>
+
+                                                          </select>
+                                                          <input type="hidden"
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" value="">
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="hidden" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <input type="hidden"
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value="">
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Remove</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <p>
+                                                        <%=row.ppts_note%>
+                                                      </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                              </div>
+                                            </td>
+                            </tr>
+                            <%});%>
+                              <%}%>
+
+                    </tbody>
+                  </table>
+                <%}else if(session.active_user_login=='buyer'){%>
+                  <div>
+                    <h4>Buyer Task</h4>
+                  </div>
+                  <!-- ================================== -->
+                  <table class="table  table-phase-fix-2">
+                    <thead>
+                      <tr>
+                        <th>Task</th>
+                        <!-- <th>Buyer</th>
+                      <th>Solicitor</th> -->
+                        <%if(hiredProfessional_list.length>0){%>
+                          <%hiredProfessional_list.forEach(function(row,i){%>
+                            <th>
+                              <%=row.sps_fullname%>
+                            </th>
+                            <!-- <th>Professional B</th>
+                      <th>Professional C</th> -->
+                            <%})%>
+                              <%}else{%>
+                                <th>Professional NA</th>
+                                <%}%>
+                                  <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%if(taskObject.length==0){%>
+                        <tr>
+                          <td style='text-align: right;'>Task Not Found</td>
+                        </tr>
+                        <%}else{%>
+                          <%taskObject.forEach(function(row,i){%>
+                            <tr>
+                              <td> <label class="check-todos">
+                                  <p>
+                                    <%=row.ppts_task_name%>
+                                  </p>
+
+                                  <input type="checkbox">
+                                  <span class="checkmark"></span>
+                                </label></td>
+
+                              <!-- <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td>
+                            <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td> -->
+                              <%if(hiredProfessional_list.length>0){%>
+                                <%hiredProfessional_list.forEach(function(hp,i){%>
+                                  <%if(row.ppts_assign_to.includes(hp._id)){%>
+
+                                    <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                        <span>
+                                          <div class="custom-file-input">
+                                             <input type="file" name="task-document" onchange="previewFile_upload_task_document(this,'<%=row._id%>','<%=hp._id%>','<%=row.ppts_phase_name%>','<%=row.ppts_task_name%>','<%=row.ppts_property_id%>','F')">
+                                            <input type="button">
+                                          </div>
+                                        </span>
+                                      </a>
+                                      <a href="/mydreamhome-details-message?id=<%=row.ppts_property_id%>&pid=<%=hp._id%>"><img src="images/chat.png"></a>
+                                    </td>
+                                    <%}else{%>
+                                      <td>
+                                        <p>...</p>
+                                      </td>
+                                      <%}%>
+                                        <%});%>
+                                          <%}%>
+                          
+                                            <td><a class="btn help-btn" href="#" data-toggle="modal"
+                                                data-target="#myModal">Help</a>
+                                            </td>
+                                            <td>
+                                              <span>
+                                                <div class="profile-dropdown">
+                                                  <i class="fa fa-pencil editbtn"></i>
+                                                  <div class="dropdown-content">
+                                                    <a href="#" data-toggle="modal"
+                                                      data-target="#todoNotesModal<%=row._id%>">View
+                                                      Notes</a>
+                                                    <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                                      onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                                      data-target="#editTask">Edit-task</a>
+                                                    <!-- <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                              onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                              data-target="#removeProfessional">Remove Professional</a> -->
+                                                    <!-- <a href="#" data-toggle="model" data-target="#vewLogs">View Logs</a> -->
+                                                  </div>
+                                                </div>
+                                              </span>
+                                              <!-- <i class="fa fa-pencil editbtn" data-toggle="modal"
+                        data-target="#todoNotesModal<%=row._id%>"></i> -->
+
+                                            </td>
+                                            <td>
+                                              <div class="modal fade permission-modal" id="editTask">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form' name="edit_task_submit_form"
+                                                      action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Edit Task</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              No Professional Found
+                                                            </option>
+
+                                                          </select>
+                                                          <select
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" required>
+                                                            <option value="">Select new professional</option>
+                                                            <option value="">
+                                                              No professional found
+                                                            </option>
+
+                                                          </select>
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="text" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <textarea
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value=""></textarea>
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Update</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="modal fade permission-modal" id="removeProfessional">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form2'
+                                                      name="edit_task_submit_form" action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Remove Professional</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              Professional Not Found
+                                                            </option>
+
+                                                          </select>
+                                                          <input type="hidden"
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" value="">
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="hidden" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <input type="hidden"
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value="">
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Remove</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <p>
+                                                        <%=row.ppts_note%>
+                                                      </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                              </div>
+                                            </td>
+                            </tr>
+                            <%});%>
+                              <%}%>
+
+                    </tbody>
+                  </table>
+                  <div class="phase-progress">
+                    <ul>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                      <li><a href="javascript:void(0)">25%</a></li>
+                    </ul>
+                  </div>
+                  <!-- ================================== -->
+                  <div>
+                    <h4>Seller Task</h4>
+                  </div>
+
+                  <!-- ================================== -->
+                  <table class="table  table-phase-fix-2">
+                    <thead>
+                      <tr>
+                        <th>Task</th>
+                        <!-- <th>Buyer</th>
+                      <th>Solicitor</th> -->
+                        <%if(hiredProfessional_list.length>0){%>
+                          <%hiredProfessional_list.forEach(function(row,i){%>
+                            <th>
+                              <%=row.sps_fullname%>
+                            </th>
+                            <!-- <th>Professional B</th>
+                      <th>Professional C</th> -->
+                            <%})%>
+                              <%}else{%>
+                                <th>Professional NA</th>
+                                <%}%>
+                                  <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%if(gest_taskObject.length==0){%>
+                        <tr>
+                          <td style='text-align: right;'>Task Not Found</td>
+                        </tr>
+                        <%}else{%>
+                          <%gest_taskObject.forEach(function(row,i){%>
+                            <tr>
+                              <td> <label class="check-todos">
+                                  <p>
+                                    <%=row.ppts_task_name%>
+                                  </p>
+
+                                  <input type="checkbox">
+                                  <span class="checkmark"></span>
+                                </label></td>
+
+                              <!-- <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td>
+                            <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td> -->
+                              <%if(hiredProfessional_list.length>0){%>
+                                <%hiredProfessional_list.forEach(function(hp,i){%>
+                                  <%if(row.ppts_assign_to.includes(hp._id)){%>
+
+                                    <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                        <span>
+                                          <div class="custom-file-input">
+                                             <input type="file" name="task-document" onchange="previewFile_upload_task_document(this,'<%=row._id%>','<%=hp._id%>','<%=row.ppts_phase_name%>','<%=row.ppts_task_name%>','<%=row.ppts_property_id%>','F')">
+                                            <input type="button">
+                                          </div>
+                                        </span>
+                                      </a>
+                                      <a href="/mydreamhome-details-message?id=<%=row.ppts_property_id%>&pid=<%=hp._id%>"><img src="images/chat.png"></a>
+                                    </td>
+                                    <%}else{%>
+                                      <td>
+                                        <p>...</p>
+                                      </td>
+                                      <%}%>
+                                        <%});%>
+                                          <%}%>
+                         
+                                            <td><a class="btn help-btn" href="#" data-toggle="modal"
+                                                data-target="#myModal">Help</a>
+                                            </td>
+                                            <td>
+                                              <span>
+                                                <div class="profile-dropdown">
+                                                  <i class="fa fa-pencil editbtn"></i>
+                                                  <div class="dropdown-content">
+                                                    <a href="#" data-toggle="modal"
+                                                      data-target="#todoNotesModal<%=row._id%>">View
+                                                      Notes</a>
+                                                    <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                                      onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                                      data-target="#editTask">Edit-task</a>
+                                                    <!-- <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                              onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                              data-target="#removeProfessional">Remove Professional</a> -->
+                                                    <!-- <a href="#" data-toggle="model" data-target="#vewLogs">View Logs</a> -->
+                                                  </div>
+                                                </div>
+                                              </span>
+                                              <!-- <i class="fa fa-pencil editbtn" data-toggle="modal"
+                        data-target="#todoNotesModal<%=row._id%>"></i> -->
+
+                                            </td>
+                                            <td>
+                                              <div class="modal fade permission-modal" id="editTask">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form' name="edit_task_submit_form"
+                                                      action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Edit Task</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              No Professional Found
+                                                            </option>
+
+                                                          </select>
+                                                          <select
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" required>
+                                                            <option value="">Select new professional</option>
+                                                            <option value="">
+                                                              No professional found
+                                                            </option>
+
+                                                          </select>
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="text" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <textarea
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value=""></textarea>
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Update</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="modal fade permission-modal" id="removeProfessional">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <form method="POST" id='edit_Task_form2'
+                                                      name="edit_task_submit_form" action="/api/edit_task_submit_form">
+                                                      <!-- Modal Header -->
+                                                      <div class="modal-header">
+                                                        <h2 class="modal-title text-center">Remove Professional</h2>
+                                                      </div>
+
+                                                      <!-- Modal body -->
+                                                      <div class="modal-body">
+
+                                                        <div class="todo-list-table">
+                                                          <input type="hidden" class="form-control hiddnepropertyId"
+                                                            name="ppts_property_id" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_name"
+                                                            name="ppts_phase_name" value="">
+                                                          <input type="hidden"
+                                                            class="form-control hiddenppts_phase_flag"
+                                                            name="ppts_phase_flag" value="">
+                                                          <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                          <input type="hidden" class="form-control hiddenppts_task_id"
+                                                            name="task_id" value="">
+                                                          <select
+                                                            class="form-control selectBox2  display-old-professional"
+                                                            style="height:48px" name="ppts_assign_to"
+                                                            data-rule-required="true"
+                                                            data-msg-required="professional is required!">
+                                                            <option value="">Select existing professional</option>
+                                                            <option value="">
+                                                              Professional Not Found
+                                                            </option>
+
+                                                          </select>
+                                                          <input type="hidden"
+                                                            class="form-control selectBox2 display-new-professional"
+                                                            style="height:48px" name="ppts_new_assign_to" value="">
+
+                                                          <input type="text"
+                                                            class="form-control  form-control-fix2 hiddenclass"
+                                                            id="ppts_task_name" placeholder="Task Name"
+                                                            name="ppts_task_name" value="" readonly>
+
+                                                          <input type="hidden" onfocus="(this.type='date')"
+                                                            class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                            id="ppts_due_date" placeholder="Due on Date"
+                                                            name="ppts_due_date" value="">
+
+                                                          <input type="hidden"
+                                                            class="form-control  form-control-fix2 hiddenppts_note"
+                                                            rows="2" name="ppts_note" id="ppts_note"
+                                                            placeholder="Add Notes(If any)" value="">
+                                                        </div>
+                                                      </div>
+                                                      <!-- Modal footer -->
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                          data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                          data-dismiss="">Remove</button>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <p>
+                                                        <%=row.ppts_note%>
+                                                      </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                              </div>
+                                            </td>
+                            </tr>
+                            <%});%>
+                              <%}%>
+
+                    </tbody>
+                  </table>
+                  <!-- ================================== -->
+                  <%}else{%>
+                    <div>
+                      <h4>Seller Task</h4>
+                    </div>
+                    <!-- ================================== -->
+                    <table class="table  table-phase-fix-2">
+                      <thead>
+                        <tr>
+                          <th>Task</th>
+                          <!-- <th>Buyer</th>
+                      <th>Solicitor</th> -->
+                          <%if(hiredProfessional_list.length>0){%>
+                            <%hiredProfessional_list.forEach(function(row,i){%>
+                              <th>
+                                <%=row.sps_fullname%>
+                              </th>
+                              <!-- <th>Professional B</th>
+                      <th>Professional C</th> -->
+                              <%})%>
+                                <%}else{%>
+                                  <th>Professional NA</th>
+                                  <%}%>
+                                    <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%if(taskObject.length==0){%>
+                          <tr>
+                            <td style='text-align: right;'>Task Not Found</td>
+                          </tr>
+                          <%}else{%>
+                            <%taskObject.forEach(function(row,i){%>
+                              <tr>
+                                <td> <label class="check-todos">
+                                    <p>
+                                      <%=row.ppts_task_name%>
+                                    </p>
+
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label></td>
+
+                                <!-- <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td>
+                            <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td> -->
+                                <%if(hiredProfessional_list.length>0){%>
+                                  <%hiredProfessional_list.forEach(function(hp,i){%>
+                                    <%if(row.ppts_assign_to.includes(hp._id)){%>
+
+                                      <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                          <span>
+                                            <div class="custom-file-input">
+                                               <input type="file" name="task-document" onchange="previewFile_upload_task_document(this,'<%=row._id%>','<%=hp._id%>','<%=row.ppts_phase_name%>','<%=row.ppts_task_name%>','<%=row.ppts_property_id%>','F')">
+                                              <input type="button">
+                                            </div>
+                                          </span>
+                                        </a>
+                                        <a href="/mydreamhome-details-message?id=<%=row.ppts_property_id%>&pid=<%=hp._id%>"><img src="images/chat.png"></a>
+                                      </td>
+                                      <%}else{%>
+                                        <td>
+                                          <p>...</p>
+                                        </td>
+                                        <%}%>
+                                          <%});%>
+                                            <%}%>
+                         
+                                              <td><a class="btn help-btn" href="#" data-toggle="modal"
+                                                  data-target="#myModal">Help</a>
+                                              </td>
+                                              <td>
+                                                <span>
+                                                  <div class="profile-dropdown">
+                                                    <i class="fa fa-pencil editbtn"></i>
+                                                    <div class="dropdown-content">
+                                                      <a href="#" data-toggle="modal"
+                                                        data-target="#todoNotesModal<%=row._id%>">View
+                                                        Notes</a>
+                                                      <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                                        onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                                        data-target="#editTask">Edit-task</a>
+                                                      <!-- <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                              onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                              data-target="#removeProfessional">Remove Professional</a> -->
+                                                      <!-- <a href="#" data-toggle="model" data-target="#vewLogs">View Logs</a> -->
+                                                    </div>
+                                                  </div>
+                                                </span>
+                                                <!-- <i class="fa fa-pencil editbtn" data-toggle="modal"
+                        data-target="#todoNotesModal<%=row._id%>"></i> -->
+
+                                              </td>
+                                              <td>
+                                                <div class="modal fade permission-modal" id="editTask">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <form method="POST" id='edit_Task_form'
+                                                        name="edit_task_submit_form"
+                                                        action="/api/edit_task_submit_form">
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                          <h2 class="modal-title text-center">Edit Task</h2>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+
+                                                          <div class="todo-list-table">
+                                                            <input type="hidden" class="form-control hiddnepropertyId"
+                                                              name="ppts_property_id" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_name"
+                                                              name="ppts_phase_name" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_flag"
+                                                              name="ppts_phase_flag" value="">
+                                                            <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                            <input type="hidden" class="form-control hiddenppts_task_id"
+                                                              name="task_id" value="">
+                                                            <select
+                                                              class="form-control selectBox2  display-old-professional"
+                                                              style="height:48px" name="ppts_assign_to"
+                                                              data-rule-required="true"
+                                                              data-msg-required="professional is required!">
+                                                              <option value="">Select existing professional</option>
+                                                              <option value="">
+                                                                No Professional Found
+                                                              </option>
+
+                                                            </select>
+                                                            <select
+                                                              class="form-control selectBox2 display-new-professional"
+                                                              style="height:48px" name="ppts_new_assign_to" required>
+                                                              <option value="">Select new professional</option>
+                                                              <option value="">
+                                                                No professional found
+                                                              </option>
+
+                                                            </select>
+
+                                                            <input type="text"
+                                                              class="form-control  form-control-fix2 hiddenclass"
+                                                              id="ppts_task_name" placeholder="Task Name"
+                                                              name="ppts_task_name" value="" readonly>
+
+                                                            <input type="text" onfocus="(this.type='date')"
+                                                              class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                              id="ppts_due_date" placeholder="Due on Date"
+                                                              name="ppts_due_date" value="">
+
+                                                            <textarea
+                                                              class="form-control  form-control-fix2 hiddenppts_note"
+                                                              rows="2" name="ppts_note" id="ppts_note"
+                                                              placeholder="Add Notes(If any)" value=""></textarea>
+                                                          </div>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                            data-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                            data-dismiss="">Update</button>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="modal fade permission-modal" id="removeProfessional">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <form method="POST" id='edit_Task_form2'
+                                                        name="edit_task_submit_form"
+                                                        action="/api/edit_task_submit_form">
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                          <h2 class="modal-title text-center">Remove Professional</h2>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+
+                                                          <div class="todo-list-table">
+                                                            <input type="hidden" class="form-control hiddnepropertyId"
+                                                              name="ppts_property_id" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_name"
+                                                              name="ppts_phase_name" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_flag"
+                                                              name="ppts_phase_flag" value="">
+                                                            <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                            <input type="hidden" class="form-control hiddenppts_task_id"
+                                                              name="task_id" value="">
+                                                            <select
+                                                              class="form-control selectBox2  display-old-professional"
+                                                              style="height:48px" name="ppts_assign_to"
+                                                              data-rule-required="true"
+                                                              data-msg-required="professional is required!">
+                                                              <option value="">Select existing professional</option>
+                                                              <option value="">
+                                                                Professional Not Found
+                                                              </option>
+
+                                                            </select>
+                                                            <input type="hidden"
+                                                              class="form-control selectBox2 display-new-professional"
+                                                              style="height:48px" name="ppts_new_assign_to" value="">
+
+                                                            <input type="text"
+                                                              class="form-control  form-control-fix2 hiddenclass"
+                                                              id="ppts_task_name" placeholder="Task Name"
+                                                              name="ppts_task_name" value="" readonly>
+
+                                                            <input type="hidden" onfocus="(this.type='date')"
+                                                              class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                              id="ppts_due_date" placeholder="Due on Date"
+                                                              name="ppts_due_date" value="">
+
+                                                            <input type="hidden"
+                                                              class="form-control  form-control-fix2 hiddenppts_note"
+                                                              rows="2" name="ppts_note" id="ppts_note"
+                                                              placeholder="Add Notes(If any)" value="">
+                                                          </div>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                            data-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                            data-dismiss="">Remove</button>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <button type="button" class="close"
+                                                          data-dismiss="modal">&times;</button>
+
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <p>
+                                                          <%=row.ppts_note%>
+                                                        </p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                          data-dismiss="modal">Close</button>
+                                                      </div>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                              </td>
+                              </tr>
+                              <%});%>
+                                <%}%>
+
+                      </tbody>
+                    </table>
+                    <div class="phase-progress">
+                      <ul>
+                        <li><a href="javascript:void(0)">25%</a></li>
+                        <li><a href="javascript:void(0)">25%</a></li>
+                        <li><a href="javascript:void(0)">25%</a></li>
+                        <li><a href="javascript:void(0)">25%</a></li>
+                      </ul>
+                    </div>
+                    <!-- ================================== -->
+                    <div>
+                      <h4>Buyer Task</h4>
+                    </div>
+                    <!-- ================================== -->
+                    <table class="table  table-phase-fix-2">
+                      <thead>
+                        <tr>
+                          <th>Task</th>
+                          <!-- <th>Buyer</th>
+                      <th>Solicitor</th> -->
+                          <%if(hiredProfessional_list.length>0){%>
+                            <%hiredProfessional_list.forEach(function(row,i){%>
+                              <th>
+                                <%=row.sps_fullname%>
+                              </th>
+                              <!-- <th>Professional B</th>
+                      <th>Professional C</th> -->
+                              <%})%>
+                                <%}else{%>
+                                  <th>Professional NA</th>
+                                  <%}%>
+                                    <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%if(gest_taskObject.length==0){%>
+                          <tr>
+                            <td style='text-align: right;'>Task Not Found</td>
+                          </tr>
+                          <%}else{%>
+                            <%gest_taskObject.forEach(function(row,i){%>
+                              <tr>
+                                <td> <label class="check-todos">
+                                    <p>
+                                      <%=row.ppts_task_name%>
+                                    </p>
+
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label></td>
+
+                                <!-- <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td>
+                            <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                <span>
+                                  <div class="custom-file-input">
+                                     <input type="file" name="task-document" >
+                                    <input type="button">
+                                  </div>
+                                </span>
+                              </a>
+                              <a href="/professionals-detail-message"><img src="images/chat.png"></a>
+                            </td> -->
+                                <%if(hiredProfessional_list.length>0){%>
+                                  <%hiredProfessional_list.forEach(function(hp,i){%>
+                                    <%if(row.ppts_assign_to.includes(hp._id)){%>
+
+                                      <td><a href="#" class="upload-any"><img src="images/upload.png">
+                                          <span>
+                                            <div class="custom-file-input">
+                                               <input type="file" name="task-document" onchange="previewFile_upload_task_document(this,'<%=row._id%>','<%=hp._id%>','<%=row.ppts_phase_name%>','<%=row.ppts_task_name%>','<%=row.ppts_property_id%>','F')">
+                                              <input type="button">
+                                            </div>
+                                          </span>
+                                        </a>
+                                        <a href="/mydreamhome-details-message?id=<%=row.ppts_property_id%>&pid=<%=hp._id%>"><img src="images/chat.png"></a>
+                                      </td>
+                                      <%}else{%>
+                                        <td>
+                                          <p>...</p>
+                                        </td>
+                                        <%}%>
+                                          <%});%>
+                                            <%}%>
+                                             
+                                              <td><a class="btn help-btn" href="#" data-toggle="modal"
+                                                  data-target="#myModal">Help</a>
+                                              </td>
+                                              <td>
+                                                <span>
+                                                  <div class="profile-dropdown">
+                                                    <i class="fa fa-pencil editbtn"></i>
+                                                    <div class="dropdown-content">
+                                                      <a href="#" data-toggle="modal"
+                                                        data-target="#todoNotesModal<%=row._id%>">View
+                                                        Notes</a>
+                                                      <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                                        onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                                        data-target="#editTask">Edit-task</a>
+                                                      <!-- <a href="#" class="edit-task-for-professional" data-toggle="modal"
+                                              onclick="editTask('<%= row.ppts_property_id %>','<%= row.ppts_phase_name %>','<%= row.ppts_task_name %>','<%=row.ppts_note%>','<%=row.ppts_due_date%>','<%=row._id%>' ,'<%=row.ppts_phase_flag%>'); return flase;"
+                                              data-target="#removeProfessional">Remove Professional</a> -->
+                                                      <!-- <a href="#" data-toggle="model" data-target="#vewLogs">View Logs</a> -->
+                                                    </div>
+                                                  </div>
+                                                </span>
+                                                <!-- <i class="fa fa-pencil editbtn" data-toggle="modal"
+                        data-target="#todoNotesModal<%=row._id%>"></i> -->
+
+                                              </td>
+                                              <td>
+                                                <div class="modal fade permission-modal" id="editTask">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <form method="POST" id='edit_Task_form'
+                                                        name="edit_task_submit_form"
+                                                        action="/api/edit_task_submit_form">
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                          <h2 class="modal-title text-center">Edit Task</h2>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+
+                                                          <div class="todo-list-table">
+                                                            <input type="hidden" class="form-control hiddnepropertyId"
+                                                              name="ppts_property_id" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_name"
+                                                              name="ppts_phase_name" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_flag"
+                                                              name="ppts_phase_flag" value="">
+                                                            <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                            <input type="hidden" class="form-control hiddenppts_task_id"
+                                                              name="task_id" value="">
+                                                            <select
+                                                              class="form-control selectBox2  display-old-professional"
+                                                              style="height:48px" name="ppts_assign_to"
+                                                              data-rule-required="true"
+                                                              data-msg-required="professional is required!">
+                                                              <option value="">Select existing professional</option>
+                                                              <option value="">
+                                                                No Professional Found
+                                                              </option>
+
+                                                            </select>
+                                                            <select
+                                                              class="form-control selectBox2 display-new-professional"
+                                                              style="height:48px" name="ppts_new_assign_to" required>
+                                                              <option value="">Select new professional</option>
+                                                              <option value="">
+                                                                No professional found
+                                                              </option>
+
+                                                            </select>
+
+                                                            <input type="text"
+                                                              class="form-control  form-control-fix2 hiddenclass"
+                                                              id="ppts_task_name" placeholder="Task Name"
+                                                              name="ppts_task_name" value="" readonly>
+
+                                                            <input type="text" onfocus="(this.type='date')"
+                                                              class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                              id="ppts_due_date" placeholder="Due on Date"
+                                                              name="ppts_due_date" value="">
+
+                                                            <textarea
+                                                              class="form-control  form-control-fix2 hiddenppts_note"
+                                                              rows="2" name="ppts_note" id="ppts_note"
+                                                              placeholder="Add Notes(If any)" value=""></textarea>
+                                                          </div>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                            data-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                            data-dismiss="">Update</button>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="modal fade permission-modal" id="removeProfessional">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <form method="POST" id='edit_Task_form2'
+                                                        name="edit_task_submit_form"
+                                                        action="/api/edit_task_submit_form">
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                          <h2 class="modal-title text-center">Remove Professional</h2>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+
+                                                          <div class="todo-list-table">
+                                                            <input type="hidden" class="form-control hiddnepropertyId"
+                                                              name="ppts_property_id" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_name"
+                                                              name="ppts_phase_name" value="">
+                                                            <input type="hidden"
+                                                              class="form-control hiddenppts_phase_flag"
+                                                              name="ppts_phase_flag" value="">
+                                                            <!-- <input type="hidden" class="hiddenclass"
+                                            value="<%=row.ppts_task_name%>"> -->
+                                                            <input type="hidden" class="form-control hiddenppts_task_id"
+                                                              name="task_id" value="">
+                                                            <select
+                                                              class="form-control selectBox2  display-old-professional"
+                                                              style="height:48px" name="ppts_assign_to"
+                                                              data-rule-required="true"
+                                                              data-msg-required="professional is required!">
+                                                              <option value="">Select existing professional</option>
+                                                              <option value="">
+                                                                Professional Not Found
+                                                              </option>
+
+                                                            </select>
+                                                            <input type="hidden"
+                                                              class="form-control selectBox2 display-new-professional"
+                                                              style="height:48px" name="ppts_new_assign_to" value="">
+
+                                                            <input type="text"
+                                                              class="form-control  form-control-fix2 hiddenclass"
+                                                              id="ppts_task_name" placeholder="Task Name"
+                                                              name="ppts_task_name" value="" readonly>
+
+                                                            <input type="hidden" onfocus="(this.type='date')"
+                                                              class="form-control  form-control-fix2 hiddenppts_due_date"
+                                                              id="ppts_due_date" placeholder="Due on Date"
+                                                              name="ppts_due_date" value="">
+
+                                                            <input type="hidden"
+                                                              class="form-control  form-control-fix2 hiddenppts_note"
+                                                              rows="2" name="ppts_note" id="ppts_note"
+                                                              placeholder="Add Notes(If any)" value="">
+                                                          </div>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-cancel cancel_task_btn"
+                                                            data-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-cancel submit_task_btn"
+                                                            data-dismiss="">Remove</button>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div id="todoNotesModal<%=row._id%>" class="modal fade" role="dialog">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <button type="button" class="close"
+                                                          data-dismiss="modal">&times;</button>
+
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <p>
+                                                          <%=row.ppts_note%>
+                                                        </p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                          data-dismiss="modal">Close</button>
+                                                      </div>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                              </td>
+                              </tr>
+                              <%});%>
+                                <%}%>
+
+                      </tbody>
+                    </table>
+                    <!-- ================================== -->
+                    <%}%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <%- include('dashboard_footer')-%>

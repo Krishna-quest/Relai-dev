@@ -118,7 +118,7 @@
               <div class="row">
                 <div class="col-sm-12 col-lg-9">
                   <div class="signup-header">
-                    <p>START FOR FREE</p>
+                    <!-- <p>START FOR FREE</p> -->
                   </div>
                 </div>
               </div>
@@ -130,11 +130,11 @@
                 </div>
                 <div class="col-sm-12 col-lg-3">
                   <div class="page-count">
-                    <p> 6 of 6</p>
+                    <p> 6 of 7</p>
                   </div>
                 </div>
               </div>
-              <form action="/api/service_provider_indemnity_details" method="post" class="form form-section">
+              <form action="/api/service_provider_indemnity_details" method="post" class="form form-section" id="form6">
                 <% if(typeof success_msg!='undefined' ){ %>
                   <span class="succ_flash_msg" style="color: green;">
                     <%= success_msg %>
@@ -152,11 +152,13 @@
                       <div class="col-sm-12 col-lg-2">
                         <div class="profile-radio">
                           <label class="radio-inline">
-                            <input type="radio" name="spods_option_pl_claims" value="yes" required>
+                            <input type="radio" name="spods_option_pl_claims" value="yes"
+                              onclick="javascript:yesnoCheck();" id="yesCheck" required>
                             &nbsp;Yes&nbsp;&nbsp;
                           </label>
                           <label class="radio-inline">
-                            <input type="radio" name="spods_option_pl_claims" value="no"> &nbsp;No&nbsp;&nbsp;
+                            <input type="radio" name="spods_option_pl_claims" value="no"
+                              onclick="javascript:yesnoCheck();" id="noCheck"> &nbsp;No&nbsp;&nbsp;
                           </label>
                         </div>
                       </div>
@@ -173,10 +175,10 @@
                       </span>
                       <% }%>
                         <div class="row">
-                          <div class="col-sm-12 col-lg-12">
-                            <div class="input-box-size">
-                              <input type="text" class="form-control text-field" id="" placeholder=""
-                                name="spods_pl_claim_details">
+                          <div class="col-sm-12 col-lg-12" id="ifYes">
+                            <div class="">
+                              <input type=" text" class="form-control text-field" id=""
+                                placeholder="*Please enter PI claim Details" name="spods_pl_claim_details">
                             </div>
                           </div>
                         </div>
@@ -192,49 +194,51 @@
                           <div class="col-sm-12 col-lg-2">
                             <div class="profile-radio">
                               <label class="radio-inline">
-                                <input type="radio" name="spods_option_pl_cover" value="yes" required>
+                                <input type="radio" name="spods_option_pl_cover" value="yes"
+                                  onclick="javascript:yesnoCheck2();" id="yesCheck2" required>
                                 &nbsp;Yes&nbsp;&nbsp;
                               </label>
                               <label class="radio-inline">
-                                <input type="radio" name="spods_option_pl_cover" value="no"> &nbsp;No&nbsp;&nbsp;
+                                <input type="radio" name="spods_option_pl_cover" value="no"
+                                  onclick="javascript:yesnoCheck2();" id="noCheck2"> &nbsp;No&nbsp;&nbsp;
                               </label>
                             </div>
                           </div>
 
                         </div>
 
-
-                        <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                            <div class="input-box-size-fix3">
-                              <input type="text" class="form-control text-field-size " id=""
-                                placeholder="Name of Insurer" name="spods_name_insurer">
+                        <div id="ifYes2">
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                              <div class="input-box-size-fix3">
+                                <input type="text" class="form-control text-field-size " id=""
+                                  placeholder="Name of Insurer" name="spods_name_insurer">
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                              <div class="input-box-size-fix3">
+                                <input type="text" class="form-control text-field-size " id=""
+                                  placeholder="Broker Details(if applicable)" name="spods_broker_details">
+                              </div>
                             </div>
                           </div>
-                          <div class="col-sm-12 col-lg-6">
-                            <div class="input-box-size-fix3">
-                              <input type="text" class="form-control text-field-size " id=""
-                                placeholder="Broker Details(if applicable)" name="spods_broker_details">
+
+
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                              <div class="input-box-size-fix3">
+                                <input type="text" class="form-control text-field-size " id=""
+                                  placeholder="Level of cover" name="spods_level_of_cover">
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                              <div class="input-box-size-fix3">
+                                <input type="text" onfocus="(this.type='date')" class="form-control text-field-size "
+                                  id="" placeholder="Renewal Date" name="spods_renewal_date">
+                              </div>
                             </div>
                           </div>
                         </div>
-
-
-                        <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                            <div class="input-box-size-fix3">
-                              <input type="text" class="form-control text-field-size " id=""
-                                placeholder="Level of cover" name="spods_level_of_cover">
-                            </div>
-                          </div>
-                          <div class="col-sm-12 col-lg-6">
-                            <div class="input-box-size-fix3">
-                              <input type="date" class="form-control text-field-size " id="" placeholder="Renewal Date"
-                                name="spods_renewal_date">
-                            </div>
-                          </div>
-                        </div>
-
 
                         <div class="row btn-sec">
                           <div class="col-6 col-sm-6 col-lg-6">
@@ -274,13 +278,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/countrystatecity.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-    $('#registerform').validate({
+    $('#form6').validate({
       onfocusout: function (element) {
         this.element(element);
       },
@@ -290,10 +297,89 @@
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#form6').serialize();
+
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/service_provider_indemnity_details",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+              if (data.redirectpage == true) {
+                setTimeout(function () {
+                  //location.reload(true);
+                  window.location.href = data.redirect;
+                }, 4000);
+              }
+
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                window.location.href = "/signup-professionals-profile-7";
+              }, 4000);
+
+            }
+          }
+        });
+
+
       }
     });
+  </script>
+  <script type="text/javascript">
+    document.getElementById('ifYes').style.display = 'none';
+    window.onload = function () {
+
+    }
+
+    function yesnoCheck() {
+      if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.display = 'block';
+      }
+      else {
+        document.getElementById('ifYes').style.display = 'none';
+      }
+    }
+
+  </script>
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById('ifYes2').style.display = 'none';
+    }
+
+    function yesnoCheck2() {
+      if (document.getElementById('yesCheck2').checked) {
+        document.getElementById('ifYes2').style.display = 'block';
+      }
+      else {
+        document.getElementById('ifYes2').style.display = 'none';
+      }
+    }
+
   </script>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -308,7 +394,7 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
   </script>
   </body>
 

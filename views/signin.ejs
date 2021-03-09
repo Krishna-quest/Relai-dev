@@ -14,52 +14,66 @@
                 </a>
               </div>
             </div>
-            <p>SIGN IN</p>
+            <p>CUSTOMER SIGN IN</p>
             <h1>Welcome back!</h1>
             <form id="loginform" class="form" method="post" action="/api/cust_signin">
 
-              <% if(typeof err_msg!='undefined' ){ %>
+              <!-- <% if(typeof err_msg!='undefined' ){ %>
                 <span class="error_validate flash_msg" style="color: red;">
                   <%= err_msg %>
                 </span>
-                <% }%>
-                <!-- <div class="isa_success">
+                <% }%> -->
+
+              <!-- <div class="isa_success">
                   <i class="fa fa-check"></i>YOU HAVE REGISTER SUCCESSFULLY !!
                 </div> -->
-                  <% if(typeof success_msg!='undefined' ){ %>
-                    <!-- <span class="succ_flash_msg" style="color: green;">
+              <!-- <% if(typeof success_msg!='undefined' ){ %>
+                     <span class="succ_flash_msg" style="color: green;">
                       <%= success_msg %>
-                    </span> -->      
-                     <span class="succ_flash_msg">  
-                        <div class="isa_success">
-                          <i class="fa fa-check"></i>  &nbsp;&nbsp; <%= success_msg %>
-                        </div>
-                      </span>   
-                    <% }%>
+                    </span> -->
+              <!-- <span class="succ_flash_msg">
+                      <div class="isa_success">
+                        <i class="fa fa-check"></i> &nbsp;&nbsp; <%= success_msg %>
+                      </div>
+                    </span>
+                    <% }%> -->
 
-                      <div class="form-group ">
-                        <input type="email" class="form-control signin-form-control" id="email" placeholder="Email ID"
-                          name="cus_email_id" data-rule-required="true" data-rule-email="true"
-                          data-msg-required="Please Enter Email Id!" data-msg-email="Please Enter Valid Email-ID!">
-                        <input type="password" class="form-control signin-form-control" id="password"
-                          placeholder="Password" name="cus_password" data-rule-required="true" data-rule-maxlength="30"
-                          data-msg-required="Please Enter Password!">
-                      </div>
-                      <div class="forgot-pass">
-                        <p><a href="/forget-password" style="color: #005377;">
-                            Forgot Password? </a> </p>
-                      </div>
-                      <br />
-                      <div class="signin-submit">
-                        <!-- <a href="/otp" class="btn signin-submit-btn">SUBMIT</a> -->
-                        <button type="submit" name="submit" class="btn signin-submit-btn">SUBMIT</button>
-                      </div>
-                      <br />
-                      <div class="signin-footer">
-                        <p class="text-center" style="color: #3f3e3e;">Don’t have an account? <a href="/intro"
-                            style="color: #005377;">
-                            Sign up</a> </p>
-                      </div>
+
+              <% if(typeof success_msg!='undefined' ){ %>
+
+                <span class="succ_flash_msg">
+                  <div class="isa_success">
+                    <i class="fa fa-check"></i> &nbsp;&nbsp; <%= success_msg %>
+                  </div>
+                </span>
+                <% }%>
+
+
+                  <div class="form-group ">
+                    <input type="hidden" class="form-control " id="token" name="token">
+                    <input type="email" class="form-control signin-form-control" id="email" placeholder="Email ID"
+                      name="cus_email_id" data-rule-required="true" data-rule-email="true"
+                      data-msg-required="Please Enter Email Id!" data-msg-email="Please Enter Valid Email-ID!">
+                    <input type="password" class="form-control signin-form-control" id="password" placeholder="Password"
+                      name="cus_password" data-rule-required="true" data-rule-maxlength="30"
+                      data-msg-required="Please Enter Password!">
+                  </div>
+                  <div class="forgot-pass">
+                    <p><a href="/forget-password" style="color: #005377;">
+                        Forgot Password? </a> </p>
+                  </div>
+                  <br />
+                  <div class="signin-submit">
+                    <!-- <a href="/otp" class="btn signin-submit-btn">SUBMIT</a> -->
+                    <button type="submit" name="submit" class="btn signin-submit-btn">SUBMIT</button>
+                  </div>
+                  <br />
+                  <div class="signin-footer">
+                    <p class="text-center" style="color: #3f3e3e;">Don’t have an account? <a href="/signup"
+                        style="color: #005377;">
+                        Sign up</a> </p>
+                  </div>
+
             </form>
           </div>
         </div>
@@ -135,9 +149,6 @@
 
   </script>
 
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
@@ -148,7 +159,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script>
     $(document).ready(function () {
       $(".sidenav ul li").click(function () {
@@ -162,6 +173,24 @@
         $(this).addClass("active");
       });
     });
+
+
+    // $(document).ready(function () {
+    //      var errorAlert = '<% if(typeof err_msg!="undefined"){%><%=err_msg%><% }else{%>empty<%}%>';
+    //     // alert(successAlert);
+    //     console.log('successAlert:',errorAlert);
+    //      if(errorAlert !== 'empty'){
+    //            Swal.fire({
+    //                // position: 'top-end',
+    //                 icon: 'error',
+    //                 title: errorAlert,
+    //                 showConfirmButton: true,
+    //                 confirmButtonColor: '#005377',
+    //                 timer: 3000
+    //               })
+    //      }
+    //   });
+
   </script>
 
   <script type="text/javascript">
@@ -176,8 +205,60 @@
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        //$('#submit').attr('disabled', true);
+        // form.submit();
+        //$('.loader-box').show()
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#loginform').serialize();
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/cust_signin",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+              //$('#changePasswordModal').modal('hide');
+              // $('.complaint_msg').html('<div class="isa_success"><i class="fa fa-check"></i> 0000'+data.message+'</div>')
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              if(data.redirectpage == true){
+                setTimeout(function () {
+                //location.reload(true);
+                window.location.href =  data.redirect;
+              }, 4000);
+              }
+             
+
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                window.location.href = "/dashboard";
+              }, 4000);
+
+            }
+          }
+        });
+
+
       }
     });
   </script>
@@ -194,10 +275,33 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
+
   </script>
 
+  <script>function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    var email = getParameterByName('email'); // "lorem"
+    var token = getParameterByName('token');
 
+    if (token) {
+      $('#token').val(token);
+    }
+    if (email) {
+      $('#email').val(email);
+      $('#email').attr('readonly', 'readonly');
+    }
+    else {
+      $('#email').val('');
+      $('#email').attrRemove('readonly');
+    }
+  </script>
 
   </body>
 

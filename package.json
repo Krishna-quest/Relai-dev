@@ -33,7 +33,9 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "req-flash": "0.0.3",
+    "request": "^2.88.2",
     "session": "^0.1.0",
+    "simple-oauth2": "^4.2.0",
     "socket.io": "^3.1.0",
     "uuid": "^8.3.2",
     "validator": "^13.5.2"

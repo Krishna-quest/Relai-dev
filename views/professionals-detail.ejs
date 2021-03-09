@@ -1,5 +1,184 @@
 <%- include('dashboard_header')-%>
   <%- include('edit-profile-model')-%>
+
+    <!-- The Modal -->
+    <div class="modal permission-modal fade " data-backdrop="static" data-keyboard="false" id="addTaskModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Add Task</h2>
+          </div>
+          <form name="addTaskForm" id="addTaskForm" action="" method="post">
+            <!-- Modal body -->
+            <div class="modal-body">
+              <label class="">Describe this to-do</label>
+              <div class="errmessage"></div>
+              <!-- <div class="alert alert-info" id="taskmsg"></div> -->
+              <!-- <input type="text" class="form-control form-control-fix2" id="subject" placeholder="Instruction"
+                name="todotask" required> -->
+              <%if(!propertyObj){%>
+
+                <%}else{%>
+                  <select   class="form-control selectBox2 " id="property_id" name="property_id" style="height: 48px;"
+                    data-rule-required="true" data-msg-required="property  is required" required>
+                    <option value="">Select Property</option>
+                    <%propertyObj.forEach(function(row,i){%>
+                      <option value="<%=row._id%>">
+                        <%=row.ps_property_name%>
+                      </option>
+                      <%});%>
+                  </select>
+                  <%}%>
+                    <select onchange="phaseTaskList(this,'<%= session.active_user_login%>')" class="form-control selectBox2 phase_list" id="Phase" name="Phase" style="height: 48px;"
+                      data-rule-required="true" data-msg-required="phase  is required" required>
+                      <option value="">Select Phase</option>
+                      <option value=""></option>
+                    </select>
+                    <%- include('existing-task-select')-%>
+
+<!-- <% if(session.active_user_login == "buyer"){ %>
+<div class="buyer_phase_task_list">
+                  <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2 phase_task_list" id="phase_task_list_buyer" name="phase_task_list" style="height: 48px;">
+                   
+                      <option class="phase_task_list_0 task_option" value="Instruct Solicitor">Instruct Solicitor</option>
+                      <option class="phase_task_list_0 task_option" value="Instruct other professionals">Instruct other professionals</option>
+                      <option class="phase_task_list_0 task_option" value="ID/Passport">ID/Passport</option>
+                      <option class="phase_task_list_0 task_option" value="Proof of address">Proof of address</option>
+                      <option class="phase_task_list_0 task_option" value="Proof of fund(cash buyers)/agreement in principle(mortgage)">Proof of fund(cash buyers)/agreement in principle(mortgage)</option>
+                      <option class="phase_task_list_0 task_option" value="Checks. Title/property/chains et al">Checks. Title/property/chains et al</option>
+                      <option class="phase_task_list_0 task_option" value="Memorandum of sales(received)">Memorandum of sales(received)</option>
+                  
+                      <option class="phase_task_list_1 task_option" value="Draft Contract(received)">Draft Contract(received)</option>
+                      <option class="phase_task_list_1 task_option" value="Raise enquires on the property/chains">Raise enquires on the property/chains</option>
+                      <option class="phase_task_list_1 task_option" value="Mortgage instruction">Mortgage instruction</option>
+                      <option class="phase_task_list_1 task_option" value="Apply for searches">Apply for searches</option>
+                      <option class="phase_task_list_1 task_option" value="Report on title and contract">Report on title and contract</option>
+                      <option class="phase_task_list_1 task_option" value="SDLT/LTT form">SDLT/LTT form</option>
+                      <option class="phase_task_list_1 task_option" value="Confirm Satisfactiry response on searches and enquiries">Confirm Satisfactiry response on searches and enquiries</option>  
+                    
+
+                      <option class="phase_task_list_2 task_option" value="Agree a completion date">Agree a completion date</option>
+                      <option class="phase_task_list_2 task_option" value="Check availability of balance of completion monies">check availability of balance of completion monies</option>
+                      <option class="phase_task_list_2 task_option" value="Fund available">Fund available</option>
+                      <option class="phase_task_list_2 task_option" value="Contract signed">Contract signed</option>
+
+                      <option class="phase_task_list_3 task_option" value="Exchnage of contracts">Exchnage of contracts</option>
+                      <option class="phase_task_list_3 task_option" value="Money transfer. Buyer to pay agreed deposit">Money transfer. Buyer to pay agreed deposit</option>
+                      <option class="phase_task_list_3 task_option" value="copy of the transferLaise with bank to draw down funds for completion">copy of the transferLaise with bank to draw down funds for completion</option>
+                 
+                      <option class="phase_task_list_4 task_option" value="Completion procedure. Legal and practical completion">Completion procedure. Legal and practical completion</option>
+                      <option class="phase_task_list_4 task_option" value="completion by post. completion by Post without variation unless there has been prior agreement to very">completion by post. completion by Post without variation unless there has been prior agreement to very</option>
+                      <option class="phase_task_list_4 task_option" value="Completion monies and method of completion. Inform of the commitment of funds to the bancking system.">Completion monies and method of completion. Inform of the commitment of funds to the bancking system.</option>
+                  
+                      <option class="phase_task_list_5 task_option" value="Application to HM Land registry">Application to HM Land registry</option>
+                      <option class="phase_task_list_5 task_option" value="Registration">Registration</option>
+                      <option class="phase_task_list_5 task_option" value="File Clouser">File Clouser</option>
+                  
+                  </select>
+</div>
+<% }else if(session.active_user_login == "seller"){ %>
+<div class="seller_phase_task_list">
+              <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2 phase_task_list" id="phase_task_list_seller" name="phase_task_list" style="height: 48px;">
+              
+                <option class="phase_task_list_0 task_option" value="Instruct Solicitor">Instruct Solicitor</option>
+                <option class="phase_task_list_0 task_option" value="Instruct other professionals">Instruct other professionals</option>
+                <option class="phase_task_list_0 task_option" value="Bank details for reservation">Bank details for reservation</option>
+                <option class="phase_task_list_0 task_option" value="Reservation form">Reservation form</option>
+                <option class="phase_task_list_0 task_option" value="Reservation fees Payment">Reservation fees Payment</option>
+                <option class="phase_task_list_0 task_option" value="Checks. Title/property/chains et al">Checks. Title/property/chains et al</option>
+                <option class="phase_task_list_0 task_option" value="Memorandum of sales(sent0)">Memorandum of sales(sent0)</option>
+
+                <option class="phase_task_list_1 task_option" value="Draft contract(sent)">Draft contract(sent)</option>
+                <option class="phase_task_list_1 task_option" value="Answer to enquires">Answer to enquires</option>
+                <option class="phase_task_list_1 task_option" value="Additional enquires(optional)">Additional enquires(optional)</option>
+
+                <option class="phase_task_list_2 task_option" value="Agrees a completion date">Agrees a completion date</option>
+                <option class="phase_task_list_2 task_option" value="Request the contract signed by the user">Request the contract signed by the user</option>
+                <option class="phase_task_list_2 task_option" value="Contract signed">Contract signed</option>
+
+                <option class="phase_task_list_3 task_option" value="Exchnage of contracts">Exchnage of contracts</option>
+                <option class="phase_task_list_3 task_option" value="Check the copy of the transferexecuted by the buyer">Check the copy of the transferexecuted by the buyer</option>
+                <option class="phase_task_list_3 task_option" value="Redemption of the transfer up-to-date redemption figures">Redemption of the transfer up-to-date redemption figures</option>
+
+                <option class="phase_task_list_4 task_option" value="Completion procedure.Legal and practical completion">Completion procedure.Legal and practical completion</option>
+                <option class="phase_task_list_4 task_option" value="Completion by post. completion by Post without variation unless there has been prior agreement to vary">Completion by post. completion by Post without variation unless there has been prior agreement to vary</option>
+                <option class="phase_task_list_4 task_option" value="completion monies and method of completion. Complete the transaction in accordance with the law Society code for completion by post">completion monies and method of completion. Complete the transaction in accordance with the law Society code for completion by post</option>
+                <option class="phase_task_list_4 task_option" value="payment of estate agent fees">payment of estate agent fees</option>
+                <option class="phase_task_list_4 task_option" value="outstanding balance of sale proceeds">outstanding balance of sale proceeds</option>
+              
+                <option class="phase_task_list_5 task_option" value="Discharge of undertaking">Discharge of undertaking</option>
+                <option class="phase_task_list_5 task_option" value="file Clousre">file Clousre</option>
+
+              </select>  
+</div>
+<% }else if(session.active_user_login == "renovator"){%> 
+  <div class="renovator_phase_task_list">
+    <select multiple onchange="SelectedTaskList(this)" class="form-control selectBox2  phase_task_list" id="phase_task_list_renovator" name="phase_task_list" style="height: 48px;">
+    
+      <option class="phase_task_list_0 task_option" value="Instruct professionals and/or developers">Instruct professionals and/or developers</option>
+      <option class="phase_task_list_0 task_option" value="ID/Passport">ID/Passport</option>
+      <option class="phase_task_list_0 task_option" value="Checks. Title/property">Checks. Title/property</option>
+      <option class="phase_task_list_0 task_option" value="Stage 0 design programme - Estimated time and cost - approved">Stage 0 design programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_0 task_option" value="Project description, requirements, budget and time">Project description, requirements, budget and time</option>
+      <option class="phase_task_list_0 task_option" value="Confirmation of client requirements and project stages">Confirmation of client requirements and project stages</option>
+    
+      <option class="phase_task_list_1 task_option" value="Stage 1 design programme - Estimated time and cost - approved">Stage 1 design programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_1 task_option" value="Project budget and programme (time) - approved">Project budget and programme (time) - approved</option>
+      <option class="phase_task_list_1 task_option" value="Project brief - approved">Project brief - approved</option>
+
+      <option class="phase_task_list_2 task_option" value="Stage 2 design programme - Estimated time and cost - approved">Stage 2 design programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_2 task_option" value="Design review - approved">Design review - approved</option>
+      <option class="phase_task_list_2 task_option" value="Architectural concept- approved">Architectural concept- approved</option>
+
+      <option class="phase_task_list_3 task_option" value="Stage 3 design programme - Estimated time and cost for Stage 3 - approved">Stage 3 design programme - Estimated time and cost for Stage 3 - approved</option>
+      <option class="phase_task_list_3 task_option" value="Planning application information package - Approved">Planning application information package - Approved</option>
+
+      <option class="phase_task_list_4 task_option" value="Stage 4 design programme - Estimated time and cost - approved">Stage 4 design programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_4 task_option" value="Technical design information package - Approved">Technical design information package - Approved</option>
+
+      <option class="phase_task_list_5 task_option" value="Stage 5 design programme - Estimated time and cost - approved">Stage 5 design programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_5 task_option" value="Construction information package - Approved">Construction information package - Approved</option>
+
+      <option class="phase_task_list_6 task_option" value="Stage 6 programme - Estimated time and cost - approved">Stage 6 programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_6 task_option" value="Handover information package - Approved">Handover information package - Approved</option>
+
+      <option class="phase_task_list_7 task_option" value="Stage 7 programme - Estimated time and cost - approved">Stage 7 programme - Estimated time and cost - approved</option>
+      <option class="phase_task_list_7 task_option" value="Handover information package - Approved">Handover information package - Approved</option>
+
+    </select>
+
+  </div>  
+<% } %> -->
+<input type="text" class="form-control form-control-fix2" id="taskName" placeholder="Task Name" name="task_name" required>
+<input type="hidden" class="form-control form-control-fix2" id="ppts_phase_flag" name="ppts_phase_flag" required>
+
+                    <input type="text" class="form-control form-control-fix2" id="professional" placeholder=""
+                      name="professionalName" value="" readonly>
+                    <input type="hidden" id="professionalId" name="professionalId" value="">
+                    <input type="hidden" name="currentUserId" value="<%=session.user_id%>">
+
+                    <!-- <input type="hidden" name="property_id" class="property_id" value=""> -->
+                    <!-- <input type="hidden" name="phase_id" id="phase_id" value=""> -->
+                    <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2" id="duedate"
+                      placeholder="Due on Date" name="duedate"  required>
+                    <textarea class="form-control  form-control-fix2" rows="2" name="notes" id="notes"
+                      placeholder="Add Notes(If any)"></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cancel" id="cancel_addtask_btn" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-cancel" id="addtask_btn" data-dismiss="">Add Task</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
     <div class="dashboard-wpr">
       <div class="container-fluid">
         <div class="row content">
@@ -21,7 +200,7 @@
             <%- include('sidebar')-%>
           </div>
           <div class="col-sm-12 col-lg-10">
-            <div class="dashboard-inner">
+            <div class="dashboard-inner professtional_section">
               <div class="row">
                 <div class="col-sm-12 col-lg-12">
                   <div class=" user-fix">
@@ -36,7 +215,8 @@
                         <%=service_provider_detail.sps_role_name%>
                       </p>
                     </div>
-
+                    <input type="hidden" value="<%=service_provider_detail.sps_fullname%>" id="sps_fullname">
+                    <input type="hidden" value="<%=service_provider_detail._id%>" id="sps_id">
                     <div class="float-left icon-fix">
                       <img class=" card-image-fix" src="images/experience.png" alt="">&nbsp;<span>
                         <%=service_provider_detail.sps_experience%>
@@ -44,16 +224,36 @@
                       </span>
                     </div>
                     <div class="float-left icon-fix2">
-                      <img class=" card-image-fix" src="images/rating.png" alt="">&nbsp;<span>4.0
-                        Rating</span>
+                      <img class=" card-image-fix" src="images/rating.png" alt="">&nbsp;<span>
+                        <%= avgRating%>
+                          Rating
+                      </span>
                     </div>
-                    <div class="float-left btn-hire-now-small">
-                      <a href="/professionals-hirenow" class="btn btn-add-property">Hire Now</a>
-                    </div>
-                    <div class="float-left btn-hire">
-                      <a href="/professionals-detail-message?spp_id=<%=service_provider_detail._id%>&cus_id=<%=session.user_id%>"
-                        class="btn btn-message">Drop a message</a>
-                    </div>
+
+
+                    <% if(hiredProfeshnoal){ %>
+                      <div class="float-left icon-fix2">
+                        <a href="/professionals-detail-message?spp_id=<%=service_provider_detail._id%>&cus_id=<%=session.user_id%>"
+                          class=""><img src="images/chat.png"></a>
+                      </div>
+                      <div class="float-left btn-hire-now-small">
+                        <a href="javascript:void(0)" id="addTask-btn" class="btn btn-add-property">Add Task</a>
+                      </div>
+
+                      <div class="float-left btn-hire-now-small">
+                        <a href="/professionals-hirenow" class="btn btn-add-property">Hire Now</a>
+                      </div>
+
+                      <% } else { %>
+                        <div class="float-left btn-hire-now-small">
+                          <a href="/professionals-hirenow" class="btn btn-add-property">Hire Now</a>
+                        </div>
+                        <div class="float-left btn-hire-now-small">
+                          <a href="/professionals-detail-message?spp_id=<%=service_provider_detail._id%>&cus_id=<%=session.user_id%>"
+                            class="btn btn-message">Drop a message</a>
+                        </div>
+                        <%}%>
+
                   </div>
                 </div>
               </div>
@@ -91,6 +291,8 @@
                             <p>
                               <%=serviceProOtherDetail.spods_professional_body%>
                             </p>
+                            <input type="hidden" id="spr_id"
+                              value="<%=serviceProOtherDetail.spods_service_provider_id%>" name="spr_id">
                             <%}%>
                       </div>
                     </div>
@@ -107,36 +309,6 @@
                       <div class="float-right">
                         <p>0 Videos &bull; <%=portpolioImage.length%> Photos</p>
                       </div>
-                      <!-- <div id="demo" class="carousel slide " data-ride="carousel">
-                       
-                        <div class="carousel-inner">
-                          <%if(portpolioImage.length>0){%>
-                              <% var c=0 ; portpolioImage.forEach(function(row){ %>
-                                  <%if(c==0){%>
-                                    <div class="carousel-item active">
-                                      <img class="image-size-fix" src="upload/<%=row.spps_filename%>" alt="">
-                                    </div>
-                                  <%}else{%>
-                                      <div class="carousel-item ">
-                                        <img class="image-size-fix" src="upload/<%=row.spps_filename%>" alt="">
-                                      </div>
-                                  <%}%>
-                              <% c++; });%>
-                            <%}else{%>
-                              <h6>Portfolio Image Not Uploaded<h6>
-                            <%}%>
-
-                        </div>
-                        
-                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-
-                          <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        </a>
-                        <a class="carousel-control-next" href="#demo" data-slide="next">
-                          <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </a>
-                      </div> -->
-
                       <div id="demo" class="carousel slide " data-ride="carousel">
                         <%if(portpolioImage.length>0){%>
                           <!-- The slideshow -->
@@ -152,6 +324,7 @@
                               <%}%>
 
                                 <% c++; });%>
+                              </div>
                             </div>
                             <!-- Left and right controls -->
                             <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -175,35 +348,210 @@
                       <div class="professional-files-section">
                         <div class="row">
                           <div class="col-lg-6">
-                            <div class="float-left image-fix">
+                            <div class="">
                               <h6><b>Feedback</b></h6>
                             </div>
                           </div>
                           <div class="col-lg-6">
-                            <div class="float-right image-fix">
-                              <img class="" style="width:13%" src="images/write-feedback.png"
-                                alt="Card image cap">&nbsp;<span class="feedback-text">
-                                Write a feedback
-                              </span>
+                            <div class="text-right">
+                              <a href="JavaScript:void(0);" type="button" data-toggle="modal"
+                                data-target="#feedbackModal">
+                                <div class="float-right image-fix">
+                                  <img class="" style="width:13%" src="images/write-feedback.png"
+                                    alt="Card image cap">&nbsp;<span class="feedback-text">
+                                    Write a feedback
+                                  </span>
+                                </div>
+                              </a>
                             </div>
+
                           </div>
                         </div>
 
                         <div class="about-section">
                           <div class="row">
-                            <div class="col-lg-6">
+                            <div style="order: 2;" class="col col-lg-6 reviews_rating_sec">
+                              <% var plantRateSum=0; %>
+                                <% var c=1 ; var total=professionalRating.length;
+                                  professionalRating.forEach(function(prat){ %>
+                                  <% plantRateSum +=parseInt(prat.sprs_rating) %>
+                                    <div class="side-feedback-sec">
+                                      <div class="img-rating-box">
+                                        <div class="img-side-part">
+                                          <img src="upload/<%= prat.sprs_submitted_profile_img %>" alt="">
+                                          <b>
+                                            <%= prat.sprs_submitted_by_name %>
+                                          </b>
+                                        </div>
+                                        <div class="rating-star">
+                                          <p>
+                                            <% for (var i=1; i <=5; i++ ) { %>
+                                              <% if(i <=prat.sprs_rating){ %>
+                                                <i class="fa fa-star"></i>
+                                                <% }else{ %> <i class="fa fa-star-o"></i>
+                                                  <% } } %>
+                                                    <!-- <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i> -->
+                                          </p>
+                                          <p>
+                                            <%=moment(prat.sprs_created_at).format("Do MMM, YYYY"); %>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div class="comment-text">
+                                        <p>
+                                          <%= prat.sprs_review %>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <% c++; }); var avgRating=Math.round(plantRateSum/total); %>
+                                      <!-- <%= total %>
+                              <%= plantRateSum %> -->
+
+                            </div>
+                            <!-- <div style="order: 1;" class="col-lg-6">
                               <div class="float-left ">
-                                <h1 class="pointer-fix" style="color: #005377;">4.0</h1>
+                                <h1 class="pointer-fix" style="color: #005377;"><% if(!isNaN(avgRating)){ %><%= avgRating.toFixed(1) %> <% }else{%>0.0<% } %></h1>
                                 <p style="margin-left: 20px;">out of 5</p>
                               </div>
                               <div>
                                 <img class="feedback-img" src="images/feedback-2.png" alt="">
                               </div>
+                            </div> -->
+                            <div class="col-lg-6">
+                              <div class="row align-item-center mt-3">
+                                <div class="col-lg-2">
+                                  <div class="float-left ">
+                                    <h1 class="pointer-fix" style="color: #005377;">
+                                      <% if(!isNaN(avgRating)){ %>
+                                        <%= avgRating.toFixed(1) %>
+                                          <% }else{%>0.0<% } %>
+                                    </h1>
+                                    <p style="margin-left: 20px;">out of 5</p>
+                                  </div>
+                                </div>
+                                <div class="col-lg-10 mt-5">
+                                  <div class="ratting-overall-box">
+                                    <div class="star-rating-piramid">
+                                      <ul>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <i class="fa fa-star"></i>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div class="progress-rating">
+                                      <ul>
+                                        <li>
+                                          <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                              style="width:90%; background-color:#ffc107">
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                              style="width:70%; background-color:#ffc107">
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                              style="width:50%; background-color:#ffc107">
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                              style="width:40%;background-color:#ffc107">
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li>
+                                          <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                              style="width:20%;background-color:#ffc107">
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
 
                             </div>
-                            <div class="col col-lg-6">
-                              <img class="feedback-img2" src="images/feedback-1.png" alt="">
-                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -218,68 +566,4 @@
     </div>
     </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function () {
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-    </body>
-
-    </html>
+    <%- include('dashboard_footer')-%>

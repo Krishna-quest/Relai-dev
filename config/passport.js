@@ -8,8 +8,6 @@ var passport = require("passport");
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
-
-
 const passport1 = (passport) => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {

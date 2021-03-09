@@ -10,13 +10,13 @@
                 <a class="navbar-brand" href="/index"><img src="images/logo-2.png" class="d-inline-block align-top"></a>
               </div>
               <div class="float-right">
-                <a href="/signin-professional" class="signin text-right">
+                <a href="/signin-intro" class="signin text-right">
                   <button type="submit" class="btn btn-sign">SIGN IN</button>
                 </a>
               </div>
             </div>
-            <p>START FOR FREE</p>
-            <h1>Let’s get you started</h1>
+            <!-- <p>START FOR FREE</p> -->
+            <h1>Service Provider Registration</h1>
             <form id="registerform" class="form" method="post" action="/api/service_provider_register">
 
               <% if(typeof err_msg!='undefined' ){ %>
@@ -30,18 +30,34 @@
                     </span>
                     <% }%>
                       <div class="row">
+                        <!-- <div class="upload-image">
+
+
+
+                          <a href="#" class="upload-profile-pic">
+                            <img src="images/img_avatar.png" alt="" id="blah" class="profile-photo"
+                              style="margin-left:10%"> <span>
+                              <div class="custom-file-input">
+                                <input type="file" id="image" name="profile-pic" value=""
+                                  onchange="previewFile_profile(this)" required>
+                                <input type="button">
+                              </div>
+                            </span>
+                          </a>
+                        </div> -->
+
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" class="form-control form-control-size " id="fullName"
-                              placeholder="First Name" name="sps_firstname" required data-rule-required="true"
-                              data-rule-minlength="2" data-msg-required="First Name is required!">
+                            <input type="text" class="form-control form-control-size " id="forename"
+                              placeholder="Forename" name="sps_firstname" required data-rule-required="true"
+                              data-rule-minlength="2" data-msg-required="Fore Name is required!">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" class="form-control form-control-size " id="fullName"
-                              placeholder="Last Name" name="sps_lastname" required data-rule-required="true"
-                              data-rule-minlength="2" data-msg-required="Last Name is required!">
+                            <input type="text" class="form-control form-control-size " id="surname"
+                              placeholder="Surname" name="sps_lastname" required data-rule-required="true"
+                              data-rule-minlength="2" data-msg-required="Sur Name is required!">
                           </div>
                         </div>
                       </div>
@@ -56,9 +72,10 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group ">
-                            <input type="text" class="form-control form-control-size" id="phoneNumber"
+                            <input type="number" class="form-control form-control-size" id="phoneNumber"
                               placeholder="Phone Number" name="sps_phone_number" required data-rule-required="true"
-                              data-rule-minlength="10" data-msg-required="PhoneNumber is required!">
+                              data-rule-minlength="10" data-rule-maxlength="12"
+                              data-msg-required="PhoneNumber is required!">
 
                           </div>
                         </div>
@@ -85,7 +102,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group ">
-                            <input type="text" class="form-control form-control-size" id="text"
+                            <input type="number" class="form-control form-control-size" id="text"
                               placeholder="Experience in years" name="sps_experience" required data-rule-required="true"
                               data-msg-required="Experience is required!">
                           </div>
@@ -168,7 +185,8 @@
 
                       <button type="submit" name="submit" class="btn btn-next">Next</button>
 
-                      <p class="text-center" style="margin-top :10px">Already have an account? <a href="/signin">
+                      <p class="text-center" style="margin-top :10px">Already have an account? <a
+                          href="/signin-professional">
                           Sign in
                         </a> </p>
             </form>
@@ -256,6 +274,7 @@
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="../js/countrystatecity.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
   <script>
@@ -275,6 +294,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
+  <script>
+    jQuery.extend(jQuery.validator.messages, {
+      accept: "Please enter a value with a valid extension.",
+      maxlength: jQuery.validator.format("Please  don't enter more than {0} digit."),
+      minlength: jQuery.validator.format("Please enter at least {0} digit."),
+      rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+      range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+      max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+      min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+    });
+  </script>
   <script type="text/javascript">
     $('#registerform').validate({
       onfocusout: function (element) {
@@ -286,8 +316,47 @@
         $(element).removeClass(errorClass);
       },
       submitHandler: function (form) {
-        $('#submit').attr('disabled', true);
-        form.submit();
+        $('.loader-box').attr('style', 'display:flex !important');
+        var formData = $('#registerform').serialize();
+        console.log('formData:', formData)
+        $.ajax({
+          type: "POST",
+          data: formData,
+          url: "/api/service_provider_register",
+          cache: false,
+          success: function (data) {
+            console.log(data);
+            if (data.status == false) {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+            } else {
+              $('.loader-box').attr('style', 'display:none !important');
+              Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 4000
+              })
+
+              setTimeout(function () {
+                //location.reload(true);
+                //window.location.href = "/otp-professional?email=" + data.serviceProviders.sps_email_id;
+                window.location.href = "/signup-professionals-profile"
+              }, 4000);
+
+            }
+          }
+        });
+
+
       }
     });
   </script>
@@ -304,8 +373,36 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
+    $(document).ready(function () {
+      $('.custom-file-input input[type="file"]').change(function (e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+      });
+    });
   </script>
+  <script>function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    var email = getParameterByName('email'); // "lorem"
+    var token = getParameterByName('token');
+    if (token) {
+      $('#token').val(token);
+    }
+    if (email) {
+      $('#email').val(email);
+      $('#email').attr('readonly', 'readonly');
+    }
+    else {
+      $('#email').val('');
+      $('#email').attrRemove('readonly');
+    }
+  </script>
+
 
   </body>
 

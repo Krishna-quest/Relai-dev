@@ -28,112 +28,155 @@
                 <%}else{%>
                   <%AllProperty.forEach(function(row,i){%>
 
-                  
-              <div class="docs-files-section progress-box">
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="left-side-content-progress">
-                      <h3><%=row.ps_property_name%></h3>
-                      <p><img src="images/dreamhome.png"><%=row.ps_property_address%></p>
-                      <ul>
-                        <li><img src="images/recent-user-1.png"></li>
-                        <li><img src="images/recent-user-2.png"></li>
-                        <li><img src="images/recent-user-3.png"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-9">
-                    <div class="progress-line">
-                      <ul>
-                        <li class="progress-1"><a href="/mydreamhome-details-phase-a"><img
-                              src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
-                        <li class="progress-2"><img src="images/white-prgress=arrow.png"> <span>Phase B</span></li>
-                        <li class="progress-3"><img src="images/white-prgress=arrow.png"> <span>Phase C</span></li>
-                        <li class="progress-4"><img src="images/white-prgress=arrow.png"> <span>Phase D</span></li>
-                        <li class=""><img src="images/white-prgress=arrow.png"> <span>Phase E</span></li>
-                        <li class=""><img src="images/white-prgress=arrow.png"> <span>Phase F</span></li>
-                      </ul>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-7">
-                        <div class="time-schedule">
-                          <ul>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                2 weeks
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                2 weeks
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                2 weeks
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                2 weeks
-                              </div>
-                            </li>
-                          </ul>
-                          <ul>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                5,000 $
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                5,000 $
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                5,000 $
-                              </div>
-                            </li>
-                            <li>
-                              <div>
-                                <img src="images/track-active.png">
-                                5,000 $
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col-md-5 ml-auto">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="time-cost-sec common-box-shadow">
-                              <h6>TOTAL TIME</h6>
-                              <h6 style="color:#005377; font-weight: bold;"> 525 days</h6>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="time-cost-sec common-box-shadow">
-                              <h6>TOTAL COST</h6>
-                              <h6 style="color: #005377; font-weight: bold;"> 10000 $</h6>
-                            </div>
+
+                    <div class="docs-files-section progress-box">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="left-side-content-progress">
+                            <a href="mydreamhome-details?id=<%=row._id%>">  <h3>
+                            <%=row.ps_property_name%>
+                            </h3></a>
+                            <p><img src="images/dreamhome.png">
+                              <%=row.ps_property_address%>,<%=row.ps_property_country_id%>
+                            </p>
+                            <ul>
+                              <li><img src="images/recent-user-1.png"></li>
+                              <li><img src="images/recent-user-2.png"></li>
+                              <li><img src="images/recent-user-3.png"></li>
+                            </ul>
                           </div>
                         </div>
+                        <div class="col-md-9">
+                          <div class="progress-line">
+                            <ul>
+                             
+                              <% if(session.active_user_login=='renovator' ) {%>
+                                <li class="progress-1"><a
+                                  href="/mydreamhome-details-phase-a?id=<%=row._id%>&phase=Strategic definition&step=A"><img
+                                    src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
+                              <li class="progress-2"><a
+                                  href="/mydreamhome-details-phase-b?id=<%=row._id%>&phase=Preparation and Briefing&step=B"><img
+                                    src="images/white-prgress=arrow.png"> </a><span>Phase B</span></li>
+                              <li class="progress-3"><a
+                                  href="/mydreamhome-details-phase-c?id=<%=row._id%>&phase=Spatial coordination&step=C"><img
+                                    src="images/white-prgress=arrow.png"></a> <span>Phase C</span></li>
+                              <li class="progress-4"><a
+                                  href="/mydreamhome-details-phase-d?id=<%=row._id%>&phase=Technical Design&step=D"><img
+                                    src="images/white-prgress=arrow.png"></a><span>Phase D</span></li>
+                              <li class="progress-5"><a
+                                  href="/mydreamhome-details-phase-e?id=<%=row._id%>&phase=Manifacturing and Construction&step=E"><img
+                                    src="images/white-prgress=arrow.png"></a> <span>Phase E</span></li>
+                              <li class="progress-6"><a
+                                  href="/mydreamhome-details-phase-f?id=<%=row._id%>&phase=Concept Design&step=F"><img
+                                    src="images/white-prgress=arrow.png"> </a><span>Phase F</span></li>
+                                <li class="progress-7"><a
+                                    href="/mydreamhome-details-phase-g?id=<%=row._id%>&phase=Handover&step=G"><img
+                                      src="images/white-prgress=arrow.png"></a> <span>Phase G</span></li>
+                                <li class="progress-8"><a
+                                    href="/mydreamhome-details-phase-h?id=<%=row._id%>&phase=Use&step=H"><img
+                                      src="images/white-prgress=arrow.png"> </a><span>Phase H</span></li>
+                                <%}else{%>
+                                  <li class="progress-1"><a
+                                    href="/mydreamhome-details-phase-a?id=<%=row._id%>&phase=Instruction&step=A"><img
+                                      src="images/white-prgress=arrow.png"></a> <span>Phase A</span></li>
+                                <li class="progress-2"><a
+                                    href="/mydreamhome-details-phase-b?id=<%=row._id%>&phase=Pre-exchange Submitting the contract&step=B"><img
+                                      src="images/white-prgress=arrow.png"> </a><span>Phase B</span></li>
+                                <li class="progress-3"><a
+                                    href="/mydreamhome-details-phase-c?id=<%=row._id%>&phase=Prior to exchange of contracts&step=C"><img
+                                      src="images/white-prgress=arrow.png"></a> <span>Phase C</span></li>
+                                <li class="progress-4"><a
+                                    href="/mydreamhome-details-phase-d?id=<%=row._id%>&phase=Exchange of contracts&step=D"><img
+                                      src="images/white-prgress=arrow.png"></a><span>Phase D</span></li>
+                                <li class="progress-5"><a
+                                    href="/mydreamhome-details-phase-e?id=<%=row._id%>&phase=Completion&step=E"><img
+                                      src="images/white-prgress=arrow.png"></a> <span>Phase E</span></li>
+                                <li class="progress-6"><a
+                                    href="/mydreamhome-details-phase-f?id=<%=row._id%>&phase=Post-Completion&step=F"><img
+                                      src="images/white-prgress=arrow.png"> </a><span>Phase F</span></li>
+                                  <%}%>
+                            </ul>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-7">
+                              <div class="time-schedule">
+                                <ul>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      2 weeks
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      2 weeks
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      2 weeks
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      2 weeks
+                                    </div>
+                                  </li>
+                                </ul>
+                                <ul>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      5,000 $
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      5,000 $
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      5,000 $
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div>
+                                      <img src="images/track-active.png">
+                                      5,000 $
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-md-5 ml-auto">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="time-cost-sec common-box-shadow">
+                                    <h6>TOTAL TIME</h6>
+                                    <h6 style="color:#005377; font-weight: bold;"> 525 days</h6>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="time-cost-sec common-box-shadow">
+                                    <h6>TOTAL COST</h6>
+                                    <h6 style="color: #005377; font-weight: bold;"> 10000 $</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            <%});%>
-            <%}%>
-              <!-- <div class="docs-files-section progress-box">
+                    <%});%>
+                      <%}%>
+                        <!-- <div class="docs-files-section progress-box">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="left-side-content-progress">
@@ -216,7 +259,7 @@
                 </div>
               </div> -->
 
-              <!-- <div class="docs-files-section progress-box">
+                        <!-- <div class="docs-files-section progress-box">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="left-side-content-progress">
@@ -306,67 +349,4 @@
     </div>
     </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function () {
-        $(".sidenav ul li").click(function () {
-          $(".sidenav ul li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-      $(document).ready(function () {
-        $(".right-navbar li").click(function () {
-          $("right-navbar li").removeClass("active");
-          $(this).addClass("active");
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".buyertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/buyer",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".sellertab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/seller",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-        $(".renovatortab").click(function (e) {
-          $.ajax({
-            type: "GET",
-            url: "/renovator",
-            cache: false,
-            success: function (html) {
-            }
-          });
-          location.reload(true);
-        });
-      });
-    </script>
-
-    </body>
-
-    </html>
+    <%- include('dashboard_footer')-%>

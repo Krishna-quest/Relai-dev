@@ -1,46 +1,51 @@
 <%- include('head')-%>
   <!-- The Modal -->
-  <div class="modal permission-modal fade " id="myModal">
+  <div class="modal permission-modal fade " id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
+        <form class="form" method="post" id="employment_form">
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <h2 class="modal-title w-100">Add Employment</h2>
+          </div>
 
-        <!-- Modal Header -->
-        <div class="modal-header text-center">
-          <h2 class="modal-title w-100">Add Employment</h2>
-        </div>
+          <!-- Modal body -->
+          <div class="modal-body">
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form class="form" action="/api/service_provider_employment_history" method="post" id="form4">
 
-            <input type="text" class="form-control form-control-fix2" id="subject" placeholder=" Name of Employer"
-              name="spehs_name_of_employer" data-rule-required="true" data-msg-required="Employer name is required!">
+            <input type="text" class="form-control form-control-fix2" id="spehs_name_of_employer"
+              placeholder=" Name of Employer" name="spehs_name_of_employer" data-rule-required="true"
+              data-msg-required="Employer name is required!" required>
 
-            <input type="text" class="form-control form-control-fix2" id="subject" placeholder=" Job Title"
-              name="spehs_job_title" data-rule-required="true" data-msg-required="Job Title is required">
+            <input type="text" class="form-control form-control-fix2" id="spehs_job_title" placeholder=" Job Title"
+              name="spehs_job_title" data-rule-required="true" data-msg-required="Job Title is required" required>
 
-            <input type="text" class="form-control form-control-fix2" id="subject" placeholder="Job Description"
-              name="spehs_job_description" data-rule-required="true" data-msg-required="Job Description is required!">
+            <input type="text" class="form-control form-control-fix2" id="spehs_job_description"
+              placeholder="Job Description" name="spehs_job_description" data-rule-required="true"
+              data-msg-required="Job Description is required!" required>
 
-            <input type="text" class="form-control form-control-fix2" id="subject" placeholder=" Reason for Leaving"
-              name="spehs_reason_for_leaving">
+            <input type="text" class="form-control form-control-fix2" id="spehs_reason_for_leaving"
+              placeholder=" Reason for Leaving" name="spehs_reason_for_leaving" required>
 
             <div class="row">
               <div class="col-sm-12 col-lg-6">
-                <input type="date" class="form-control  form-control-fix2" id="subject" placeholder="from Date"
-                  name="spehs_from_date" data-rule-required="true" data-msg-required="From Date is required!">
+                <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2"
+                  id="spehs_from_date" placeholder="from Date" name="spehs_from_date" data-rule-required="true"
+                  data-msg-required="From Date is required!" required>
               </div>
               <div class="col-sm-12 col-lg-6">
-                <input type="date" class="form-control  form-control-fix2" id="subject" placeholder="toDate"
-                  name="spehs_to_date" data-rule-required="true" data-msg-required="To Date is required!">
+                <input type="text" onfocus="(this.type='date')" class="form-control  form-control-fix2"
+                  id="spehs_to_date" placeholder="toDate" name="spehs_to_date" data-rule-required="true"
+                  data-msg-required="To Date is required!" required>
               </div>
             </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
-          <button type="submit" name="submit" class="btn btn-cancel">Save</button>
-        </div>
+            <input type="hidden" name="employment_id" value="" class="edit_employment_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <button name="submit" type="submit" id="Employment_form_btn"
+              class="btn btn-cancel Employment_form_btn">Save</button>
+          </div>
         </form>
       </div>
     </div>
@@ -164,7 +169,7 @@
               <div class="row">
                 <div class="col-sm-12 col-lg-9">
                   <div class="signup-header">
-                    <p>START FOR FREE</p>
+                    <!-- <p>START FOR FREE</p> -->
 
                   </div>
                 </div>
@@ -177,7 +182,7 @@
                 </div>
                 <div class="col-sm-12 col-lg-3">
                   <div class="page-count">
-                    <p> 4 of 6</p>
+                    <p> 4 of 7</p>
                   </div>
                 </div>
               </div>
@@ -197,10 +202,40 @@
                           <div class="employment-sec">
                             <p>Add your past work experience</p>
                             <h5>Build your credibility by showcasing the projects or jobs you h</h5>
-
+                            <div class="employment_list">
+                              <%if(all_employe_history.length>0){%>
+                                <%all_employe_history.forEach(function(row,i){%>
+                                  <div class="row">
+                                    <div class="col-sm-12 col-lg-9">
+                                      <div class="">
+                                        <p><b>
+                                            <%=row.spehs_name_of_employer%> . <%=row.spehs_job_title%>
+                                          </b></p>
+                                        <h6>
+                                          <%=row.spehs_job_description%>
+                                        </h6>
+                                        <h6>
+                                          <%=moment(row.spehs_from_date).format("YYYY")%>-
+                                            <%=moment(row.spehs_to_date).format("YYYY")%>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                      <div class="">
+                                        <img onclick="editEmployment('<%= row._id %>')" style="width:19%"
+                                          src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <img onclick="deleteEmployment('<%= row._id %>')" style="width:19%"
+                                          src="images/delete-icon.png" alt="">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <%})%>
+                                    <%}else{%>
+                                      <%}%>
+                            </div>
                             <div class="emp-btn float-left">
-                              <a href="#" class="btn add-edu-btn" data-toggle="modal" data-target="#myModal"><i
-                                  class="fa fa-plus">&nbsp;&nbsp;&nbsp;</i>
+                              <a href="#" class="btn add-edu-btn Employment-btn" data-toggle="modal"
+                                data-target="#myModal1"><i class="fa fa-plus">&nbsp;&nbsp;&nbsp;</i>
                                 Add Employment</a>
                             </div>
 
@@ -218,7 +253,8 @@
 
                           <div class="col-6 col-sm-6 col-lg-6">
                             <div class="prev-btn float-right">
-                              <a href="/signup-professionals-profile-5" class="btn btn-next" style="width: 164px;">
+                              <a href="/signup-professionals-profile-5" id="next_btn_4" class="btn btn-next"
+                                style="width: 164px;">
                                 NEXT</a>
                             </div>
               </form>
@@ -238,6 +274,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
@@ -255,13 +292,22 @@
       });
     });
   </script>
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
     integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
     crossorigin="anonymous"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
   <script type="text/javascript">
-    $('#form4').validate({
+    $(".Employment-btn").click(function (e) {
+      $('#employment_form')[0].reset();
+      $('#myModal1').modal('show');
+      $('.Employment_form_btn').text('Save');
+      $('#employment_form .edit_employment_id').val();
+      $('#employment_form h2.modal-title.w-100').text('Add Employment');
+    });
+    $('#employment_form').validate({
       onfocusout: function (element) {
         this.element(element);
       },
@@ -272,7 +318,8 @@
       },
       submitHandler: function (form) {
         $('#submit').attr('disabled', true);
-        form.submit();
+        //form.submit();
+
       }
     });
   </script>
@@ -290,11 +337,152 @@
       if (succ_flash_msg != "" && succ_flash_msg != undefined) {
         setTimeout(function () { $('.succ_flash_msg').html(''); }, 4000);
       }
-    });  
+    });
   </script>
+  <script>
+    $(document).ready(function () {
+      //$('#next_btn_4').attr('disabled', true);
+      $("#Employment_form_btn").click(function (e) {
+        e.preventDefault();
+        //alert(e.target)
+        var formdata = $("#employment_form").serialize();
+        console.log('formdata:', formdata);
+        $.ajax({
+          type: "POST",
+          data: formdata,
+          url: "/api/service_provider_employment_history",
+          cache: false,
+          //dataType:'json',
+          success: function (data) {
+            console.log(data)
+            if (data.status == true) {
+              $('#employment_form')[0].reset();
+              if (data.action == 'add') {
+                var fromDateYear = new Date(data.employmentDetail.spehs_from_date).getFullYear();
+                var toDateYear = new Date(data.employmentDetail.spehs_to_date).getFullYear();
+                $('#myModal1').modal('hide');
+                $('.employment_list').append('<div class="row"><div class="col-sm-12 col-lg-9"><div class=""><p><b>' + data.employmentDetail.spehs_name_of_employer + ' . ' + data.employmentDetail.spehs_job_title + '</p></b><h6>' + data.employmentDetail.spehs_job_description + '</h6><h6>' + fromDateYear + '-' + toDateYear + '</h6></div></div><div class="col-sm-12 col-lg-3"><div class=""> <img style="width:19%"onclick="editEmployment(' + "'" + data.employmentDetail._id + "'" + ')" src="images/write-icon.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:19%" onclick="deleteEmployment(' + "'" + data.employmentDetail._id + "'" + ')"src="images/delete-icon.png" alt=""></div></div></div>')
+              } else {
+                Swal.fire({
+                  icon: 'success',
+                  title: data.success_msg,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                setTimeout(function () {
+                  location.reload(true);
+                }, 3000);
+              }
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: data.err_msg,
+                showConfirmButton: false,
+                confirmButtonColor: '#005377',
+                timer: 3000
+              })
+              setTimeout(function () {
+                location.reload(true);
+              }, 3000);
+
+            }
+          }
+        })
+      })
+    });
+  </script>
+  <script>
+    function editEmployment(id) {
+      var emp_historyId = id;
+      $.ajax({
+        type: "POST",
+        data: {
+          emp_historyId: emp_historyId,
+          action: 'employment-edit'
+        },
+        url: "/api/edit-service_provider_employment_history",
+        cache: false,
+        success: function (data) {
+          console.log(data);
+          $('#myModal1').modal('show');
+          if (data.status == true) {
+            $('.edit_employment_id').val(data.data._id)
+            $('#spehs_name_of_employer').val(data.data.spehs_name_of_employer);
+            $('#spehs_job_title').val(data.data.spehs_job_title);
+            $('#spehs_job_description').val(data.data.spehs_job_description);
+            $('#spehs_reason_for_leaving').val(data.data.spehs_reason_for_leaving);
+            $('#spehs_from_date').val(data.data.spehs_from_date);
+            $('#spehs_to_date').val(data.data.spehs_to_date);
+            $('.Employment_form_btn').text('Update');
+            $('#employment_form h2.modal-title.w-100').text('Update Education');
+
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              confirmButtonColor: '#005377',
+              timer: 3000
+            })
+            setTimeout(function () {
+              location.reload(true);
+            }, 3000);
+          }
+        }
+      });
+    }
 
 
-
+    function deleteEmployment(id) {
+      var emp_historyId = id;
+      Swal.fire({
+        title: 'Are you sure want to remove?',
+        showCancelButton: true,
+        confirmButtonText: `Yes`,
+        confirmButtonColor: '#005377',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "POST",
+            data: {
+              emp_historyId: emp_historyId,
+              action: 'employment-delete'
+            },
+            url: "/api/delete-service_provider_employment_history",
+            cache: false,
+            success: function (data) {
+              console.log(data);
+              if (data.status == true) {
+                //location.reload(true);
+                Swal.fire({
+                  icon: 'success',
+                  title: data.message,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                setTimeout(function () {
+                  location.reload(true);
+                }, 3000);
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: data.message,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#005377',
+                  timer: 3000
+                })
+                setTimeout(function () {
+                  location.reload(true);
+                }, 3000);
+              }
+            }
+          });
+        }
+      })
+    }
+  </script>
 
 
 
